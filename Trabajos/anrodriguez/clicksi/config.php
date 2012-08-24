@@ -1,8 +1,8 @@
 <?php
 define ('SERVER','localhost');
-define ('USER', 'tupar');
-define ('PASSWORD','tupar');
-define ('BASEDATOS','tupar');
+define ('USER', '');		// set user name
+define ('PASSWORD','');		// set user password
+define ('BASEDATOS','');	// set database name
 
 define ('MONEDA1','$');
 define ('MONEDA2','U$S');
