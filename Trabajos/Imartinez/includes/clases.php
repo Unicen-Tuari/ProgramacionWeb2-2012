@@ -17,6 +17,38 @@ class Provincia{
 	}	
 };
 
+class Municipio{
+	private $id;
+	private $nombre;
+	private $cp;
+	private $id_padre;
+
+	public function set_id($id){
+		$this->id=$id;
+	}
+	public function get_id(){
+		return $this->id;
+	}
+	public function set_nombre($nombre){
+		$this->nombre=$nombre;
+	}
+	public function get_nombre(){
+		return $this->nombre;
+	}
+	public function set_cp($cp){
+		$this->cp=$cp;
+	}
+	public function get_cp(){
+		return $this->cp;
+	}
+	public function set_id_padre($id){
+		$this->id_padre=$id;
+	}
+	public function get_id_padre(){
+		return $this->id_padre;
+	}
+};
+
 class Clasificado{
 	private $id;
 	private $id_ciudad;
@@ -135,7 +167,62 @@ class Mannagerdb{
 		$manager->cerrar_conexion();
 		return $arr;
 	}
+	public function todos_los_municipios($id_provincia){
+		$manager = new Mannagerdb;
+		$manager->conectarse();
+		$result = $manager->query('SELECT * FROM ciudad WHERE provincia_id='.$id_provincia.' ORDER BY ciudad_nombre');
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			while ($renglon = mysql_fetch_assoc($result)) {
+				$municipio = new Municipio;
+				$municipio->set_id($renglon["id"]);
+				$municipio->set_nombre($renglon["ciudad_nombre"]);
+				$municipio->set_id_padre($renglon["provincia_id"]);
+				$municipio->set_cp($renglon["cp"]);
+				$arr[]=$municipio;
+			}
+		}
+		$manager->liberar_resultados();
+		$manager->cerrar_conexion();
+		return $arr;
+	}
 	public function todas_las_categorias(){
+		$manager = new Mannagerdb;
+		$manager->conectarse();
+		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			while ($renglon = mysql_fetch_assoc($result)) {
+				$categoria = new Categoria;
+				$categoria->set_id($renglon["idcategoria"]);
+				$categoria->set_nombre($renglon["nombre"]);
+				$categoria->set_padre($renglon["idpadre"]);
+				$arr[]=$categoria;				
+			}
+		}
+		$manager->liberar_resultados();
+		$manager->cerrar_conexion();
+		return $arr;
+	}
+	public function todas_las_subcategorias($id_padre){
+		$manager = new Mannagerdb;
+		$manager->conectarse();
+		$result = $manager->query('SELECT * FROM categoria WHERE idpadre='.$id_padre.' ORDER BY nombre');
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			while ($renglon = mysql_fetch_assoc($result)) {
+				$categoria = new Categoria;
+				$categoria->set_id($renglon["idcategoria"]);
+				$categoria->set_nombre($renglon["nombre"]);
+				$categoria->set_padre($renglon["idpadre"]);
+				$arr[]=$categoria;
+			}
+		}
+		$manager->liberar_resultados();
+		$manager->cerrar_conexion();
+		return $arr;
+	}
+	public function todas_las_categorias_y_subcategorias(){
 		$manager = new Mannagerdb;
 		$manager->conectarse();
 		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');

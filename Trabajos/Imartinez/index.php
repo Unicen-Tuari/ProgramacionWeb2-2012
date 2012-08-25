@@ -4,7 +4,7 @@ if ($ubicacion == "") $ubicacion = "Argentina";
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
 $provincias = $manager->todas_las_provincias();
-$categorias = $manager->todas_las_categorias();
+$categorias = $manager->todas_las_categorias_y_subcategorias();
 $orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Autos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
 $cantidad_clasificados = $manager->cantidad_clasificados($ubicacion);
 ?>
