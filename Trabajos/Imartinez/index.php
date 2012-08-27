@@ -3,10 +3,13 @@ $ubicacion = $_GET["ubicacion"];
 if ($ubicacion == "") $ubicacion = "Argentina";
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
-$provincias = $manager->todas_las_provincias();
-$categorias = $manager->todas_las_categorias_y_subcategorias();
+$manager->conectarse();
+$provincias = $manager->todas_las_provincias($manager);
+$categorias = $manager->todas_las_categorias_y_subcategorias($manager);
 $orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Autos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
-$cantidad_clasificados = $manager->cantidad_clasificados($ubicacion);
+$cantidad_clasificados = $manager->cantidad_clasificados($manager,$ubicacion);
+$manager->liberar_resultados();
+$manager->cerrar_conexion();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

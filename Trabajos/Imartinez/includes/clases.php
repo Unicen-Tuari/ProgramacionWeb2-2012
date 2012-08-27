@@ -150,9 +150,7 @@ class Mannagerdb{
 	public function cerrar_conexion(){
 		mysql_close($this->link);
 	}
-	public function todas_las_provincias(){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function todas_las_provincias($manager){
 		$result = $manager->query('SELECT * FROM provincia ORDER BY provincia_nombre');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -163,13 +161,9 @@ class Mannagerdb{
 				$arr[]=$provincia;
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function todos_los_municipios($id_provincia){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function todos_los_municipios($manager,$id_provincia){
 		$result = $manager->query('SELECT * FROM ciudad WHERE provincia_id='.$id_provincia.' ORDER BY ciudad_nombre');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -182,13 +176,9 @@ class Mannagerdb{
 				$arr[]=$municipio;
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function todas_las_categorias(){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function todas_las_categorias($manager){
 		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -200,13 +190,9 @@ class Mannagerdb{
 				$arr[]=$categoria;				
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function todas_las_subcategorias($id_padre){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function todas_las_subcategorias($manager,$id_padre){
 		$result = $manager->query('SELECT * FROM categoria WHERE idpadre='.$id_padre.' ORDER BY nombre');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -218,39 +204,31 @@ class Mannagerdb{
 				$arr[]=$categoria;
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function todas_las_categorias_y_subcategorias(){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function todas_las_categorias_y_subcategorias($manager){
 		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$categoria = new Categoria;
 				$categoria->set_id($renglon["idcategoria"]);
-				$categoria->set_nombre($renglon["nombre"]);
+				$categoria->set_nombre(utf8_encode($renglon["nombre"]));//arreglar esto de utf8encode
 				$categoria->set_padre($renglon["idpadre"]);	
 				$result2 = $manager->query('SELECT * FROM categoria WHERE idpadre='.$categoria->get_id());
 				$cantidad_resultados = mysql_num_rows($result2);
 				while ($renglon2 = mysql_fetch_assoc($result2)) {
 					$subcategoria = new Categoria;
 					$subcategoria->set_id($renglon2["idcategoria"]);
-					$subcategoria->set_nombre($renglon2["nombre"]);
+					$subcategoria->set_nombre(utf8_encode($renglon2["nombre"]));//arreglar esto de utf8encode
 					$subcategoria->set_padre($renglon2["idpadre"]);	
 					$arr[$categoria->get_nombre()][]=$subcategoria;
 				}
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}	
-	public function categorias_relacionadas($categoria){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
+	public function categorias_relacionadas($manager,$categoria){
 		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -282,14 +260,10 @@ class Mannagerdb{
 				}
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function cantidad_clasificados($ubicacion){
+	public function cantidad_clasificados($manager,$ubicacion){
 		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
-		$manager = new Mannagerdb;
-		$manager->conectarse();
 		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -309,14 +283,10 @@ class Mannagerdb{
 				$arr[$categoria->get_nombre()]=mysql_result($result2,0);	
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;
 	}
-	public function listar_clasificados($categoria, $ubicacion){
+	public function listar_clasificados($manager, $categoria, $ubicacion){
 		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
-		$manager = new Mannagerdb;
-		$manager->conectarse();
 		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -353,9 +323,23 @@ class Mannagerdb{
 				}
 			}
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $arr;		
+	}
+	public function clasificado($manager,$id){
+		$result = $manager->query('SELECT * FROM clasificado WHERE idclasificado='.$id);
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			$renglon = mysql_fetch_assoc($result);
+			$clasificado = new Clasificado;
+			$clasificado->set_id($renglon["idclasificado"]);
+			$clasificado->set_id_ciudad($renglon["idciudad"]);
+			$clasificado->set_titulo($renglon["titulo"]);
+			$clasificado->set_detalle($renglon["detalle"]);
+			$clasificado->set_id_categoria($renglon["idcategoria"]);
+			$clasificado->set_contacto($renglon["contacto"]);
+			$clasificado->set_fecha($renglon["fecha"]);		
+		}
+		return $clasificado;
 	}
 	public function cargar_consulta($arr){
 		$manager = new Mannagerdb;

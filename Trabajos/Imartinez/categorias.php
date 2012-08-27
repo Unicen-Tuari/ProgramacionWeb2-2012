@@ -5,8 +5,11 @@ $ubicacion = $_GET["ubicacion"];
 if ($ubicacion == "") $ubicacion = "Argentina";
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
-$categorias_relacionadas = $manager->categorias_relacionadas($categoria);
-$clasificados = $manager->listar_clasificados($categoria, $ubicacion);
+$manager->conectarse();
+$categorias_relacionadas = $manager->categorias_relacionadas($manager,$categoria);
+$clasificados = $manager->listar_clasificados($manager,$categoria, $ubicacion);
+$manager->liberar_resultados();
+$manager->cerrar_conexion();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

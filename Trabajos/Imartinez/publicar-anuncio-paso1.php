@@ -5,10 +5,13 @@ $ubicacion = $_GET["ubicacion"];
 if ($ubicacion == "") $ubicacion = "Argentina";
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
-$todas_las_provincias = $manager->todas_las_provincias();
-$todos_los_municipios = $manager->todos_los_municipios(1);//el 1 va por parametro
-$todas_las_categorias = $manager->todas_las_categorias();
-$todas_las_subcategorias = $manager->todas_las_subcategorias(1);//el 1 va por parametro
+$manager->conectarse();
+$todas_las_provincias = $manager->todas_las_provincias($manager);
+$todos_los_municipios = $manager->todos_los_municipios($manager,1);//el 1 va por parametro
+$todas_las_categorias = $manager->todas_las_categorias($manager);
+$todas_las_subcategorias = $manager->todas_las_subcategorias($manager,1);//el 1 va por parametro
+$manager->liberar_resultados();
+$manager->cerrar_conexion();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
