@@ -7,7 +7,8 @@ require_once("includes/clases.php");
 $manager = new Mannagerdb;
 $manager->conectarse();
 $categorias_relacionadas = $manager->categorias_relacionadas($manager,$categoria);
-$clasificados = $manager->listar_clasificados($manager,$categoria, $ubicacion);
+$clasificados = $manager->listar_clasificados($manager,$categoria,$ubicacion);
+$cantidad_clasificados = $manager->cantidad_clasificados($manager,$categoria,$ubicacion);
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
 ?>
@@ -27,7 +28,7 @@ $manager->cerrar_conexion();
 			<div class="lateral">
 				<h4>Busqueda avanzada</h4>
 				<p>Categorias</p>
-				<ul class="categorias">
+				<ul class="lista-categorias">
 				<?php foreach ($categorias_relacionadas as $itcategoria) {
 						if ($categoria == $itcategoria->get_nombre()) {
 						?> <li><?php echo $itcategoria->get_nombre()?></li> 
@@ -39,7 +40,7 @@ $manager->cerrar_conexion();
 			</div>	
 			<div class="clasificados">
 				<div class="titulo-categoria">
-					<h2>2764 anuncios para <?php echo $categoria?> en <?php echo $ubicacion?></h2>
+					<h2><?php echo $cantidad_clasificados?> anuncios para <?php echo $categoria?> en <?php echo $ubicacion?></h2>
 				</div>
 				<ul>
 				<?php foreach ($clasificados as $clasificado) {
@@ -48,7 +49,7 @@ $manager->cerrar_conexion();
 							<a href="amplia.php?id=<?php echo $clasificado->get_id()?>"><img src="http://static.blidoo.com.ar/img_ads/20000/20125_tl_1.jpg" class="thumbnail"/></a>
 							<h3><a href="amplia.php?id=<?php echo $clasificado->get_id()?>"><?php echo $clasificado->get_titulo()?></a></h3>
 							<p><?php echo $clasificado->get_detalle()?></p>
-							<p>Alquiler temporario en Bariloche - Río Negro | hace una hora</p>
+							<p><?php echo $clasificado->get_nombre_categoria()?> - Río Negro | <?php echo $clasificado->get_fecha()?></p>
 						</li>
 						<?php }?>
 				</ul>

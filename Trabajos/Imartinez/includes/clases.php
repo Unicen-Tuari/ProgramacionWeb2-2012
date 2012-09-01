@@ -56,7 +56,12 @@ class Clasificado{
 	private $detalle;
 	private $id_categoria;
 	private $contacto;
-	private $fecha;
+	private $fecha;		
+	private $precio;
+	private $telefono;
+	
+	private $nombre_categoria;
+	private $nombre_municipio;
 
 	public function set_id($id){
 		$this->id=$id;
@@ -99,6 +104,31 @@ class Clasificado{
 	}
 	public function get_fecha(){
 		return $this->fecha;
+	}
+	public function set_precio($precio){
+		$this->precio=$precio;
+	}
+	public function get_precio(){
+		return $this->precio;
+	}
+	public function set_telefono($telefono){
+		$this->telefono=$telefono;
+	}
+	public function get_telefono(){
+		return $this->telefono;
+	}
+	//esto no esta en la base de datos lo uso para comodidad
+	public function set_nombre_categoria($nombre_categoria){
+		$this->nombre_categoria=$nombre_categoria;
+	}
+	public function get_nombre_categoria(){
+		return $this->nombre_categoria;
+	}
+	public function set_nombre_municipio($nombre_municipio){
+		$this->nombre_municipio=$nombre_municipio;
+	}
+	public function get_nombre_municipio(){
+		return $this->nombre_municipio;
 	}
 };
 
@@ -157,6 +187,7 @@ class Mannagerdb{
 		while ($renglon = mysql_fetch_assoc($result)) {
 				$provincia = new Provincia;
 				$provincia->set_id($renglon["id"]);
+				$renglon["provincia_nombre"]=utf8_encode($renglon["provincia_nombre"]);//arreglar esto de utf8encode
 				$provincia->set_nombre($renglon["provincia_nombre"]);		
 				$arr[]=$provincia;
 			}
@@ -170,6 +201,7 @@ class Mannagerdb{
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$municipio = new Municipio;
 				$municipio->set_id($renglon["id"]);
+				$renglon["ciudad_nombre"]=utf8_encode($renglon["ciudad_nombre"]);//arreglar esto de utf8encode
 				$municipio->set_nombre($renglon["ciudad_nombre"]);
 				$municipio->set_id_padre($renglon["provincia_id"]);
 				$municipio->set_cp($renglon["cp"]);
@@ -185,6 +217,7 @@ class Mannagerdb{
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$categoria = new Categoria;
 				$categoria->set_id($renglon["idcategoria"]);
+				$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
 				$categoria->set_nombre($renglon["nombre"]);
 				$categoria->set_padre($renglon["idpadre"]);
 				$arr[]=$categoria;				
@@ -199,6 +232,7 @@ class Mannagerdb{
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$categoria = new Categoria;
 				$categoria->set_id($renglon["idcategoria"]);
+				$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
 				$categoria->set_nombre($renglon["nombre"]);
 				$categoria->set_padre($renglon["idpadre"]);
 				$arr[]=$categoria;
@@ -213,14 +247,16 @@ class Mannagerdb{
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$categoria = new Categoria;
 				$categoria->set_id($renglon["idcategoria"]);
-				$categoria->set_nombre(utf8_encode($renglon["nombre"]));//arreglar esto de utf8encode
+				$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
+				$categoria->set_nombre($renglon["nombre"]);
 				$categoria->set_padre($renglon["idpadre"]);	
 				$result2 = $manager->query('SELECT * FROM categoria WHERE idpadre='.$categoria->get_id());
 				$cantidad_resultados = mysql_num_rows($result2);
 				while ($renglon2 = mysql_fetch_assoc($result2)) {
 					$subcategoria = new Categoria;
 					$subcategoria->set_id($renglon2["idcategoria"]);
-					$subcategoria->set_nombre(utf8_encode($renglon2["nombre"]));//arreglar esto de utf8encode
+					$renglon2["nombre"]=utf8_encode($renglon2["nombre"]);//arreglar esto de utf8encode
+					$subcategoria->set_nombre($renglon2["nombre"]);
 					$subcategoria->set_padre($renglon2["idpadre"]);	
 					$arr[$categoria->get_nombre()][]=$subcategoria;
 				}
@@ -245,15 +281,17 @@ class Mannagerdb{
 			}		
 			$categoria = new Categoria;
 			$categoria->set_id($renglon["idcategoria"]);
+			$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
 			$categoria->set_nombre($renglon["nombre"]);
 			$categoria->set_padre($renglon["idpadre"]);
 			$arr[]=$categoria;//agrege el padre a los resultados
-			$result = $manager->query('SELECT * FROM categoria WHERE idpadre="'.$id_padre.'"');
+			$result = $manager->query('SELECT * FROM categoria WHERE idpadre="'.$id_padre.'" ORDER BY nombre');
 			$cantidad_resultados = mysql_num_rows($result);
 			if ($cantidad_resultados>0){
 				while ($renglon = mysql_fetch_assoc($result)) {
 					$categoria = new Categoria;
 					$categoria->set_id($renglon["idcategoria"]);
+					$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
 					$categoria->set_nombre($renglon["nombre"]);
 					$categoria->set_padre($renglon["idpadre"]);
 					$arr[]=$categoria;
@@ -262,28 +300,35 @@ class Mannagerdb{
 		}
 		return $arr;
 	}
-	public function cantidad_clasificados($manager,$ubicacion){
+	public function cantidad_clasificados($manager,$nombre_categoria,$ubicacion){
 		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
-		$result = $manager->query('SELECT * FROM categoria WHERE ISNULL(idpadre)');
+		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$nombre_categoria.'"');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
-			while ($renglon = mysql_fetch_assoc($result)) {
-				$categoria = new Categoria;
-				$categoria->set_id($renglon["idcategoria"]);
-				$categoria->set_nombre($renglon["nombre"]);
-				$categoria->set_padre($renglon["idpadre"]);	
+			$renglon = mysql_fetch_assoc($result);
+			$categoria = new Categoria;
+			$categoria->set_id($renglon["idcategoria"]);
+			$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
+			$categoria->set_nombre($renglon["nombre"]);
+			$categoria->set_padre($renglon["idpadre"]);	
+			//si es una categoria padre pregunto por la suma de todas sus subcategorias
+			if (!$categoria->get_padre()){
 				$result2 = $manager->query('
 				SELECT count(1) FROM clasificado
 				WHERE idcategoria IN (
-					SELECT idcategoria 
-        			FROM categoria
-        			WHERE idpadre = '.$categoria->get_id().'        
-				)'				
+						SELECT idcategoria 
+						FROM categoria
+						WHERE idpadre='.$categoria->get_id().'
+						)		
+				');
+			} else { //si no es padre pregunto directamente la cantidad
+				$result2 = $manager->query('
+						SELECT count(1) FROM clasificado
+						WHERE idcategoria='.$categoria->get_id()
 				);
-				$arr[$categoria->get_nombre()]=mysql_result($result2,0);	
+			}			
+			return mysql_result($result2,0);	
 			}
-		}
-		return $arr;
 	}
 	public function listar_clasificados($manager, $categoria, $ubicacion){
 		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
@@ -313,12 +358,16 @@ class Mannagerdb{
 				while ($renglon = mysql_fetch_assoc($result)) {
 					$clasificado = new Clasificado;
 					$clasificado->set_id($renglon["idclasificado"]);
-					//$clasificado->set_id_ciudad($renglon["idciudad"]);
+					$clasificado->set_id_ciudad($renglon["idciudad"]);
 					$clasificado->set_titulo($renglon["titulo"]);
 					$clasificado->set_detalle($renglon["detalle"]);
-					//$clasificado->set_id_categoria($renglon["idcategoria"]);
-					//$clasificado->set_contacto($renglon["contacto"]);
+					$clasificado->set_id_categoria($renglon["idcategoria"]);
+					$clasificado->set_contacto($renglon["contacto"]);
 					$clasificado->set_fecha($renglon["fecha"]);
+					$clasificado->set_precio($renglon["precio"]);
+					$clasificado->set_telefono($renglon["telefono"]);
+					$clasificado->set_nombre_categoria($renglon["nombre"]);
+					$clasificado->set_nombre_municipio($renglon["nombre"]);
 					$arr[]=$clasificado;
 				}
 			}
@@ -335,48 +384,76 @@ class Mannagerdb{
 			$clasificado->set_id_ciudad($renglon["idciudad"]);
 			$clasificado->set_titulo($renglon["titulo"]);
 			$clasificado->set_detalle($renglon["detalle"]);
+			$clasificado->set_precio($renglon["precio"]);
+			$clasificado->set_telefono($renglon["telefono"]);
 			$clasificado->set_id_categoria($renglon["idcategoria"]);
 			$clasificado->set_contacto($renglon["contacto"]);
 			$clasificado->set_fecha($renglon["fecha"]);		
 		}
 		return $clasificado;
 	}
-	public function cargar_consulta($arr){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$cliente = new Cliente();
-		$cliente->set_nombre($arr["nombre"]);
-		$cliente->set_email($arr["email"]);
-		$cliente->set_dni($arr["dni"]);
-		$cliente->set_direccion($arr["direccion"]);
-		$result = $manager->query('SELECT idcliente FROM cliente WHERE email="'.$cliente->get_email().'"');		
-		if ($aux = mysql_fetch_assoc($result)){
-			$cliente->set_id($aux["idcliente"]);
+	//retorna el objeto municipio, se le puede pasar el id o el nombre del municipio
+	public function municipio($manager,$municipio){
+		if(is_numeric($municipio)) {
+			$result = $manager->query('SELECT * FROM ciudad WHERE id='.$municipio);
+		} else {
+			$result = $manager->query('SELECT * FROM ciudad WHERE ciudad_nombre="'.$municipio.'"');
+		}		
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			$renglon = mysql_fetch_assoc($result);
+			$municipio = new Municipio;
+			$municipio->set_id($renglon["id"]);
+			$municipio->set_nombre($renglon["ciudad_nombre"]);
+			$municipio->set_cp($renglon["cp"]);
+			$municipio->set_id_padre($renglon["id_padre"]);
 		}
-		else{
-			$manager->query('INSERT INTO cliente (nombre, email, dni, direccion)
-							VALUES ('.
-							'"'.$cliente->get_nombre().'",'.
-							'"'.$cliente->get_email().'",'.
-							'"'.$cliente->get_dni().'",'.
-							'"'.$cliente->get_direccion().'"'.
-							')');
-			$result = $manager->query('SELECT idcliente FROM cliente WHERE email="'.$cliente->get_email().'"');
-			$aux = mysql_fetch_assoc($result);	
-			$cliente->set_id($aux["idcliente"]);
+		return $municipio;
+	}
+	//retorna el objeto municipio, se le puede pasar el id o el nombre del municipio
+	public function provincia($manager,$provincia){
+		if(is_numeric($provincia)) {
+			$result = $manager->query('SELECT * FROM provincia WHERE id='.$provincia);
+		} else {
+			$result = $manager->query('SELECT * FROM ciudad WHERE provincia_nombre="'.$provincia.'"');
 		}
-		$consulta = new Consulta();
-		$consulta->set_id_cliente($cliente->get_id());
-		$consulta->set_detalle($arr["consulta"]);
-		$consulta->set_asunto("Consulta desde www.estudioargeri.com.ar");
-		$manager->query('INSERT INTO consulta (idcliente, detalle, asunto)
-							VALUES ('.
-							'"'.$consulta->get_id_cliente().'",'.
-							'"'.$consulta->get_detalle().'",'.
-							'"'.$consulta->get_asunto().'"'.
-							')');
-		$manager->liberar_resultados();//me tira warning si el cliente ya existe pero lo carga igual
-		$manager->cerrar_conexion();
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			$renglon = mysql_fetch_assoc($result);
+			$provincia = new Provincia();
+			$provincia->set_id($renglon["id"]);
+			$provincia->set_nombre($renglon["provincia_nombre"]);
+		}
+		return $provincia;
+	}
+	public function categoria($manager,$categoria){
+		if(is_numeric($categoria)) {
+			$result = $manager->query('SELECT * FROM categoria WHERE idcategoria='.$categoria);
+		} else {
+			$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
+		}
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			$renglon = mysql_fetch_assoc($result);
+			$categoria = new Categoria;
+			$categoria->set_id($renglon["idcategoria"]);
+			$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
+			$categoria->set_nombre($renglon["nombre"]);
+			$categoria->set_padre($renglon["idpadre"]);	
+		}
+		return $categoria;
+	}
+	public function agregar_clasificado($manager,$clasificado){
+	$manager->query('INSERT INTO clasificado (idciudad, titulo, detalle, idcategoria, contacto, precio, telefono)
+					VALUES ('.
+					'"'.$clasificado->get_id_ciudad().'",'.
+					'"'.$clasificado->get_titulo().'",'.
+					'"'.$clasificado->get_detalle().'",'.
+					'"'.$clasificado->get_id_categoria().'",'.
+					'"'.$clasificado->get_contacto().'",'.
+					'"'.$clasificado->get_precio().'",'.
+					'"'.$clasificado->get_telefono().'"'.
+					')');		
 	}
 	public function validar_login($user, $pass){
 		$valido=false;
@@ -393,108 +470,6 @@ class Mannagerdb{
 		$manager->liberar_resultados();
 		$manager->cerrar_conexion();
 		return $valido;
-	}
-	public function cargar_novedad($novedad){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('INSERT INTO novedad (titulo, detalle)
-							VALUES ('.
-							'"'.$novedad->get_titulo().'",'.
-							'"'.$novedad->get_detalle().'"'.
-							')');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function modificar_novedad($novedad){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('UPDATE novedad SET 
-			titulo = "'.$novedad->get_titulo().'",
-			detalle = "'.$novedad->get_detalle().'"
-			WHERE idnovedad="'.$novedad->get_id().'"
-							');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}	
-	public function eliminar_novedad($novedad){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('DELETE FROM novedad WHERE idnovedad="'.$novedad->get_id().'"');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function agregar_abogado($abogado){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('INSERT INTO abogado (nombre, email, detalle)
-							VALUES ('.
-							'"'.$abogado->get_nombre().'",'.
-							'"'.$abogado->get_email().'",'.
-							'"'.$abogado->get_detalle().'"'.
-							')');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function modificar_abogado($abogado){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('UPDATE abogado SET 
-			nombre = "'.$abogado->get_nombre().'",
-			email = "'.$abogado->get_email().'",
-			detalle = "'.$abogado->get_detalle().'"
-			WHERE idabogado="'.$abogado->get_id().'"
-							');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function eliminar_abogado($abogado){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('DELETE FROM abogado WHERE idabogado="'.$abogado->get_id().'"');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function agregar_link($link){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('INSERT INTO link (titulo, descripcion, link)
-							VALUES ('.
-							'"'.$link->get_titulo().'",'.
-							'"'.$link->get_descripcion().'",'.
-							'"'.$link->get_link().'"'.
-							')');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function modificar_link($link){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('UPDATE link SET 
-			titulo = "'.$link->get_titulo().'",
-			descripcion = "'.$link->get_descripcion().'",
-			link = "'.$link->get_link().'"
-			WHERE idlink="'.$link->get_id().'"
-							');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function eliminar_link($link){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('DELETE FROM link WHERE idlink="'.$link->get_id().'"');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}
-	public function actualizar_datos_postales($datos){
-		$manager = new Mannagerdb;
-		$manager->conectarse();
-		$manager->query('UPDATE administrador SET 
-			telefono = "'.$datos->get_telefono().'",
-			direccion =	"'.$datos->get_direccion().'",
-			email = "'.$datos->get_email().'"
-							');		
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
-	}	
+	}		
 }
 ?>

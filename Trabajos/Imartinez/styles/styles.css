@@ -92,11 +92,33 @@ h1{
 	width:200px;
 }
 #enviar-paso1{
-	width:100px;
-	margin-left:200px;
+	width:120px;
+	margin-left:190px;
 }
 .select{
 	width:200px;
+}
+.caja-paso2-interior{
+	width:500px;
+}
+#publicar-anuncio-paso2 #titulo{
+	width:400px;
+}
+#publicar-anuncio-paso2 #descripcion{
+	width:400px;
+	height:200px;
+}
+#publicar-anuncio-paso2 #precio{
+	width:100px;
+}
+#publicar-anuncio-paso2 #telefono{
+	width:150px;
+}
+#publicar-anuncio-paso2 #email{
+	width:350px;
+}
+.opcional{
+	color:orange;
 }
 .lateral{
 	background-color:pink;
@@ -141,6 +163,15 @@ h1{
 	float:left;
 	width:95px;
 	height:20px;
+	font-size:12px;
+}
+.lista-categorias{
+	margin-top:10px;
+	text-align:left;
+}
+.lista-categorias li{
+	margin-left:10px;
+	list-style:none;
 	font-size:12px;
 }
 .contenedor-categorias{

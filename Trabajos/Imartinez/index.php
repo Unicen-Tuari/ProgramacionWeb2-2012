@@ -7,7 +7,9 @@ $manager->conectarse();
 $provincias = $manager->todas_las_provincias($manager);
 $categorias = $manager->todas_las_categorias_y_subcategorias($manager);
 $orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Autos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
-$cantidad_clasificados = $manager->cantidad_clasificados($manager,$ubicacion);
+foreach ($orden_categorias as $categoria){
+	$cantidad_clasificados[$categoria] = $manager->cantidad_clasificados($manager,$categoria,$ubicacion);
+}
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
 ?>
