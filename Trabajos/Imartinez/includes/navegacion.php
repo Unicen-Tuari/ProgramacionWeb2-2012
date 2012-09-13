@@ -4,16 +4,20 @@
 						» <a href="index.php">Argentina</a>
 					</li>
 					<li>
-						» <a href="#">Buenos Aires</a>
+						» <a href="index.php?ubicacion=Buenos Aires">Buenos Aires</a>
 					</li>
 					<li>
-						» <a href="#">Tandil</a>
+						» <a href="index.php?ubicacion=Tandil">Tandil</a>
 					</li>
 					<li>
-						» <a href="categorias.php?categoria=Inmuebles">Inmuebles en Tandil</a>
+						» <a href="categorias.php?categoria=Inmuebles&amp;ubicacion=Tandil">Inmuebles en Tandil</a>
 					</li>
 					<li>
-						» Alquiler temporario en Tandil
+						» <a href="categorias.php?categoria=Alquiler temporario&amp;ubicacion=Tandil">Alquiler temporario en Tandil</a>
 					</li>
+					<li>
+						» Titulo
+					</li>
+					<?php //hacer todo esto dinamico?>
 				</ul>
 			</div>
