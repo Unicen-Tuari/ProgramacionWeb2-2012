@@ -1,11 +1,14 @@
 <?php 
 $id = $_GET["id"];
-$ubicacion = $_GET["ubicacion"];
-if ($ubicacion == "") $ubicacion = "Argentina";
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
 $manager->conectarse();
 $clasificado = $manager->clasificado($manager,$id);
+$ubicacion = $manager->municipio($manager,$clasificado->get_id_ciudad())->get_nombre();
+$categoria = $manager->categoria($manager,$clasificado->get_id_categoria())->get_nombre();
+$provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
+$categorias_relacionadas = $manager->categorias_relacionadas($manager,$categoria);
+$subcategoria_actual=$categoria;
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
 ?>

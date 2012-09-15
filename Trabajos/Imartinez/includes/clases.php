@@ -1,4 +1,5 @@
 <?php
+require_once("includes/funciones.php");
 class Provincia{	
 	private $id;
 	private $nombre;
@@ -59,6 +60,7 @@ class Clasificado{
 	private $fecha;		
 	private $precio;
 	private $telefono;
+	private $moneda;
 	
 	private $nombre_categoria;
 	private $nombre_municipio;
@@ -116,6 +118,12 @@ class Clasificado{
 	}
 	public function get_telefono(){
 		return $this->telefono;
+	}
+	public function set_moneda($moneda){
+		$this->moneda=$moneda;
+	}
+	public function get_moneda(){
+		return $this->moneda;
 	}
 	//esto no esta en la base de datos lo uso para comodidad
 	public function set_nombre_categoria($nombre_categoria){
@@ -201,7 +209,7 @@ class Mannagerdb{
 			while ($renglon = mysql_fetch_assoc($result)) {
 				$municipio = new Municipio;
 				$municipio->set_id($renglon["id"]);
-				$renglon["ciudad_nombre"]=utf8_encode($renglon["ciudad_nombre"]);//arreglar esto de utf8encode
+				$renglon["ciudad_nombre"]=utf8_encode(capitalizar($renglon["ciudad_nombre"]));//arreglar esto de utf8encode
 				$municipio->set_nombre($renglon["ciudad_nombre"]);
 				$municipio->set_id_padre($renglon["provincia_id"]);
 				$municipio->set_cp($renglon["cp"]);
@@ -301,7 +309,7 @@ class Mannagerdb{
 		return $arr;
 	}
 	public function cantidad_clasificados($manager,$nombre_categoria,$ubicacion){
-		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
+		$nombre_categoria=utf8_decode($nombre_categoria);
 		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$nombre_categoria.'"');
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
@@ -311,20 +319,38 @@ class Mannagerdb{
 			$renglon["nombre"]=utf8_encode($renglon["nombre"]);//arreglar esto de utf8encode
 			$categoria->set_nombre($renglon["nombre"]);
 			$categoria->set_padre($renglon["idpadre"]);	
-			//si es una categoria padre pregunto por la suma de todas sus subcategorias
+			
+			$filtro_ubicacion="";
+			if ($ubicacion["municipio"]!=""){
+				//si filtro por municipio
+				$filtro_ubicacion = 'AND idciudad='.$ubicacion["municipio"]->get_id();
+			} else {
+				if ($ubicacion["provincia"]!=""){
+					// si filtro por provincia
+					$filtro_ubicacion = 'AND idciudad 
+					IN (
+						SELECT id 
+						FROM ciudad
+						WHERE provincia_id='.$ubicacion["provincia"]->get_id().'
+						)';
+				} 
+			}			
 			if (!$categoria->get_padre()){
+				//si es una categoria padre pregunto por la suma de todas sus subcategorias
 				$result2 = $manager->query('
 				SELECT count(1) FROM clasificado
 				WHERE idcategoria IN (
 						SELECT idcategoria 
 						FROM categoria
 						WHERE idpadre='.$categoria->get_id().'
-						)		
+						)
+				'.$filtro_ubicacion.'
 				');
 			} else { //si no es padre pregunto directamente la cantidad
 				$result2 = $manager->query('
 						SELECT count(1) FROM clasificado
-						WHERE idcategoria='.$categoria->get_id()
+						WHERE idcategoria='.$categoria->get_id().' 
+						'.$filtro_ubicacion
 				);
 			}			
 			return mysql_result($result2,0);	
@@ -332,7 +358,27 @@ class Mannagerdb{
 	}
 	public function listar_clasificados($manager, $categoria, $ubicacion){
 		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
-		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
+		if(is_numeric($categoria)) {
+			$result = $manager->query('SELECT * FROM categoria WHERE idcategoria='.$categoria);
+		} else {
+			$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
+		}
+		$filtro_ubicacion="";
+		if ($ubicacion["municipio"]!=""){
+			//si filtro por municipio
+			$filtro_ubicacion = 'AND idciudad='.$ubicacion["municipio"]->get_id();
+		} else {
+			if ($ubicacion["provincia"]!=""){
+				// si filtro por provincia
+				$filtro_ubicacion = 'AND idciudad
+				IN (
+				SELECT id
+				FROM ciudad
+				WHERE provincia_id='.$ubicacion["provincia"]->get_id().'
+				)';
+			}
+		}
+		
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
 			$renglon = mysql_fetch_assoc($result);
@@ -341,7 +387,8 @@ class Mannagerdb{
 					SELECT * FROM clasificado cla
 					INNER JOIN categoria cat
 					ON cat.idcategoria=cla.idcategoria
-					WHERE cat.idpadre="'.$renglon["idcategoria"].'"					
+					WHERE cat.idpadre="'.$renglon["idcategoria"].'"
+					'.$filtro_ubicacion.'					
 					LIMIT 10
 					');		
 			} else { //si seleccione una categoria que tiene hijos
@@ -350,6 +397,7 @@ class Mannagerdb{
 					INNER JOIN categoria cat
 					ON cat.idcategoria=cla.idcategoria
 					WHERE cat.nombre="'.$categoria.'"
+					'.$filtro_ubicacion.'
 					LIMIT 10
 				');			
 			}
@@ -358,6 +406,10 @@ class Mannagerdb{
 				while ($renglon = mysql_fetch_assoc($result)) {
 					$clasificado = new Clasificado;
 					$clasificado->set_id($renglon["idclasificado"]);
+					if ($renglon["moneda"]=="pesos")
+						$clasificado->set_moneda("$");
+					else
+						$clasificado->set_moneda('U$S');
 					$clasificado->set_id_ciudad($renglon["idciudad"]);
 					$clasificado->set_titulo($renglon["titulo"]);
 					$clasificado->set_detalle($renglon["detalle"]);
@@ -366,14 +418,17 @@ class Mannagerdb{
 					$clasificado->set_fecha($renglon["fecha"]);
 					$clasificado->set_precio($renglon["precio"]);
 					$clasificado->set_telefono($renglon["telefono"]);
-					$clasificado->set_nombre_categoria($renglon["nombre"]);
-					$clasificado->set_nombre_municipio($renglon["nombre"]);
+					$nombre_categoria = utf8_encode($renglon["nombre"]);
+					$clasificado->set_nombre_categoria($nombre_categoria);
+					$nombre_municipio = $manager->municipio($manager,$renglon["idciudad"])->get_nombre();
+					$clasificado->set_nombre_municipio($nombre_municipio);
 					$arr[]=$clasificado;
 				}
 			}
 		}
 		return $arr;		
 	}
+	
 	public function clasificado($manager,$id){
 		$result = $manager->query('SELECT * FROM clasificado WHERE idclasificado='.$id);
 		$cantidad_resultados = mysql_num_rows($result);
@@ -381,6 +436,7 @@ class Mannagerdb{
 			$renglon = mysql_fetch_assoc($result);
 			$clasificado = new Clasificado;
 			$clasificado->set_id($renglon["idclasificado"]);
+			$clasificado->set_moneda($renglon["moneda"]);
 			$clasificado->set_id_ciudad($renglon["idciudad"]);
 			$clasificado->set_titulo($renglon["titulo"]);
 			$clasificado->set_detalle($renglon["detalle"]);
@@ -404,27 +460,54 @@ class Mannagerdb{
 			$renglon = mysql_fetch_assoc($result);
 			$municipio = new Municipio;
 			$municipio->set_id($renglon["id"]);
-			$municipio->set_nombre($renglon["ciudad_nombre"]);
+			$municipio->set_nombre(utf8_encode(capitalizar($renglon["ciudad_nombre"])));
 			$municipio->set_cp($renglon["cp"]);
-			$municipio->set_id_padre($renglon["id_padre"]);
+			$municipio->set_id_padre($renglon["provincia_id"]);
 		}
 		return $municipio;
 	}
-	//retorna el objeto municipio, se le puede pasar el id o el nombre del municipio
+	//retorna el objeto provincia, se le puede pasar el id o el nombre del municipio
 	public function provincia($manager,$provincia){
 		if(is_numeric($provincia)) {
 			$result = $manager->query('SELECT * FROM provincia WHERE id='.$provincia);
 		} else {
-			$result = $manager->query('SELECT * FROM ciudad WHERE provincia_nombre="'.$provincia.'"');
+			$result = $manager->query('SELECT * FROM provincia WHERE provincia_nombre="'.$provincia.'"');
 		}
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
 			$renglon = mysql_fetch_assoc($result);
 			$provincia = new Provincia();
 			$provincia->set_id($renglon["id"]);
-			$provincia->set_nombre($renglon["provincia_nombre"]);
+			$provincia->set_nombre(utf8_encode(capitalizar($renglon["provincia_nombre"])));
 		}
 		return $provincia;
+	}
+	public function provincia_y_municipio($manager,$ubicacion){
+		$arr=array(
+				"provincia"=>"",
+				"municipio"=>""
+		);
+		//si no defini una ubicacion
+		if (($ubicacion != "") and ($ubicacion != "argentina")){
+			$ubicacion=utf8_decode($ubicacion);//solucionar estos parches
+			//si tengo una ubicacion que es una provincia
+			$result = $manager->query('SELECT id FROM provincia WHERE provincia_nombre="'.$ubicacion.'"');
+			$cantidad_resultados = mysql_num_rows($result);
+			if ($cantidad_resultados>0){
+				$arr["provincia"] = $manager->provincia($manager,$ubicacion);
+			} else {
+				//si tengo un municipio
+				$result = $manager->query('SELECT id FROM ciudad WHERE ciudad_nombre="'.$ubicacion.'"');
+				$cantidad_resultados = mysql_num_rows($result);
+				if ($cantidad_resultados>0){
+					$municipio = $manager->municipio($manager,$ubicacion);
+					$arr["municipio"]=$municipio;
+					$arr["provincia"]=$manager->provincia($manager,$municipio->get_id_padre());
+				}
+			}
+				
+		}
+		return $arr;
 	}
 	public function categoria($manager,$categoria){
 		if(is_numeric($categoria)) {
@@ -444,9 +527,10 @@ class Mannagerdb{
 		return $categoria;
 	}
 	public function agregar_clasificado($manager,$clasificado){
-	$manager->query('INSERT INTO clasificado (idciudad, titulo, detalle, idcategoria, contacto, precio, telefono)
+	$manager->query('INSERT INTO clasificado (idciudad, moneda, titulo, detalle, idcategoria, contacto, precio, telefono)
 					VALUES ('.
 					'"'.$clasificado->get_id_ciudad().'",'.
+					'"'.$clasificado->get_moneda().'",'.
 					'"'.$clasificado->get_titulo().'",'.
 					'"'.$clasificado->get_detalle().'",'.
 					'"'.$clasificado->get_id_categoria().'",'.

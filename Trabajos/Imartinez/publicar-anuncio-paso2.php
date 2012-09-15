@@ -20,9 +20,10 @@ if (isset($_POST["enviar-paso2"])){
 	$clasificado->set_contacto($_POST["email"]);
 	//$clasificado->set_fecha($renglon["fecha"]);
 	$clasificado->set_precio($_POST["precio"]);
+	$clasificado->set_moneda($_POST["moneda"]);
 	$clasificado->set_telefono($_POST["telefono"]);
 	//$clasificado->set_nombre_categoria($renglon["nombre"]);
-	print_r($clasificado);
+	//print_r($clasificado);
 	$manager->agregar_clasificado($manager,$clasificado);
 }
 $manager->liberar_resultados();
@@ -41,11 +42,11 @@ $manager->cerrar_conexion();
 		<?php require_once("includes/header.php")?>
 		<div id="content">
 			<h2>Publica tu aviso clasificado gratis</h2>
-			<p>Publicar clasificado gratis de <b><?php echo $subcategoria?></b> en 
+			<p>Publicar clasificado gratis de <b><?php echo $nombre_subcategoria?></b> en 
 			<b><?php echo $nombre_municipio?>, <?php echo $nombre_provincia?></b> 
 			(<a href="publicar-anuncio-paso1.php?categoria=<?php echo $id_categoria?>
 			&amp;subcategoria=<?php echo $id_subcategoria?>
-			&amp;ubicacion=<?php echo $municipio?>">cambiar</a>)</p>
+			&amp;ubicacion=<?php echo $ubicacion?>">cambiar</a>)</p>
 			<div class="contenedor-paso1">
 				<form id="publicar-anuncio-paso2" action="publicar-anuncio-paso2.php" method="post">
 					<div class="caja-paso1">					
