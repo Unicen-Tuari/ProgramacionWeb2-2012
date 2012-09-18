@@ -8,7 +8,9 @@ $ubicacion = $manager->municipio($manager,$clasificado->get_id_ciudad())->get_no
 $categoria = $manager->categoria($manager,$clasificado->get_id_categoria())->get_nombre();
 $provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
 $categorias_relacionadas = $manager->categorias_relacionadas($manager,$categoria);
+$categoria_actual=$categorias_relacionadas[0]->get_nombre();
 $subcategoria_actual=$categoria;
+$categoria_para_mostrar=$categoria;
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
 ?>
@@ -31,7 +33,18 @@ $manager->cerrar_conexion();
 				
 				<div>servicios</div>
 				<div>contactar al anunciante</div>
-				<div>imagenes</div>
+				<div>
+				<h2>Imagenes</h2>
+				<?php if (existe_thumbnail($clasificado->get_id(),1)){ ?>
+					<a href="imgs/clasificados/<?php echo $clasificado->get_id()?>_1.jpg"><img src="imgs/clasificados/thumbnails/<?php echo $clasificado->get_id()?>_1.jpg" class="thumbnail"/></a>
+				<?php }?>
+				<?php if (existe_thumbnail($clasificado->get_id(),2)){ ?>
+					<a href="imgs/clasificados/<?php echo $clasificado->get_id()?>_2.jpg"><img src="imgs/clasificados/thumbnails/<?php echo $clasificado->get_id()?>_2.jpg" class="thumbnail"/></a>
+				<?php }?>
+				<?php if (existe_thumbnail($clasificado->get_id(),3)){ ?>
+					<a href="imgs/clasificados/<?php echo $clasificado->get_id()?>_3.jpg"><img src="imgs/clasificados/thumbnails/<?php echo $clasificado->get_id()?>_3.jpg" class="thumbnail"/></a>
+				<?php }?>
+				</div>
 			</div>
 		</div>			
 		<?php require_once("includes/footer.php")?>

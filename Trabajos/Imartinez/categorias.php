@@ -1,10 +1,15 @@
 <?php 
-$categoria_actual = $_GET["categoria"];
-$subcategoria_actual = $_GET["subcategoria"];
+$categoria_actual = "";
+$subcategoria_actual = "";
+if (isset($_GET["categoria"]))
+	$categoria_actual=$_GET["categoria"];
+if (isset($_GET["subcategoria"]))
+	$subcategoria_actual = $_GET["subcategoria"];
 if ($subcategoria_actual!="")
 	$categoria_para_mostrar=$subcategoria_actual;
 else 
 	$categoria_para_mostrar=$categoria_actual;
+$clasificados=array();
 $ubicacion = $_GET["ubicacion"];	
 require_once("includes/clases.php");
 $manager = new Mannagerdb;
@@ -21,6 +26,7 @@ $categorias_relacionadas = $manager->categorias_relacionadas($manager,$categoria
 $clasificados = $manager->listar_clasificados($manager,$categoria_para_mostrar,$provincia_y_municipio);
 $cantidad_clasificados = $manager->cantidad_clasificados($manager,$categoria_para_mostrar,$provincia_y_municipio);
 $todas_las_provincias = $manager->todas_las_provincias($manager);
+$todos_los_municipios=array();
 if ($provincia_y_municipio["provincia"]!="")
 	$todos_los_municipios = $manager->todos_los_municipios($manager,$provincia_y_municipio["provincia"]->get_id());
 $manager->liberar_resultados();
@@ -93,7 +99,9 @@ $manager->cerrar_conexion();
 							<?php if ($clasificado->get_precio()!="")
 									echo $clasificado->get_moneda()." ".$clasificado->get_precio()?>
 							</div>
-							<a href="amplia.php?id=<?php echo $clasificado->get_id()?>"><img src="http://static.blidoo.com.ar/img_ads/20000/20125_tl_1.jpg" class="thumbnail"/></a>
+							<?php if (existe_thumbnail($clasificado->get_id(),1)){ ?>
+								<a href="amplia.php?id=<?php echo $clasificado->get_id()?>"><img src="imgs/clasificados/thumbnails/<?php echo $clasificado->get_id()?>_1.jpg" class="thumbnail"/></a>
+							<?php }?>
 							<h3><a href="amplia.php?id=<?php echo $clasificado->get_id()?>"><?php echo $clasificado->get_titulo()?></a></h3>
 							<p><?php echo $clasificado->get_detalle()?></p>
 							<p><?php echo $clasificado->get_nombre_categoria()?> | <?php echo capitalizar($clasificado->get_nombre_municipio())?> | <?php echo $clasificado->get_fecha()?></p>

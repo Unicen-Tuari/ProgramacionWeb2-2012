@@ -1,6 +1,10 @@
 <?php 
-$ubicacion = $_GET["ubicacion"];
+$ubicacion = "";
+if (isset($_GET["ubicacion"]))
+	$ubicacion=$_GET["ubicacion"];
 require_once("includes/clases.php");
+$categoria_actual="";
+$subcategoria_actual="";
 $manager = new Mannagerdb;
 $manager->conectarse();
 $provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
