@@ -11,6 +11,16 @@ $ubicacion = $nombre_municipio;
 $nombre_provincia = $manager->provincia($manager,$id_provincia)->get_nombre();
 $nombre_subcategoria = $manager->categoria($manager,$id_subcategoria)->get_nombre();
 if (isset($_POST["enviar-paso2"])){
+	$proximo_id = $manager->proximo_id_clasificado($manager);
+	if ($_FILES["foto1"]["name"]!=""){
+		generar_archivos_imagenes($_FILES['foto1']['tmp_name'],$proximo_id,1);
+	}
+	if ($_FILES["foto2"]["name"]!=""){
+		generar_archivos_imagenes($_FILES['foto2']['tmp_name'],$proximo_id,2);
+	}
+	if ($_FILES["foto3"]["name"]!=""){
+		generar_archivos_imagenes($_FILES['foto3']['tmp_name'],$proximo_id,3);
+	}
 	$clasificado = new Clasificado;
 	//$clasificado->set_id($renglon["idclasificado"]);
 	$clasificado->set_id_ciudad($id_municipio);
@@ -20,10 +30,12 @@ if (isset($_POST["enviar-paso2"])){
 	$clasificado->set_contacto($_POST["email"]);
 	//$clasificado->set_fecha($renglon["fecha"]);
 	$clasificado->set_precio($_POST["precio"]);
+	$clasificado->set_moneda($_POST["moneda"]);
 	$clasificado->set_telefono($_POST["telefono"]);
 	//$clasificado->set_nombre_categoria($renglon["nombre"]);
-	print_r($clasificado);
+	//print_r($clasificado);
 	$manager->agregar_clasificado($manager,$clasificado);
+	header("Location:index.php");
 }
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
@@ -41,13 +53,13 @@ $manager->cerrar_conexion();
 		<?php require_once("includes/header.php")?>
 		<div id="content">
 			<h2>Publica tu aviso clasificado gratis</h2>
-			<p>Publicar clasificado gratis de <b><?php echo $subcategoria?></b> en 
+			<p>Publicar clasificado gratis de <b><?php echo $nombre_subcategoria?></b> en 
 			<b><?php echo $nombre_municipio?>, <?php echo $nombre_provincia?></b> 
 			(<a href="publicar-anuncio-paso1.php?categoria=<?php echo $id_categoria?>
 			&amp;subcategoria=<?php echo $id_subcategoria?>
-			&amp;ubicacion=<?php echo $municipio?>">cambiar</a>)</p>
+			&amp;ubicacion=<?php echo $ubicacion?>">cambiar</a>)</p>
 			<div class="contenedor-paso1">
-				<form id="publicar-anuncio-paso2" action="publicar-anuncio-paso2.php" method="post">
+				<form id="publicar-anuncio-paso2" action="publicar-anuncio-paso2.php" method="post" enctype="multipart/form-data">
 					<div class="caja-paso1">					
 						<div class="caja-paso2-interior">
 							<h4>Titulo</h4>
@@ -73,12 +85,15 @@ $manager->cerrar_conexion();
 					</div>
 					<div class="caja-paso1">				
 						<div class="caja-paso2-interior">
-							<h4>Fotos <span class="opcional">(opcional)</span></h4>
+							<h4>Fotos (Hasta 3 archivos con extension .jpg) <span class="opcional">(opcional)</span></h4>
+							<input type="file" name="foto1" id="foto1"></input>
+							<input type="file" name="foto2" id="foto2"></input>
+							<input type="file" name="foto3" id="foto3"></input>
 						</div>		
 					</div>
 					<div class="caja-paso1">				
 						<div class="caja-paso2-interior">
-							<h4>Telefono <span class="opcional">(opcional)</span></h4>
+							<h4>Telefono (Sin la caracteristica)<span class="opcional">(opcional)</span></h4>
 							<input name="telefono" id="telefono"></input>
 						</div>		
 					</div>

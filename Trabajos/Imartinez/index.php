@@ -1,14 +1,25 @@
 <?php 
-$ubicacion = $_GET["ubicacion"];
-if ($ubicacion == "") $ubicacion = "Argentina";
+$ubicacion = "";
+if (isset($_GET["ubicacion"]))
+	$ubicacion=$_GET["ubicacion"];
 require_once("includes/clases.php");
+$categoria_actual="";
+$subcategoria_actual="";
 $manager = new Mannagerdb;
 $manager->conectarse();
+$provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
+if ($provincia_y_municipio["municipio"]!="")
+	$ubicacion = capitalizar($provincia_y_municipio["municipio"]->get_nombre());
+else
+	if ($provincia_y_municipio["provincia"]!="")
+		$ubicacion = capitalizar($provincia_y_municipio["provincia"]->get_nombre());
+	else
+		$ubicacion = "Argentina";
 $provincias = $manager->todas_las_provincias($manager);
 $categorias = $manager->todas_las_categorias_y_subcategorias($manager);
-$orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Autos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
+$orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Vehículos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
 foreach ($orden_categorias as $categoria){
-	$cantidad_clasificados[$categoria] = $manager->cantidad_clasificados($manager,$categoria,$ubicacion);
+	$cantidad_clasificados[$categoria] = $manager->cantidad_clasificados($manager,$categoria,$provincia_y_municipio);
 }
 $manager->liberar_resultados();
 $manager->cerrar_conexion();
@@ -30,10 +41,12 @@ $manager->cerrar_conexion();
 				<ul class="lista-provincias">
 				<?php foreach ($provincias as $provincia) {?>
 					<li>
-						<?php if ($ubicacion == $provincia->get_nombre()) {
+						<?php if ($ubicacion == capitalizar($provincia->get_nombre())) {
 						echo $provincia->get_nombre(); 
-						} else {?>
-						<a href="index.php?ubicacion=<?php echo $provincia->get_nombre()?>"><?php echo $provincia->get_nombre()?></a>
+						} else {
+						$url_amigable="index.php?ubicacion=".url_amigable($provincia->get_nombre());
+							?>
+						<a href="<?php echo $url_amigable?>"><?php echo $provincia->get_nombre()?></a>
 						<?php }?>
 					</li>
 				<?php }?>
@@ -45,14 +58,16 @@ $manager->cerrar_conexion();
 				$categoria=$orden_categorias[$i];?>
 				<div class="categoria">
 					<div class="titulo-categoria">
-						<h2><a href="categorias.php?categoria=<?php echo $categoria?>&amp;ubicacion=<?php echo $ubicacion?>"><?php echo $categoria?></a></h2>
+					<?php $url_amigable="categorias.php?categoria=".url_amigable($categoria."&amp;ubicacion=".$ubicacion);?>
+						<h2><a href="<?php echo $url_amigable?>"><?php echo $categoria?></a></h2>
 						<span class="cantidad">(<?php echo $cantidad_clasificados[$categoria]?>)</span>
 					</div>
 					<ul class="lista-subcategorias">
 					<?php $subcategorias=$categorias[$categoria];					
 					foreach ($subcategorias as $subcategoria) {?>
 						<li>
-							<a href="categorias.php?categoria=<?php echo $subcategoria->get_nombre()?>&amp;ubicacion=<?php echo $ubicacion?>"><?php echo $subcategoria->get_nombre()?></a>
+						<?php $url_amigable="categorias.php?categoria=".url_amigable($categoria."&amp;subcategoria=".$subcategoria->get_nombre()."&amp;ubicacion=".$ubicacion);?>
+							<a href="<?php echo $url_amigable?>"><?php echo $subcategoria->get_nombre()?></a>
 						</li><?php }?>						
 					</ul>
 				</div>
