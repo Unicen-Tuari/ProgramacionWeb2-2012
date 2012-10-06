@@ -6,6 +6,7 @@
 	include('consulta.inc.php');
 
 	class manager {
+		//
 		public function getAllCategories($conexion) {
 			$registros = $conexion->consulta('select * from categoria');
 			while ($reg = mysql_fetch_array($registros)) {
@@ -75,6 +76,7 @@
 			return $allProducts;
 		}
 		
+		//
 		public function getLatestProducts($conexion) {
 			$registros = $conexion->consulta('select * from producto order by fecha_ingreso desc limit 3');
 			while ($reg = mysql_fetch_array($registros)) {

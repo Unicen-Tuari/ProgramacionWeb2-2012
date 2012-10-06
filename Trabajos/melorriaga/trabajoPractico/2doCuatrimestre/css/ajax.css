@@ -1,0 +1,175 @@
+@import url(../fonts/Sansation/stylesheet.css);	/*SansationRegular*/
+@import url(../fonts/bebas-neue/stylesheet.css);	/*BebasNeueRegular*/
+@import url(../fonts/Colaborate/stylesheet.css);	/*ColaborateRegular*/
+@import url(../fonts/Droid-Sans/stylesheet.css);	/*DroidSansRegular*/
+
+#contenedor100 {
+	width: 780px;
+	margin: 0 auto;
+}
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: BebasNeueRegular;
+		background-color: #3B8686;
+	}
+
+		#header {
+			background-color: #3B8686;
+			height: 10%;
+		}
+			#menu {
+				list-style-type: none;
+				margin-left: -40px;
+				padding-top: 20px;
+				text-align: center;
+			}
+				.item {
+					display: inline;
+					font-size: 24px;
+					padding-right: 30px;
+					color: white;
+				}
+
+				a {
+					text-decoration: none;
+					color: white;
+				}
+
+				a:hover {
+					color: #A8DBA8;
+				}
+
+		#news {
+			background-color: #79BD9A;
+			height: 5%;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			margin-bottom: 5px;
+		}
+			.boton {
+				float: right;
+				margin-top: 6px;
+				margin-right: 6px;
+				background-color: #CFF09E;
+				border-radius: 4px;
+				font-family: BebasNeueRegular;
+				color: #0B486B;
+			}
+
+			#login {
+				background-color: #79BD9A;
+				color: #0B484B;
+				padding-left: 9px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+				.text {
+					color: #0B486B;
+					font-family: BebasNeueRegular;
+					width: 262px;
+					margin-left: 2px;
+					margin-right: 2px;
+					padding-left: 3px;
+					padding-right: 3px;
+				}
+
+				.oculto {
+					height: 0px;
+					-webkit-transition: height 1s;
+					overflow: hidden;
+				}
+
+				.visible {
+					height: 30px;
+					-webkit-transition: height 1s;
+					overflow: hidden;
+				}
+
+			#info {
+				color: #0B484B;
+				padding-left: 9px;
+				padding-top: 7px;
+			}
+
+		#cuerpo {
+			height: 83%;
+			color: #0B486B;
+		}
+			#sidebar {
+				background-color: #A8DBA8;
+				width: 18%;
+				height: 100%;
+				float: left;
+				border-bottom-left-radius: 5px;
+			}
+				hr {
+					border: 2px solid #3B8686;
+					margin: 0px;
+				}
+
+			#content {
+				background-color: #CFF09E;
+				height: 100%;
+				width: 81.2%;
+				float: right;
+				border-bottom-right-radius: 5px;
+				font-family: ColaborateRegular;
+				overflow: auto;
+			}	
+#texto {
+	padding: 15px;
+}
+	textarea {
+		color: #0B486B;
+		font-family: BebasNeueRegular;
+		width: 600px;
+		height: 310px;
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+
+	.botonInv {
+		margin-top: 6px;
+		margin-right: 6px;
+		background-color: #A8DBA8;
+		color: #0B486B;
+		border-radius: 4px;
+		font-family: BebasNeueRegular;
+	}
+
+#categorias {
+	list-style-type: circle;
+	margin-left: -5px;
+}
+	.categoria:hover {
+		list-style-type: disc;
+		cursor: pointer;
+	}
+
+	.categoria > a {
+		color: #0B486B;
+	}
+
+	.categoria > a:hover {
+		color: black;
+	}
+
+.producto {
+	height: 30%;
+	margin: 4px;
+	padding: 5px;
+}
+
+.imagen {
+	float: left;
+	border: 1px solid #3B8686;
+}
+
+.descripcion {
+	margin-left: 174px;
+	padding-top: 8px;
+	font-size: 13px;
+	text-align: justify;
+	padding-right: 4px;
+}
