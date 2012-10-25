@@ -11,5 +11,4 @@
 include_once 'cabecera.inc.php'; 
 include_once 'rubros.inc.php'; 
 include_once 'novedades.inc.php'; 
-
 ?>
