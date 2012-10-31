@@ -14,7 +14,7 @@
 	</h2>
 	<br>
 	<div id="divtablaproductos">
-        <form class='container' method='post' action='contenido_productos.inc.php'>
+        <form class='container' method='post'> <!-- action='contenido_productos.inc.php'-->
             <?php
                 echo html_productos($par_rubro);
             ?>
