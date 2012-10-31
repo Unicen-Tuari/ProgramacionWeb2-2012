@@ -7,32 +7,46 @@
   </head>
   <body>
     <h1>Aplicación de Comentarios (v 1.0) - Programación Web 2</h1>
+	  	<div>
+		<!-- BEGIN Mensaje -->
+  <span class="label {tipomensaje}">{textomensaje}</span>
+  	<!-- END Mensaje -->
+	</div>
 	<table class="table table-hover">
 	<thead>
 	<tr>
 	  <th>Comentario</th>
 	  <th>Nombre</th>
 	  <th>Fecha</th>
+	  <th></th>
 	</tr>
 	</thead>
 	<tbody>
-	<!-- BEGIN comentario -->
+	<!-- BEGIN Comentario -->
 	<tr>
-    <td>{Coment}</td>
-    <td>{Nombre}</td>
-    <td>{Fecha}</td>
+    <td>{texto}</td>
+    <td>{nombre}</td>
+    <td>{fecha}</td>
+	<td>
+	<div class="btn-group">
+	  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Acciones <span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+		<li><a href="BorrarComentario.php?id={id_comentario}">Borrar</a></li>
+	  </ul>
+	</div>
+	</td>
     </tr>
-	<!-- END comentario -->
+	<!-- END Comentario -->
 	</tbody>
 	</table>
-	<form class="form-horizontal">
+	<form class="form-horizontal" method="Post" action="AgregarComentario.php">
   <legend>Publicar un Comentario</legend>
  <div class="control-group">
    <label class="control-label" >Nombre</label>
    <div class="controls">
      <div class="input-prepend">
       <span class="add-on"><i class="icon-user"></i></span>
-	  <input type="text" placeholder="Nombre">
+	  <input id="nombre" name="Nombre" type="text" placeholder="Nombre">
   </div>
   </div>
   </div>
@@ -42,20 +56,22 @@
    
     <div class="input-prepend">
       <span class="add-on"><i class="icon-calendar"></i></span>
-      <input id="fecha" type="date">
+      <input id="fecha" name="Fecha" type="date">
     </div>
   </div>
   </div>  
   <div class="control-group">
   <label class="control-label" >Comentario</label>
   <div class="controls">
-    <textarea id="Comentario" rows="3" placeholder="Escribir el comentario..."></textarea>
+    <textarea id="Comentario" name="Comentario" rows="3" placeholder="Escribir el comentario..."></textarea>
   </div>
   </div>
   <div class="control-group">
   <div class="controls">
   <button type="submit" class="btn btn-primary">Publicar</button>
+
   </div>
+  
   </div>
   
   
