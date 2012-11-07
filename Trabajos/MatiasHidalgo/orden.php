@@ -1,15 +1,19 @@
 <?php
-require_once('DBmanager.inc.php');
-$dbmanager=new DBmanager;
-$orden=new Orden;
-$orden=$dbmanager->getOrdenByNro_orden($_POST['nroorden']);
-if($orden != NULL){
-	$usuario=new Usuario;
-	$usuario=$dbmanager->getUsuarioByID($orden->get_id_usuario());
-	$equipo=new Equipo;
-	$equipo=$dbmanager->getEquipoByID($orden->get_id_equipo());
+require_once ('config.php');
+require_once('./DataObjects/Ordenes.php');
+require_once('./DataObjects/Equipos.php');
+require_once('./DataObjects/Usuarios.php');
+$orden=new DO_Ordenes;
+$orden->nro_orden = $_POST['nroorden'];
+$cantidad = $orden->find();
+if($cantidad != 0){
+	$usuario=new DO_Usuarios;
+	$usuario->id_usuario = $orden->id_usuario;
+	$usuario->find();
+	$equipo=new DO_Equipos;
+	$equipo->id_equipo = $orden->id_equipo;
 	$contrascorrecta=false;
-	if ($usuario->get_contras()==$_POST['contras']) {
+	if ($usuario->contras==$_POST['contras']) {
 		$contrascorrecta=true;
 	}
 }
@@ -18,7 +22,7 @@ require_once('menu.php');
 ?>
 <div class="contenido">
 <?php 
-if($orden == NULL){
+if($cantidad == 0){
 	echo("<br/><h2>La Orden nro: ".$_POST['nroorden']." no existe</h2>");
 	echo('<h3><a href="consulorden.php">Volver atras</a></h3>');
 } else if($contrascorrecta=false){
@@ -39,4 +43,7 @@ if($orden == NULL){
 </div>
 <?php 
 require_once('piedepagina.php');
+$orden->free();
+$usuario->free();
+$equipo->free();
 ?>
