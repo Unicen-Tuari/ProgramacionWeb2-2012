@@ -1,5 +1,5 @@
 <?php
-require_once('DBmanager.inc.php');
+//require_once('DBmanager.inc.php');
 require_once('cabecera.php');
 require_once('menu.php');
 ?>

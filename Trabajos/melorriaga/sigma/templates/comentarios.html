@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Comentarios 1.0</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Aplicación de Comentarios (v 1.0) - Programación Web 2</h1>
+	<table class="table table-hover">
+	<thead>
+	<tr>
+	  <th>Comentario</th>
+	  <th>Nombre</th>
+	  <th>Fecha</th>
+    <th>Eliminar</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN comentario -->
+  <tr>
+    <td>{comentario}</td>
+    <td>{nombre}</td>
+    <td>{fecha}</td>
+    <td>
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Acciones
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href='eliminarComentario.php?id={id}'>Eliminar</a></li>
+          </ul>
+        </div>
+    </td>
+  </tr>
+  <!-- END comentario -->
+	</tbody>
+	</table>
+	<form class="form-horizontal" action='agregarComentario.php' method='post'>
+  <legend>Publicar un Comentario</legend>
+ <div class="control-group">
+   <label class="control-label" >Nombre</label>
+   <div class="controls">
+     <div class="input-prepend">
+      <span class="add-on"><i class="icon-user"></i></span>
+	  <input type="text" placeholder="Nombre" name='nombre'>
+  </div>
+  </div>
+  </div>
+   <div class="control-group">
+   <label class="control-label" >Fecha</label>
+   <div class="controls">
+   
+    <div class="input-prepend">
+      <span class="add-on"><i class="icon-calendar"></i></span>
+      <input id="fecha" type="date" name='fecha'>
+    </div>
+  </div>
+  </div>  
+  <div class="control-group">
+  <label class="control-label" >Comentario</label>
+  <div class="controls">
+    <textarea id="Comentario" rows="3" placeholder="Escribir el comentario..." name='comentario'></textarea>
+  </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+  <button type="submit" class="btn btn-primary">Publicar</button>
+  </div>
+  </div> 
+</form>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
