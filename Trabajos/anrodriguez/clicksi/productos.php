@@ -1,28 +1,28 @@
 <?php
-    include_once './estructura/encabezado.inc.php';
-    require_once './rutinas/qproductos.php';
-?>
-<div class="contentCatalog">
-	<br>
-	<h1>Catalogo de productos</h1>
-	<p>Los precios no incluyen I.V.A.</p>
-	<h2>
-	<?php
-        $par_rubro = $_GET["rubro"];
-        echo $par_rubro;
-	?>
-	</h2>
-	<br>
-	<div id="divtablaproductos">
-        <form class='container' method='post'> <!-- action='contenido_productos.inc.php'-->
-            <?php
-                echo html_productos($par_rubro);
-            ?>
-            <br>
-            <hr>        
-        </form>
-	</div>
-</div>
-<?php
-    include_once './estructura/piedepagina.inc.php';
-?>
+include_once 'config.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
+
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
+
+$par_rubro = $_GET["rubro"];
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/productos.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+$tpl->setVariable(nombreRubro, $par_rubro);
+
+$articulo     = new DO_Articulo();
+$nArticulos   = $articulo->find();
+
+if ($nArticulos>0) {
+	while($articulo->fetch()) {
+        $tpl->setVariable(nombreArticulo, $articulo->getnombre());
+        $tpl->parse('producto');
+    }
+}
+
+$tpl->show();
