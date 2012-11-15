@@ -1,0 +1,1 @@
+php /usr/share/php/DB/DataObject/createTables.php ~/proyectos/programacionweb/ProgramacionWeb2-2012/Trabajos/anrodriguez/clicksi/clases/pear/dataobjects/db.ini

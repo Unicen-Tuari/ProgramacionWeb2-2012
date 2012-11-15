@@ -1,0 +1,36 @@
+<!-- INCLUDE ./templates/encabezado.html -->
+<!-- INCLUDE ./templates/rubros.html -->
+<!-- INCLUDE ./templates/novedades.html -->
+
+
+<div class="contentCatalog">
+	<br>
+	<h1>Catalogo de productos</h1>
+    <h2>{rubroNombre}</h2>
+	<p>Los precios no incluyen I.V.A.</p>
+	<h2>
+	</h2>
+	<br>
+	<div id="divtablaproductos">
+        <form class='container'>
+            <table class="tablaproductos">
+                <tr><th>DESCRIPCION</th> 
+                    <th>M</th> 
+                    <th>PRECIO VENTA</th>
+                    <th>FOTOGRAFIA</th>
+                </tr>
+<!-- BEGIN producto -->               
+                <tr>
+                    <td><h2>{articuloNombre}</h2></td>
+                    <td><h2>{articuloMoneda}</h2></td>
+                    <td><h3>{articuloPrecioVenta}</h3></td>
+                    <td><img alt="{articuloImgalt}" src="{articuloImgSrc}"></td>                    
+                </tr>
+<!-- END producto -->    
+            </table>
+            <br>
+            <hr>        
+        </form>
+	</div>
+</div>
+<!-- INCLUDE ./templates/piePagina.html -->
