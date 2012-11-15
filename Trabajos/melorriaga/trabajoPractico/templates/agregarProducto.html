@@ -1,0 +1,24 @@
+<div class='formulario'>
+	Ingrese el nombre del producto: <input type='text' id='newNombre' /> <br />
+	Ingrese el precio del producto: <input type='text' id='newPrecio' /> <br />
+	Ingrese la cantidad de productos: <input type='text' id='newCantidad' /> <br />
+	Ingrese la categoria del producto: <input type='text' id='newCategoria' /> <br /> <br />
+	Ingrese las caracteristicas del producto: <br /> <br />
+	<textarea id='newCaracteristicas'></textarea> <br /> <br />
+	Ingrese la imagen del producto: <br /> <br />
+	<button id='botonAgregarImagen' class='boton'>Agregar Imagen</button> <br /> <br />
+	<button id='botonAgregarProducto' class='boton'>Agregar Producto</button>
+</div>
+<script type="text/javascript" src="js/ajaxupload.3.5.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var boton = $('#botonAgregarImagen');
+		new AjaxUpload(boton, {
+			action: 'php/agregarImagen.php',
+			name: 'uploadfile',
+			onComplete: function() {
+				alert('Imagen Subida Correctamente!');
+			}
+		});	
+	});
+</script>
