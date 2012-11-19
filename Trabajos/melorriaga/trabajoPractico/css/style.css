@@ -2,7 +2,7 @@
 @import url(../fonts/open-sans-condensed/stylesheet.css);
 
 body {
-	background-image: url('../images/bg1.png');
+	background-image: url('../images/bg8.png');
 	font-family: 'OpenSansCondensedLight';
 	margin: 0;
 	padding: 0;
@@ -10,6 +10,11 @@ body {
 
 img {
 	border: none;
+}
+
+iframe {
+	width: 420px;
+	height: 25px;
 }
 
 /********************************************************/
@@ -80,6 +85,8 @@ img {
 	margin-bottom: 16px;
 	overflow: auto;
 	border-radius: 5px;
+	text-align: center;
+	padding-top: 2em;
 }
 
 #content-wrapper {
@@ -121,6 +128,9 @@ img {
 
 .imagen {
 	float: left;
+	overflow: auto;
+	height: 160px;
+	width: 160px;
 }
 
 .descripcion {
@@ -211,10 +221,6 @@ img {
 
 /********************************************************/
 
-#login > input, #login > button{
-	margin-left: 31.5px;
-}
-
 #login > input {
 	font-family: 'OpenSansCondensedLight';
 	font-size: 22px;
@@ -224,10 +230,47 @@ img {
 	width: 144px;
 }
 
-#newUser {
+#botonLogout {
 	margin-top: 1em;
 }
 
-#botonLogout {
-	margin-top: 1em;
+#link6 {
+	font-size: 24px;
+	text-decoration: none;
+	color: black;
+}
+
+/********************************************************/
+
+#newNombre, #newPrecio, #newCantidad, #newFechaIngreso, #newCategoria, #newCaracteristicas {
+	font-family: 'OpenSansCondensedLight';
+	font-size: 22px;
+	padding-left: 4px;
+	background-color: #e3e3e3;
+	border: 1px solid #bbb;
+}
+
+#newNombre {
+	width: 325px;
+}
+
+#newPrecio {
+	width: 337px;
+}
+
+#newCantidad {
+	width: 318px;
+}
+
+#newFechaIngreso {
+	width: 270px;
+}
+
+#newCategoria {
+	width: 319px;
+}
+
+#newCaracteristicas {
+	width: 538px;
+	height: 150px;
 }

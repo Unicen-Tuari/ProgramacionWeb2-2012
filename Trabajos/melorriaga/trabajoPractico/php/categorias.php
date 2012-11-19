@@ -1,7 +1,8 @@
 <?php
+	session_start();
 	ini_set('display_errors', '0');
 	require_once('config.php');
-	require('DataObjects/Categoria.php');
+	require_once('DataObjects/Categoria.php');
 
 	require_once('HTML/Template/Sigma.php');
 

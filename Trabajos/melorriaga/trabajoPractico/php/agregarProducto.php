@@ -4,6 +4,6 @@
 	require_once('HTML/Template/Sigma.php');
 
 	$template = new HTML_Template_Sigma('.');
-	$error = $template->loadTemplateFile('../templates/consultas.html');
+	$error = $template->loadTemplateFile('../templates/agregarProducto.html');
 	$template->show();
 ?>
