@@ -1,13 +1,27 @@
 <?php
-    include_once './estructura/encabezado_administracion.inc.php';
-    require_once './rutinas/qrubros.php';
-?>
-<div class="contentAdministracion">
-    <h1>Rubros:</h1>
-    <?php
-        echo html_admRubros();
-    ?>
-</div>
-<?php    
-	include_once './estructura/piedepagina.inc.php';
+include_once 'config.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
+
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/admRubros.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+
+$rubro     = new DO_Rubro();
+$nRubros   = $rubro->find();
+
+if ($nRubros>0) {
+	while($rubro->fetch()) {
+        $tpl->setVariable(rubroNombre, $rubro->getnombre());
+        $tpl->setVariable(rubroId, $rubro->getid());
+        $tpl->parse('rubros_administracion');
+    }
+}
+
+$tpl->show();
+
 ?>

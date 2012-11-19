@@ -1,31 +1,29 @@
-<script type="text/javascript" src="./rutinas/javaScripts/validar.js"></script>
 <?php
-    include_once './estructura/encabezado_administracion.inc.php';
- 	require_once 'config.php';
-	require_once './rutinas/consultas.php';
-	require_once './clases/Mysqldb.php';
-	require_once './clases/DbManager.php';
+include_once 'config.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
 
-	$db 	= new Mysqldb(SERVER, USER, PASSWORD, BASEDATOS);
-	$dmMgr	= new DbManager($db);
-	$producto = $dmMgr->getProductoById($_GET["producto"]);
-	$db->closedb();
-	echo '
-			<div id="contentAdministrar">
-				<form class="formIngresar" method="post" action="admFormUpdateProducto.php" onSubmit="return ValidarAdmFormProducto(this);">
-					<div>
-						<h1>Modificar Producto</h1>
-					</div>
-					<br/>
-					<div>
-						<h2>Producto</h2> 
-						<input type="text" readOnly size="20" name="id" value="'.$producto->getId().'"/>
-						<h2>Nombre</h2> 
-						<input type="text"  size="60" name="nombre" value="'.$producto->getNombre().'"/>
-						<input type="submit" name="Modificar" value="Modificar"/>
-					</div>
-				</form>
-			</div>
-		';
-    include_once './estructura/piedepagina.inc.php';
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/admFormProducto.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+
+$idProducto = $_GET["producto"];
+
+$producto = new DO_Articulo();
+$producto->setid($idProducto);
+$nProductos = $producto->find();
+
+if ($nProductos>0) {
+    $producto->fetch();
+    $tpl->setVariable(productoNombre, $producto->getnombre());
+    $tpl->setVariable(productoId, $producto->getid());
+    $tpl->parse('producto_actualizar');
+}
+
+$tpl->show();
+
 ?>

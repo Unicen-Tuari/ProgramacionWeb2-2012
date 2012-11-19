@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Click S. I.</title>
 </head>
-<body>
+<body  onload="init()">
 <div id="container">
     <div class="header">
         <img class="logo" alt="Click Soluciones Informáticas" src="./imagenes/Click.ico">
@@ -18,4 +18,17 @@
             <li><a href="ingresar.php">Ingresar</a></li>
         </ul>
     </div>
-    
+
+<!-- INCLUDE ./templates/rubros.html -->
+<!-- INCLUDE ./templates/novedades.html -->
+<script type="text/javascript" src="./js/empresa.js"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>        
+
+<div class="contentEmpresa">    
+    <div id="gmapa" class="gmapa"></div>
+	<ul>
+		<li><h1>Desarrollo de sistemas - Asesoramiento - Servicio Técnico</h1></li>
+		<li><h1>Venta de equipos e insumos - Cableados estructurados -  Redes - Comunicaciones - Control automático</h1></li>
+   	</ul>
+</div>
+<!-- INCLUDE ./templates/piePagina.html -->

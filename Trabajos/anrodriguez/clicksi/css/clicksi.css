@@ -369,3 +369,8 @@ table.administracion td {
 	min-height: 500px;
 	background-image: url("../imagenes/pared.gif");
 }
+
+div.gmapa {
+    width: 700px;
+    height: 430px;
+}
