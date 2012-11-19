@@ -1,8 +1,9 @@
 function setElementsHeights() {
 	var total = $(window).height();
 	var main = $('#main-wrapper').children().height(total - 215);
-	$('#login').height(main.height() / 2 - 16);
+	$('#login').height(main.height() / 2 - 16 - 32);
 		$('#botonLogin').css('margin-top', $('#login').height() - 138);
+		$('#botonLogout').css('margin-top', ($('#login').height() - 22) / 2);
 	$('#categories').height(main.height() / 2);
 }
 
@@ -98,8 +99,8 @@ function iniciarSesion() {
 				alert('Datos incorrectos! Vuelva a intentarlo...');
 			} else {
 				alert('Ingreso correctamente');
-				$('#login').empty().html("<button id='botonLogout' class='boton'>Cerrar Sesion</button>");
-				$('#botonLogout').css('margin-top', ($('#login').height() - 30) / 2);
+				$('#login').empty().html("<a id='link6' href='php/agregarProducto.php'>Agregar Producto</a><button id='botonLogout' class='boton'>Cerrar Sesion</button>");
+				$('#botonLogout').css('margin-top', ($('#login').height() - 22) / 2);
 			}
 		});
 	}
@@ -111,6 +112,29 @@ function cerrarSesion() {
 		$('#login').empty().html("<input type='text' id='newUser'><input type='password' id='newPass'><button id='botonLogin' class='boton'>Iniciar Sesion</button>");
 		setElementsHeights();
 	});
+}
+
+function agregarProducto(event) {
+	event.preventDefault();
+	var url = $('#link6').attr('href');
+	$('#categories').empty();
+	$('#content-wrapper').load(url);
+}
+
+function agregar() {
+	if (!$('#newNombre').val() || !$('#newPrecio').val() || !$('#newCategoria').val() || !$('#newCaracteristicas').val() || !$('#newCantidad').val()) {
+		alert('Los campos no pueden estar vacios');
+	} else {
+		var nombre = $('#newNombre').val();
+		var precio = '$' + $('#newPrecio').val();
+		var cantidad = parseInt($('#newCantidad').val());
+		var categoria = parseInt($('#newCategoria').val());
+		var caracteristicas = $('#newCaracteristicas').val();
+		$.get('php/agregar.php', {nombre: nombre, precio: precio, categoria: categoria, caracteristicas: caracteristicas, cantidad: cantidad}, function() {
+			alert('El producto se ha agregado correctamente!');
+			$('#content-wrapper').empty();
+		});
+	}
 }
 
 $(document).ready(function() {
@@ -125,4 +149,6 @@ $(document).ready(function() {
 	$(document).on('click', '#botonRegistro', validarRegistro);
 	$(document).on('click', '#botonLogin', iniciarSesion);
 	$(document).on('click', '#botonLogout', cerrarSesion);
+	$(document).on('click', '#link6', agregarProducto);
+	$(document).on('click', '#botonAgregarProducto', agregar);
 });

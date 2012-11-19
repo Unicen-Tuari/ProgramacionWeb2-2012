@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	ini_set('display_errors', '0');
 	require_once('config.php');
 	require_once('DataObjects/Producto.php');
@@ -11,6 +12,7 @@
 	$producto = new DO_Producto;
 	if (isset($_REQUEST['codigo'])) {
 		$producto->whereAdd('codigo_categoria = ' . $_REQUEST['codigo']);
+		$producto->orderBy('fecha_ingreso desc');
 		$producto->find();
 		while ($producto->fetch()) {
 			$template->setVariable('nombre_imagen', $producto->nombre_imagen);

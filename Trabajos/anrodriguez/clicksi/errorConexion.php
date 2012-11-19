@@ -1,13 +1,27 @@
 <?php
-    include_once './estructura/encabezado.inc.php';
-?>
-<div id="contentIndex">
-	<div class=formIngresar>
-		<br><h1>Error!</h1><br>
-		<h2>Se ha producido un error</h2><br>
-		<h3>Verificar los datos ingresados.</h3><br>
-	</div>
-</div>
-<?php
-    include_once './estructura/piedepagina.inc.php';
+include_once 'config.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
+
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/errorConexion.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+
+$rubro     = new DO_Rubro();
+$nRubros   = $rubro->find();
+
+if ($nRubros>0) {
+	while($rubro->fetch()) {
+        $tpl->setVariable(linkRubro, $rubro->getnombre());
+        $tpl->setVariable(nombreRubro, $rubro->getnombre());
+        $tpl->parse('rubros');
+    }
+}
+
+$tpl->show();
+
 ?>

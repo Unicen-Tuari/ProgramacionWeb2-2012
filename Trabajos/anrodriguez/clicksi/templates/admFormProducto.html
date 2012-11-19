@@ -1,0 +1,19 @@
+<!-- INCLUDE ./templates/encabezadoAdministracion.html -->
+<div id="contentAdministrar">
+    <form class="formIngresar" method="post" action="./rutinas/updateProducto.php" onSubmit="return ValidarAdmFormProducto(this);">
+        <div>
+            <h1>Modificar Producto</h1>
+        </div>
+        <br/>
+        <div>
+            <!-- BEGIN producto_actualizar -->  
+            <h2>Producto</h2> 
+            <input type="text" readOnly size="20" name="id" value="{productoId}"/>
+            <h2>Nombre</h2> 
+            <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
+            <!-- END producto_actualizar -->  
+            <input type="submit" name="Modificar" value="Modificar"/>
+        </div>
+    </form>
+</div>
+<!-- INCLUDE ./templates/piePaginaAdministracion.html -->

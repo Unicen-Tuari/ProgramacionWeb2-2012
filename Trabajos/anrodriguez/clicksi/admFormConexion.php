@@ -1,23 +1,27 @@
 <?php
-include_once './estructura/encabezado.inc.php';
+include_once 'config.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
+
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/admFormConexion.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+
+$rubro     = new DO_Rubro();
+$nRubros   = $rubro->find();
+
+if ($nRubros>0) {
+	while($rubro->fetch()) {
+        $tpl->setVariable(linkRubro, $rubro->getnombre());
+        $tpl->setVariable(nombreRubro, $rubro->getnombre());
+        $tpl->parse('rubros');
+    }
+}
+
+$tpl->show();
+
 ?>
-<script type="text/javascript" src="./rutinas/javaScripts/validar.js"></script>
-<div id="content">
-    <form class="formIngresar" method="post" action="administracion.php" onSubmit="return ValidarIngreso(this);">
-        <div>
-            <h1>Iniciar sesión</h1>
-        </div>
-        <br/>
-        <div>
-            <h2>Usuario</h2> 
-            <input type="text" size="20" name="usuario" onblur="return ValidarUsuario(this);"/>
-            <h2>Contraseña</h2> 
-            <input	type="password" size="20" name="contrasenia" onblur="return ValidarPassword(this);"/> 
-            <input type="submit" name="Ingresar" value="Ingresar" />
-        </div>
-    </form>
-</div>
-<?php
-include_once './estructura/piedepagina.inc.php';
-?>	
-</html>

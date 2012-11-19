@@ -1,7 +1,8 @@
 <?php
+	session_start();
 	ini_set('display_errors', '0');
-	require_once 'config.php';
-	require('DataObjects/Usuario.php');
+	require_once('config.php');
+	require_once('DataObjects/Usuario.php');
 	$usuario = new DO_Usuario;
 	$usuario->find();
 	$loguear = false;

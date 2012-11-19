@@ -1,8 +1,18 @@
 <?php
-    include_once './estructura/encabezado_administracion.inc.php';
-?>
-<div class="contentAdministracion">
-</div>    
-<?php    
-	include_once './estructura/piedepagina.inc.php';
+include_once 'config.php';
+include_once 'rutinas/conexion.inc.php';
+include_once("/usr/share/php/HTML/Template/Sigma.php");
+
+$tpl = new HTML_Template_Sigma(".");
+$retOK = $tpl->loadTemplateFile("./templates/administracion.html");
+
+if (!$retOK) {
+    die ('Error al cargar template');
+}
+
+$tpl->setVariable(usuario_sesion,  $_GET["usuario"]);    
+$tpl->parse('menu_administracion');
+
+$tpl->show();
+
 ?>

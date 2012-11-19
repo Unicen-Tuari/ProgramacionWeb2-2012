@@ -13,15 +13,40 @@ $retOK = $tpl->loadTemplateFile("./templates/productos.html");
 if (!$retOK) {
     die ('Error al cargar template');
 }
-$tpl->setVariable(nombreRubro, $par_rubro);
 
-$articulo     = new DO_Articulo();
-$nArticulos   = $articulo->find();
+$rubro     = new DO_Rubro();
+$articulo  = new DO_Articulo();
 
-if ($nArticulos>0) {
+$tpl->setVariable(rubroNombre, $par_rubro);
+$rubro->setnombre($par_rubro);
+
+// - Cargar Catálogo de artículos-----------------------------------------------
+
+$rubro->find();
+$rubro->fetch();
+$articulo->rubro = $rubro->getid(); 
+$nArticulos      = $articulo->find();
+
+if ($nArticulos) {
 	while($articulo->fetch()) {
-        $tpl->setVariable(nombreArticulo, $articulo->getnombre());
+        $tpl->setVariable(articuloNombre, $articulo->getnombre());
+        $tpl->setVariable(articuloMoneda, MONEDA2);
+        $tpl->setVariable(articuloPrecioVenta, $articulo->getprecio_venta());
+        $tpl->setVariable(articuloImgSrc, "./imagenes/productos/".$articulo->getimagen_path());
+        $tpl->setVariable(articuloImgalt, $articulo->getimagen_path());
         $tpl->parse('producto');
+    }
+}
+
+// - Cargar Indice--------------------------------------------------------------
+$rubro     = new DO_Rubro();
+$nRubros   = $rubro->find();
+
+if ($nRubros) {
+	while($rubro->fetch()) {
+        $tpl->setVariable(linkRubro, $rubro->getnombre());
+        $tpl->setVariable(nombreRubro, $rubro->getnombre());
+        $tpl->parse('rubros');
     }
 }
 
