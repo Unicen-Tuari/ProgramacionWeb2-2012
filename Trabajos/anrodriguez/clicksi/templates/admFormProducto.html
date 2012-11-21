@@ -2,7 +2,9 @@
 <div id="contentAdministrar">
     <form class="formIngresar" method="post" action="./rutinas/updateProducto.php" onSubmit="return ValidarAdmFormProducto(this);">
         <div>
-            <h1>Modificar Producto</h1>
+            <!-- BEGIN producto_actualizar -->  
+            <h1>{titulo}</h1>
+            <!-- END producto_actualizar -->  
         </div>
         <br/>
         <div>
@@ -11,8 +13,18 @@
             <input type="text" readOnly size="20" name="id" value="{productoId}"/>
             <h2>Nombre</h2> 
             <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
+            <h2>Precio venta</h2> 
+            <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
+            <h2>Rubro</h2> 
+            <input type="text"  size="20" name="productoRubroId" value="{productoRubroId}"/>
+            <input type="text"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/>
+            <h2>Imagen</h2> 
+            <input type="text"  size="60" name="imagenPath" value="{productoImagenPath}"/>
+            <input type="file" name="imagenFile"/>
             <!-- END producto_actualizar -->  
-            <input type="submit" name="Modificar" value="Modificar"/>
+            <br><br>
+            <input type="submit" name="Guardar" value="Guardar"/>
+            <input type="hidden" name="abmAccion" value="{abmAccion}"/>
         </div>
     </form>
 </div>

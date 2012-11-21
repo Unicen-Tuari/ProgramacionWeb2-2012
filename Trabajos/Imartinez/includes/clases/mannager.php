@@ -1,13 +1,12 @@
 <?php
+
+//toda la funcionalidad va a clasificados
 class Mannagerdb{
 	private $link;
 	private $result;
 
 	public function conectarse(){
-		$mysql_host = "localhost";
-		$mysql_database = "yastay";
-		$mysql_user = "root";
-		$mysql_password = "root";
+		include("includes/conexion.php");
 		$this->link = mysql_connect($mysql_host, $mysql_user, $mysql_password);
 		mysql_select_db($mysql_database, $this->link);
 		//mysql_query ("SET NAMES 'utf8'");
@@ -107,7 +106,13 @@ class Mannagerdb{
 		return $arr;
 	}
 	public function categorias_relacionadas($manager,$categoria){
-		$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
+		$arr=array();
+		if(is_numeric($categoria)) {
+			$result = $manager->query('SELECT * FROM categoria WHERE idcategoria='.$categoria);
+		} else {
+			$categoria=normalizar($categoria);
+			$result = $manager->query('SELECT * FROM categoria WHERE nombre="'.$categoria.'"');
+		}
 		$cantidad_resultados = mysql_num_rows($result);
 		if ($cantidad_resultados>0){
 			$renglon = mysql_fetch_assoc($result);
@@ -191,7 +196,7 @@ class Mannagerdb{
 		}
 	}
 	public function listar_clasificados($manager, $categoria, $ubicacion){
-		//tengo que filtrar por ubicacion, debo considerar si es argentina, una provincia o un minicipio
+		$arr = array();
 		if(is_numeric($categoria)) {
 			$result = $manager->query('SELECT * FROM categoria WHERE idcategoria='.$categoria);
 		} else {
@@ -348,6 +353,7 @@ class Mannagerdb{
 		return $arr;
 	}
 	public function categoria($manager,$categoria){
+	//retorna el objeto categoria, se le puede pasar el id o el nombre de la categoria
 		if(is_numeric($categoria)) {
 			$result = $manager->query('SELECT * FROM categoria WHERE idcategoria='.$categoria);
 		} else {
@@ -379,8 +385,6 @@ class Mannagerdb{
 	}
 	public function validar_login($user, $pass){
 		$valido=false;
-		$manager = new Mannagerdb;
-		$manager->conectarse();
 		$result = $manager->query('SELECT nombre, password FROM administrador');
 		$aux = mysql_fetch_assoc($result);
 		$administrador = new Administrador;
@@ -389,8 +393,6 @@ class Mannagerdb{
 		if (($user==$administrador->get_nombre()) && ($pass==$administrador->get_password())){
 			$valido=true;
 		}
-		$manager->liberar_resultados();
-		$manager->cerrar_conexion();
 		return $valido;
 	}
 }

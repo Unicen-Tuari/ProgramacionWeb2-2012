@@ -1,0 +1,65 @@
+<!-- INCLUDE /templates/header.html -->
+
+<div id="buscador_form_content">	
+		<h6>Buscar Inmueble</h6>
+		<div id="buscador_form">
+		<h2>
+		<form id="frmBusqueda" action = "result_inmuebles.php" method = "post">
+		<tr>   
+        <div id="prop_buscar">
+      	
+      	<tr>
+			<td>Tipo de Propiedad:</td>
+			<td><select name='tipo'>
+			<!-- BEGIN tipo_prop -->
+			<option value={tipo}>{tipo}</option>
+			<!-- END tipo_prop -->
+			</select></td><br>
+		</tr>
+
+		<tr> 
+            <td>Desde:</td>
+            <td><select name="desde" set_value>
+			<option value="50000">50.000</option>
+			<option value="100000">100.000</option>
+			<option value="150000">150.000</option>
+			<option value="200000">200.000</option>
+			<option value="250000">250.000</option>
+			<option value="300000">300.000</option>
+			<option value="350000">350.000</option>
+			
+			</select></td>
+        </tr><br>
+		
+		<tr> 
+            <td>Hasta:&nbsp</td>
+            <td><select name="hasta">
+			<option value="50000">50.000</option>
+			<option value="100000">100.000</option>
+			<option value="150000">150.000</option>
+			<option value="200000">200.000</option>
+			<option value="250000">250.000</option>
+			<option value="300000">300.000</option>
+			<option value="350000">350.000</option>
+			<option value="500000">500.000</option>
+			<option value="400000">400.000</option>
+			<option value="600000">600.000</option>
+			<option value="700000">700.000</option>
+			<option value="800000">800.000</option>
+			<option value="900000">900.000</option>
+			<option value="1000000">1.000.000</option>
+			<option selected value="Sin Limite">Sin Limite</option>
+			
+			</select></td>
+      
+        </tr>
+		<br>  
+			
+		</h2>
+		</form>
+		<div id="boton"><a href="#" onClick="javascript:document.forms['frmBusqueda'].submit();;"><span></span></a></div>
+		</div>
+		
+<!-- INCLUDE /templates/footer.html -->
+</div>
+</div>

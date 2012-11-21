@@ -1,3 +1,3 @@
-<div id="footer">
-		<p> TODOS LOS DERECHOS RESERVADOS </p>
+<div id="footer"> 
+		<p> Gracias por visitar mi sitio web, cualquier duda o consulta no dude en <a href="contactos.php"> contactarse </a> conmigo!!! </p>
 </div>

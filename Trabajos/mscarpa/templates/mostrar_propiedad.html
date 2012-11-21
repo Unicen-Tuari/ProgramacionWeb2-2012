@@ -1,0 +1,30 @@
+<!-- INCLUDE /templates/header.html -->
+	<!-- BEGIN mostrar_propiedad -->
+
+ <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
+ <script src="js/jquery-1.7.2.min.js"></script>
+ <script src="js/lightbox.js"></script>
+
+	<div id="propiedad">
+	     <a>
+	         <div id="obalo"><h5><br>Valor: ${valor}</h5></div>
+	         	<div id="face">
+	         		<a href="javascript: void(0);" onclick="window.open('http://www.facebook.com/sharer.php?u={url_actual}','ventanacompartir', 'toolbar=0, status=0, width=650, height=450');"><img src="./image/facebook.png" width="40" height="40"></a>
+	         	</div>
+	     		<div id= "titulo">
+	     			<h3>{titulo}</a></h3>
+	     		</div>
+	     		<div id="descripcion">
+	     			<h4><br>{descripcion}</br> </h4>
+	     		</div>
+	     		<div id="imagenes">
+		         	<a href="{foto_URL1}" rel="lightbox[galeria]"><img src="{foto_URL1}" width="200" height="200"></a>
+		         	<a href="{foto_URL2}" rel="lightbox[galeria]"><img src="{foto_URL2}" width="200" height="200"></a>
+		         	<a href="{foto_URL3}" rel="lightbox[galeria]"><img src="{foto_URL3}" width="200" height="200"></a>
+	         	</div>
+
+		</a> 
+	 </div><br><br>
+
+	 <!-- END mostrar_propiedad -->
+<!-- INCLUDE /templates/footer.html -->

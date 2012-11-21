@@ -1,11 +1,15 @@
 <!-- INCLUDE ./templates/encabezadoAdministracion.html -->
 <div class="contentAdministracion">
-    <h1>Productos:</h1>
-    <ul class=menurubros>
-        <!-- BEGIN productos_administracion -->  
-        <li><a href='admFormProducto.php?producto={productoId}'>{productoNombre}</a></li>
-        <!-- END productos_administracion -->  
-    </ul>
+    <form class="formIngresar" method="post" action="admFormProducto.php?accion=ADD">
+        <input type="submit" value="Agregar" name="agregarProducto" />
+        <br><br>
+        <h1>Productos:</h1>    
+        <hr>
+        <ul class=menurubros>
+            <!-- BEGIN productos_administracion -->  
+            <li><a href='admFormProducto.php?accion=CHANGE&producto={productoId}'>{productoNombre}</a></li>
+            <!-- END productos_administracion -->  
+        </ul>
+    </form>
 </div>
-
 <!-- INCLUDE ./templates/piePaginaAdministracion.html -->

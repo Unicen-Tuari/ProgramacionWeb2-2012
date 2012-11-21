@@ -1,0 +1,30 @@
+<!-- INCLUDE /templates/header.html -->
+<div id= "form">
+	<form name="frmCargarInmueble" method="POST" action= "Cargar_Inmueble.php" enctype="multipart/form-data">
+		<h6>Ingresa tu Propiedad</h6>
+	<h1>
+		<p>Titulo:<input type="text" name="titulo" size="30" maxlength="100"><br/></p>
+		<p>Descripci&oacute;n:<br><textarea name="descripcion" rows="3" cols="70"></textarea><br></p>
+		<p>Valor:<input type="text" name="valor" size="30" maxlength="100"><br/></p>
+		<p>Tipo:<select name="tipo">
+			<option value="Campo">Campo</option>
+			<option value="Casa">Casa</option>
+			<option value="Chalet">Chalet</option>
+			<option value="Cochera">Cochera</option>
+			<option value="Departamento" >Departamento</option>
+			<option value="Duplex">Duplex</option>
+			<option value="Local">Local</option>
+			<option value="Terreno">Terreno</option>
+			
+			</select><br/></p>
+		<p>Foto: <input type="file" name="foto1" size="30" maxlength="100"><br/></p>
+		<p>Foto: <input type="file" name="foto2" size="30" maxlength="100"><br/></p>
+		<p>Foto: <input type="file" name="foto3" size="30" maxlength="100"><br/></p>
+		<br/>
+	   <input type="button" value="Enviar" onclick="validarCargarInmueble()">
+	   <!-- INCLUDE /templates/notificaciones.html -->	
+	<h1>
+	</form>
+
+<!-- INCLUDE /templates/footer.html -->
+<div>

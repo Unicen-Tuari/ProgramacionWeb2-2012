@@ -26,7 +26,12 @@ a:visited{
 	position:absolute;
 	height:100px;
 	width:200px;
-	background-color:red;
+	background-color:black;
+}
+.logo a{
+	display:block;
+	height:100px;
+	width:200px;
 }
 h1{
 	position:absolute;
@@ -44,6 +49,9 @@ h1{
 	height:40px;
 	background-color:yellow;
 }
+#buscador p{
+	display:inline;
+}
 #buscador input{
 	width:80px;
 	height:25px;
@@ -59,7 +67,7 @@ h1{
 	right:20px;
 	top:20px;
 	padding-right:20px;
-	background-color:red;
+	background-color:black;
 	font-size:20px;
 	padding:10px;
 }
@@ -186,11 +194,14 @@ h1{
 }
 .contenedor-categorias{
 	float:left;
-	width:230px;
+	width:720px;
 	margin-left:10px;
 }
 .categoria{
 	margin-bottom:10px;
+	margin-right:10px;
+	width:230px;
+	float:left;
 }
 .titulo-categoria{
 	background-color:yellow;
@@ -222,5 +233,9 @@ h1{
 #footer{
 	clear:both;
 	height:50px;
-	background-color:red;
+	background-color:black;
+}
+#footer p{
+	color:white;
+	text-align:center;
 }
