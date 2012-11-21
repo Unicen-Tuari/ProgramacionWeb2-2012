@@ -1,0 +1,71 @@
+	<h2>Publica tu aviso gratis</h2>
+	<div class="contenedor-paso1">
+		<form action="publicar-anuncio-paso2.php" method="post">					
+			<div class="caja-paso1">	
+				<p>Selecciona una ubicacion</p>					
+				<div class="caja-paso1-interior">
+					<h4>Provincia</h4>
+					<select class="select" name="provincia" id="provincia" onchange="cargaContenidoMunicipios(this.id)">
+						<option value="" selected="selected">-</option>
+						<!-- BEGIN select_provincia -->
+							<!-- BEGIN select_provincia_selected -->								
+							<option value="{id_provincia}" selected="selected">{nombre_provincia}</option>
+							<!-- END select_provincia_selected -->
+							<!-- BEGIN select_provincia_comun -->
+							<option value="{id_provincia}">{nombre_provincia}</option>
+							<!-- End select_provincia_comun -->
+						<!-- END select_provincia -->							
+					</select>
+				</div>						
+				<div class="caja-paso1-interior">
+					<h4>Municipio</h4>
+					<select class="select" name="municipio" id="municipio">
+						<option value="" selected="selected">-</option>
+						<!-- BEGIN select_municipio -->
+							<!-- BEGIN select_municipio_selected -->
+							<option selected="selected" value="{id_municipio}">{nombre_municipio}</option>
+							<!-- END select_municipio_selected -->
+							<!-- BEGIN select_municipio_comun -->
+								<option value="{id_municipio}">{nombre_municipio}</option>
+							<!-- END select_municipio_comun -->
+						<!-- END select_municipio -->
+					</select>	
+				</div>
+			</div>					
+			<div class="caja-paso1">	
+				<p>Selecciona una categoria</p>					
+				<div class="caja-paso1-interior">
+					<h4>Categoria</h4>
+					<select class="select" name="categoria" id="categoria" onchange="cargaContenidoSubcategorias(this.id)">
+						<option value="" selected="selected">-</option>
+						<!-- BEGIN select_categoria -->
+							<!-- BEGIN select_categoria_selected -->										
+							<option value="{id_categoria}" selected="selected">{nombre_categoria}</option>
+							<!-- END select_categoria_selected -->
+							<!-- BEGIN select_categoria_comun -->
+							<option value="{id_categoria}">{nombre_categoria}</option>
+							<!-- END select_categoria_comun -->
+						<!-- END select_categoria -->
+					</select>
+				</div>						
+				<div class="caja-paso1-interior">	
+					<h4>Subcategoria</h4>
+					<select class="select" name="subcategoria" id="subcategoria">
+						<option value="" selected="selected">-</option>			
+						<!-- BEGIN select_subcategoria -->	
+							<!-- BEGIN select_subcategoria_selected -->					
+							<option value="{id_subcategoria}" selected="selected">{nombre_subcategoria}</option>
+							<!-- END select_subcategoria_selected -->
+							<!-- BEGIN select_subcategoria_comun -->		
+								<option value="{id_subcategoria}">{nombre_subcategoria}</option>
+							<!-- END select_subcategoria_comun -->	
+						<!-- END select_subcategoria -->
+					</select>
+				</div>
+			</div>
+			<div class="caja-paso1">
+				<input name="enviar-paso1" id="enviar-paso1" type="submit"></input>
+			</div>
+		</form>
+	</div>
+</div>	

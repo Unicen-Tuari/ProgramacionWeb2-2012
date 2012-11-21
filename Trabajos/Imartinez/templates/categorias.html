@@ -1,0 +1,68 @@
+<div class="lateral">
+	<h4>Busqueda avanzada</h4>
+	<p>Categorias</p>
+	<ul class="lista-categorias">
+	<!-- BEGIN categorias_relacionadas -->
+		<!-- BEGIN categorias_relacionadas_current -->
+			<li>{nombre_categoria}</li> 
+		<!-- END categorias_relacionadas_current -->
+		<!-- BEGIN categorias_relacionadas_comun -->
+			<li><a href="{link_categoria}">{nombre_categoria_comun}</a></li>
+		<!-- END categorias_relacionadas_comun -->
+	<!-- END categorias_relacionadas -->
+	</ul>
+	<p>Ubicacion</p>
+	<ul class="filtro-ubicacion">
+	<li>
+	<!-- BEGIN ubicacion -->
+	
+	<select class="select" name="provincia" id="provincia" onchange="{link_onchange}">
+		<option value="" selected="selected">-</option>
+		<!-- BEGIN ubicacion_provincia_selected -->							
+		<option value="{nombre_provincia}" selected="selected">{nombre_provincia}</option>
+		<!-- END ubicacion_provincia_selected -->
+		<!-- BEGIN ubicacion_provincia -->							
+		<option value="{nombre_provincia}">{nombre_provincia}</option>
+		<!-- END ubicacion_provincia -->						
+	</select>	
+	</li>
+	<li>
+	<select class="select" name="municipio" id="municipio" onchange="{link_onchange}">
+		<option value="" selected="selected">-</option>
+		<!-- BEGIN ubicacion_municipio_selected -->		
+		<option value="{nombre_municipio}" selected="selected">{nombre_municipio}</option>
+		<!-- END ubicacion_municipio_selected -->
+		<!-- BEGIN ubicacion_municipio -->		
+		<option value="{nombre_municipio}">{nombre_municipio}</option>
+		<!-- END ubicacion_municipio -->	
+	</select>	
+	</li>
+	<!-- END ubicacion -->
+	</ul>
+</div>	
+<div class="clasificados">
+	<!-- BEGIN clasificados -->
+	<div class="titulo-categoria">
+		<h2>{cantidad_clasificados} anuncios para {categoria} en {ubicacion}</h2>
+	</div>
+	<ul>
+		<!-- BEGIN lista_clasificados -->
+		<li>
+			<div class="precio">
+			{precio}
+			</div>
+			<!-- BEGIN thumbnail_clasificado -->
+				<a href="{link_clasificado_thumb}">
+					<img src="{link_img_clasificado}" class="thumbnail"/>
+				</a>
+			<!-- END thumbnail_clasificado -->
+			<h3><a href="{link_clasificado}">{clasificado_titulo}</a></h3>
+			<p>{clasificado_detalle}</p>
+			<p>{clasificado_categoria} | {clasificado_ubicacion} | {clasificado_fecha}</p>
+		</li>
+		<!-- END lista_clasificados -->
+	</ul>
+	<!-- End clasificados -->
+	</div>
+</div>			
+		

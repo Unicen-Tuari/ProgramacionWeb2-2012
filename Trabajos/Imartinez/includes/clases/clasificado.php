@@ -15,7 +15,7 @@ class Clasificado{
 	//private $foto2;
 	//private $foto3;
 
-	private $nombre_categoria;
+	private $nombre_categoria;//tenga el objeto categoria
 	private $nombre_municipio;
 
 	public function set_id($id){
@@ -60,7 +60,7 @@ class Clasificado{
 	public function get_fecha(){
 		return $this->fecha;
 	}
-	public function set_precio($precio){
+	public function set_precio($precio){	
 		$this->precio=$precio;
 	}
 	public function get_precio(){

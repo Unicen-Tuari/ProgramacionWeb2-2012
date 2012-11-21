@@ -1,84 +1,112 @@
 <?php 
+require_once 'config.php';
+require_once 'DataObjects/Ciudad.php';
+require_once 'DataObjects/Provincia.php';
+require_once 'DataObjects/Categoria.php';
+require_once 'DataObjects/Clasificado.php';
+
+require_once 'includes/common.php';
+require_once 'includes/funciones.php';
+
+require_once 'HTML/Template/Sigma.php';
+
+//logica ubicacion
 $ubicacion = "";
 if (isset($_GET["ubicacion"]))
 	$ubicacion=$_GET["ubicacion"];
-require_once("includes/clases.php");
-$categoria_actual="";
-$subcategoria_actual="";
-$manager = new Mannagerdb;
-$manager->conectarse();
-$provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
-if ($provincia_y_municipio["municipio"]!="")
-	$ubicacion = capitalizar($provincia_y_municipio["municipio"]->get_nombre());
-else
-	if ($provincia_y_municipio["provincia"]!="")
-		$ubicacion = capitalizar($provincia_y_municipio["provincia"]->get_nombre());
-	else
-		$ubicacion = "Argentina";
-$provincias = $manager->todas_las_provincias($manager);
-$categorias = $manager->todas_las_categorias_y_subcategorias($manager);
-$orden_categorias =  array("Inmuebles", "Servicios", "Grupos", "Vehículos", "Trabajo", "Clases - Cursos", "Compra - Venta", "Contactos");
-foreach ($orden_categorias as $categoria){
-	$cantidad_clasificados[$categoria] = $manager->cantidad_clasificados($manager,$categoria,$provincia_y_municipio);
+$provincia_y_municipio = provincia_y_municipio($ubicacion);
+$ubicacion = ubicacion_para_mostrar($ubicacion,$provincia_y_municipio);
+//fin logica ubicacion
+	
+$categoria="";
+$subcategoria="";
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/head.html");
+$tpl->setVariable('title', "Anuncios clasificados gratis en $ubicacion");
+$tpl->setVariable('description', "");
+$tpl->parse('encabezados');
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/header.html");
+$tpl->setVariable('titulo', "Anuncios clasificados gratis en $ubicacion");
+$tpl->setVariable('ubicacion', $ubicacion);
+$tpl->setVariable('categoria', "");
+$tpl->setVariable('subcategoria', "");
+$tpl->parse('header');
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/index.html");
+//listar todas las provincias
+$prov = new DO_Provincia();
+$prov->find();
+while ($prov->fetch()){
+	if ($ubicacion == capitalizar(utf8_encode($prov->provincia_nombre))){
+		$tpl->setVariable('nombre_provincia', utf8_encode($prov->provincia_nombre));
+		$tpl->parse('listado_provincias_current');
+	}else{
+		$url_amigable="index.php?ubicacion=".url_amigable(utf8_encode($prov->provincia_nombre));
+		$tpl->setVariable('nombre_provincia', utf8_encode($prov->provincia_nombre));
+		$tpl->setVariable('link_provincia', $url_amigable);
+		$tpl->parse('listado_provincias');
+	}
 }
-$manager->liberar_resultados();
-$manager->cerrar_conexion();
+//listar todas las categorias y subcategorias
+$cat=new DO_Categoria();
+$cat->idpadre=0;//las categorias tiene como padre a 0
+$cat->find();
+while ($cat->fetch()){
+	$tpl->setVariable('nombre_categoria', utf8_encode($cat->nombre));
+	$url_amigable="categorias.php?categoria=".url_amigable($cat->nombre."&amp;ubicacion=".$ubicacion);
+	$tpl->setVariable('link_categoria', $url_amigable);
+	$cantidad_clasificados=0;
+	$subcat=new DO_Categoria();
+	$subcat->idpadre=$cat->idcategoria;
+	$subcat->find();
+	while ($subcat->fetch()){
+		$tpl->setVariable('nombre_subcategoria', utf8_encode($subcat->nombre));
+		$url_amigable="categorias.php?categoria=".url_amigable($cat->nombre."&amp;subcategoria=".$subcat->nombre."&amp;ubicacion=".$ubicacion);
+		$tpl->setVariable('link_subcategoria', $url_amigable);
+		$tpl->parse('subcategorias');
+		
+		//esto se tiene que poder mejorar, ahora traigo los de todos los municipios
+		//print_r($provincia_y_municipio);
+		$clasificado=new DO_Clasificado();
+		$clasificado->idcategoria=$subcat->idcategoria;
+		/* falta el filtro de provincia y municipio
+		
+		if (isset($provincia_y_municipio["provincia"]->nombre)){
+			echo "tiene provincia";
+			if (isset($provincia_y_municipio["municipio"]->nombre)){
+				echo "tiene municipio";
+				$clasificado->idciudad=$provincia_y_municipio["municipio"]->id;
+				echo $provincia_y_municipio["municipio"]->id;
+			} else {
+				$ciudad=new DO_Ciudad();
+				$ciudad->provincia_id=$provincia_y_municipio["provincia"]->id;
+				$ciudad->find();
+				$aux_cantidad=0;
+				while ($ciudad->fetch()){
+					$clasificado->idciudad=$ciudad->id;
+					$aux_cantidad+=$clasificado->count();
+				}
+			}				
+		}
+		*/
+		$cantidad_clasificados+=$clasificado->count();
+	}
+	$tpl->setVariable('cantidad', $cantidad_clasificados);
+	$tpl->parse('categorias');
+	$subcat->free();
+}
+$cat->free();
+//fin listar todas las categorias y subcategorias
+
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/footer.html");
+$tpl->show();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Anuncios clasificados gratis en <?php echo $ubicacion?></title>
-<meta name="description" content="" />
-<?php require_once("includes/encabezados.php")?>
-</head>
-<body>
-	<div id="container">
-		<?php require_once("includes/header.php")?>
-		<div id="content">
-			<div class="lateral">
-				<h4>Selecciona una provincia</h4>
-				<ul class="lista-provincias">
-				<?php foreach ($provincias as $provincia) {?>
-					<li>
-						<?php if ($ubicacion == capitalizar($provincia->get_nombre())) {
-						echo $provincia->get_nombre(); 
-						} else {
-						$url_amigable="index.php?ubicacion=".url_amigable($provincia->get_nombre());
-							?>
-						<a href="<?php echo $url_amigable?>"><?php echo $provincia->get_nombre()?></a>
-						<?php }?>
-					</li>
-				<?php }?>
-				</ul>
-			</div>	
-			<div class="contenedor-categorias">
-			<?php 
-			for ($i=0;$i<8;$i++){
-				$categoria=$orden_categorias[$i];?>
-				<div class="categoria">
-					<div class="titulo-categoria">
-					<?php $url_amigable="categorias.php?categoria=".url_amigable($categoria."&amp;ubicacion=".$ubicacion);?>
-						<h2><a href="<?php echo $url_amigable?>"><?php echo $categoria?></a></h2>
-						<span class="cantidad">(<?php echo $cantidad_clasificados[$categoria]?>)</span>
-					</div>
-					<ul class="lista-subcategorias">
-					<?php $subcategorias=$categorias[$categoria];					
-					foreach ($subcategorias as $subcategoria) {?>
-						<li>
-						<?php $url_amigable="categorias.php?categoria=".url_amigable($categoria."&amp;subcategoria=".$subcategoria->get_nombre()."&amp;ubicacion=".$ubicacion);?>
-							<a href="<?php echo $url_amigable?>"><?php echo $subcategoria->get_nombre()?></a>
-						</li><?php }?>						
-					</ul>
-				</div>
-			<?php if ($i==2 || $i==5){ ?>	
-				</div>	
-				<div class="contenedor-categorias">						
-				<?php }
-			}?>
-			</div>
-		</div>			
-		<?php require_once("includes/footer.php")?>
-	</div>
-</body>
-</html>
