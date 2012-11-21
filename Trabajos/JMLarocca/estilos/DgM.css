@@ -1,0 +1,200 @@
+@CHARSET "ISO-8859-1";
+* {margin: 0px; padding:0;
+}
+
+#contenedor {
+				width:990px;
+				margin-left: auto;
+				margin-right: auto;
+						
+}
+.cabeza {	width: 990px;
+			min-height: 102px;
+			background-image: url("../imagenes/cabeza.jpg");	
+}
+.contextoprincipa {
+			width: 840px;
+			min-height:520px;
+			background-color: gray;
+			float: right;
+}
+.contextofichatoner {
+			width: 840px;
+			min-height:520px;
+			background-color: gray;
+			float: right;
+}
+.imagenficha {
+				float: right;
+							
+}
+.imagenficha img { border:10px solid green}
+.contextoformulario{
+					width: 840px;
+					min-height:520px;
+					background-color: gray;
+					float: left;
+}
+.contextoformulario a:visited {
+	color: green;
+}
+#boton {	
+						width: 70px;
+						height: 30px;
+						color: black;
+								
+							  
+}
+.contextoformulario h3{
+					font-size: xx-large;
+					font-family:  monospace;
+					text-align: left;
+				
+}
+.contextoformulatio br {
+						font: normal;
+}
+.tablaformulario {
+	 			border-width: 5px;
+			 	border-color: green;
+			 	border-style: solid;
+			 	border-spacing: 0px;
+	
+}
+.tablaformulario td {
+					font-size: x-large;
+					color: Black;
+					font-family: cursive;
+					font-style: italic;
+					font: bold;
+					text-align:  left;
+					border-color: black;
+			 		border-style: solid;
+			 		border-width: 1px;
+			 		padding: 2px;
+}
+.tablaficha{
+			 border-width: 5px;
+			 border-color: green;
+			 border-style: solid;
+			 border-spacing: 0px;
+			 
+}
+.tablaficha input {text-align: center;}
+.tablaficha td {
+				font-size: x-large;
+				color: Black;
+				font-family: cursive;
+				font-style: italic;
+				font: bold;
+				text-align: center;
+				border-color: black;
+			 	border-style: solid;
+			 	border-width: 1px;
+			 	padding: 2px;
+}
+
+.tabla { border-width: 1px;
+		border-spacing: 2px;
+		border-style:solid;
+		font-size: large;
+		color: black;
+		font-style:italic;
+		text-align: center;
+		font-family: monospace;
+		margin: auto;
+}
+.tabla td {
+			border-width: 1px;
+			padding: 1px;
+			border-style: solid;
+			text-align: center;
+			
+}
+.tabla h2 {
+			font-size: medium;
+			font-family: cursive;
+}
+.contextoprincipa h2 {
+				 font-size: medium;
+				 
+}
+.contextoprincipa h5 {
+				 font-size:large;
+				 color: black;
+				 text-align: center;
+				 text-shadow: black;
+				 
+}
+.contextoprincipa h4 {
+				 font-size:medium;
+				 color: black;
+				 text-align: center;
+				 
+}
+.contextoprincipa h1 {
+		
+			font-size: medium;
+			font-family: cursive;
+}
+.contextofichatoner h3 {
+				font-size: xx-large;
+				font-family:  monospace;
+				text-align: left;
+				
+}
+.contextofichatoner a {	
+				color: green;
+}
+.panel_izquierdo {
+					width: 150px;
+					min-height: 520px;
+					background-color: black;
+					float: left;	
+}
+.panel_izquierdo ul{
+					list-style:  none;
+					margin-left: 5px;
+}
+.panel_izquierdo a {
+					 color: green;
+}
+				
+
+
+.pie { width: 990px;
+	   min-height: 20px;
+	   background-color: black;
+	   color: green;
+	
+}
+.pie h4{ text-align: center;}
+
+.ingresar	{ 	width:990px;
+				height: 600px;
+				margin-left:auto;
+				margin-right:auto;
+				background-image: url("../imagenes/logo.jpg");
+				background-repeat: no-repeat;
+				background-position: center;
+}
+.ingresar h1 {	font-size: small;
+			  	color: green;
+	
+	
+}
+.ingresar input {
+					color: black;
+}
+
+
+.center {text-align:center;
+	
+}						
+
+
+
+
+
+
+

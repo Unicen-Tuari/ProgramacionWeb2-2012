@@ -1,0 +1,23 @@
+<!-- INCLUDE /templates/header.html -->
+	<h6>Login</h6>
+	<div id="buscador_form">
+		<div id="prop_buscar">
+			<h2>
+			<form id="frmLogin" action = "login.php" method = "post">
+			<tr> 
+	            <td>Usuario:</td>
+	            <td><input type="text" name="usuario" size="10" maxlength="20" /></td>
+	        </tr><br>
+			<tr> 
+	            <td>Constrase&ntilde;a:</td>
+	            <td><input type="password" name="password" size="10" maxlength="10" /> </td>
+	        </tr><br>
+			<input type="submit" id="gen_boton" name="Login" value="Login" size="10" maxlength="10" />
+			</form>
+
+		</div>
+
+	</div>
+	<div id="error_login"><!-- INCLUDE /templates/notificaciones.html --></div>	
+
+<!-- INCLUDE /templates/footer.html -->

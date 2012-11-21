@@ -1,0 +1,335 @@
+
+@import url(../Fonts/font/font1/stylesheet.css);
+
+body{
+	background-color:#eeeeee;
+	font-family:"Helvetica Neue", Helvetica, Arial;
+	font-size:12px;
+	color:#000;
+	text-align:left;
+}
+h1{
+	color:#333333;
+	font-weight:bold;
+	margin-left:20px;
+	margin-top:50px;
+	font-size:13px;
+	text-align:left;
+}
+h2{
+	font-family: sans-serif;
+	font-size:12px;
+	color: white;
+	font-weight: bold;
+	float: left;
+	text-align:justify;
+}
+h3{
+	font-family: sans-serif;
+	font-size: 18px;
+	color: #0000B8;
+	font-weight: bold;
+	text-align: left;
+	margin-left: 10px;
+	margin-top: 14px;
+	height: 31px;
+	width: 476px;
+}
+h4 {
+	font-family: sans-serif;
+	font-size: 12px;
+	color: #1D31C0;
+	font-weight: bold;
+	margin-left: 2%;
+}
+h5 {
+	font-family: sans-serif;
+	font-size: 14px;
+	color: #FDFAFA;
+	font-weight: bold;
+	margin-top: -2px;
+	margin-left: 4px;
+}
+h6{
+	font-family: 'ChunkFiveRegular';
+	font-size:32px;
+	height: 1;
+	color:#B43104;
+	font-weight:bold;
+	margin-top:15px;
+	text-align:center;
+}
+footer{
+	color:#333333;
+	font-weight:normal;
+	padding-top:15px;
+	font-size:12px;
+	text-align:center;
+}
+title{
+	font-family: sans-serif;
+	font-size: 16px;
+	color: #0000B8;
+	font-weight: bold;
+	text-align: left;
+	margin-left: 10px;
+	margin-top: 14px;
+	height: 31px;
+	width: 476px;
+}
+
+.foto{
+	margin-left: 10px;
+	margin-top: -4px;
+}
+
+#estrella {  
+	background-image: url(../image/Estrella_azul.png); 
+	margin-left: 50px;
+}  
+
+#obalo{
+	width: 126px;
+	height: 48px;
+	border-radius: 108px/146px;
+	background: #8EB904;
+	float: right;
+	margin-top: 5px;
+	margin-right: 11px;
+}
+#obalo_index{
+	width: 126px;
+	height: 48px;
+	border-radius: 108px/146px;
+	background: #8EB904;
+	margin-left: 4px;
+	float: left;
+}
+
+#header{
+	width:905px;
+	height:239px;
+	background-image: url(../image/header4.jpg);
+	color:#000;
+	font-weight:bold;
+	font-size:34px;
+}
+
+#wrap{
+	width:920px;
+	height:auto;
+	margin:auto;
+}
+
+#cont{
+	width:902px;
+	height:auto;
+	margin:auto;
+	background-color: white;
+	margin-top:25px;
+}
+
+#cont_central{
+	background-image: url(../image/fondos/4.jpg);
+	overflow: hidden;
+
+}
+
+#cont_inm {
+	width: 600px;
+	height: 189px;
+	background-color: #BCBCBC;
+	position: relative;	
+	margin-left: 20px;
+	border-radius: 5px;
+	border: 1px solid blue;
+}
+
+#propiedad {
+	width: 858px;
+	height: 600px;
+	background-color: #BCBCBC;
+	position: relative;	
+	margin-left: 20px;
+	border-radius: 5px;
+	border: 1px solid blue;
+}
+#propiedad_destacada{
+	width: 280px;
+	height: 152px;
+	background-color: #BCBCBC;
+	position: relative;
+	border-radius: 5px;
+	border: 1px solid blue;
+	float:left;
+	margin: 9px;
+}
+#form{
+	border: 3px solid blue;
+	width: 610px;
+	height: 500px;
+	margin-left: 50px;
+	margin-top: 20px;
+	border-radius: 15px;
+}
+#formregistro{
+	border: 3px solid blue;
+	width: 610px;
+	height: 477px;
+	margin-left: 50px;
+	margin-top: 20px;
+	border-radius: 15px;
+}
+
+#submenu{
+	width: 902px;
+	height: 42px;
+	margin-top: -2px;
+	z-index: 1;
+	border-radius: 4;
+	background-color:#76C62F;
+}
+
+#menu {
+	position: absolute;
+	z-index: 2;
+	padding: 0;
+	margin-top: -35px;
+	margin-right: 0;
+	margin-bottom: 10px;
+	margin-left: 0;
+}
+
+#menu li {
+	display: inline;
+	width:auto;
+	height:45px;
+	background-color:#76C62F;
+}
+
+#menu li a {
+	font: bold 10px Verdana;
+	text-decoration: none;
+	color: #1f3f6b;
+	float: left;
+	padding: 11px;
+	background-color: #2175bc;
+	color: #fff;
+}
+
+#menu li a:hover {
+	background-color: #2586d7;
+	margin-top:-2px;
+	padding-bottom:12px;
+}
+
+#boton a {
+	background-image: url(../image/buscar.png);
+	position: absolute;
+	display: block;
+	background-repeat: no-repeat;
+	width: 150px;
+	height: 40px;
+	margin-top: 151;
+	margin-left: 148;
+} 
+
+#logoo{
+	margin-top: 50px;
+	margin-left:160px;
+	margin-right:100px;
+}
+
+#foto{
+	background-image: url(../image/rigthmenu.jpg);
+}
+
+#buscador_form { 
+	background-image: url(../image/buscador.png);
+	width: 400px;
+	height: 200px;
+	margin-left:250px;
+	margin-right:300px;
+	border-radius:10px;
+	position: relative;
+}
+
+#buscador_form_content { 
+	height: 300;
+}
+
+#prop_buscar{
+	float: left;
+	margin-top: 60px;
+	margin-left: 101px;
+}
+
+#footer{
+	width: 902px;
+	height: 45px;
+	background-color:#A0A0A0;
+	border-radius: 4px;
+}
+
+.message{
+	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, .4);
+	width: 584px;
+	height: 28px;
+	border: 1px solid;
+	border-radius: 13px;
+	color: white;
+	padding: 0px;
+	position: relative;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .5);
+	margin-left: -20;
+	margin-top: 3;
+}
+
+.error{
+	background-color: #E03030;
+	border-color: #E03030;
+}
+		 
+.warning{
+	background-color: #eaaf51;
+	border-color: #d99a36;
+}
+
+.success{
+	background-color: #61b832;
+	border-color: #55a12c;
+}
+
+.message h3{
+	margin: 0 0 5px 0;													 
+}
+#imagenes{
+	margin-left: 122px;
+	margin-top: 15px;
+	border: 4px solid green;
+	border-radius: 7px;
+	position: absolute;
+
+}
+#titulo{
+	border-bottom: 3px solid green;
+	border-right: 3px solid green;
+	border-top: 3px solid green;
+	width: 74%;
+	height: 9%;
+	border-radius: 32px;
+	margin-left: 70px;
+}
+#descripcion{
+	border-bottom: 3px solid green;
+	border-top: 3px solid green;
+	width: 100%;
+	height: 51%;
+	border-radius: 90px;
+}
+#face{
+	position: absolute;
+}
+#error_login{
+	margin-left: 22px;
+}
