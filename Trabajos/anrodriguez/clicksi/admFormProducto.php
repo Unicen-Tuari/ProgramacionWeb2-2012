@@ -21,6 +21,8 @@ if ($nProductos>0) {
     $producto->fetch();
     $tpl->setVariable(productoNombre, $producto->getnombre());
     $tpl->setVariable(productoId, $producto->getid());
+    $tpl->setVariable(productoPrecioVenta, $producto->getprecio_venta());
+    $tpl->setVariable(productoImagenPath, $producto->getimagen_path());
     $tpl->parse('producto_actualizar');
 }
 
