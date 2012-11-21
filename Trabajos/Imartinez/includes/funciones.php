@@ -6,7 +6,7 @@ function generar_archivos_imagenes($imagen,$proximo_id,$nrofoto){
 	generar_imagen($archivo_temporal,90,65,"thumbnails/".$proximo_id."_".$nrofoto.".jpg");//creo el thumbnail
 	unlink($archivo_temporal);//borro el archivo temporal generado
 }
-function generar_imagen($imagen,$alto,$ancho,$nombre_final){	
+function generar_imagen($imagen,$ancho,$alto,$nombre_final){	
 	$anchura=$ancho;//maximo ancho de la imagen
 	$hmax=$alto;//maximo alto de la imagen
 	$datos = getimagesize($imagen);//obtengo las medidas de la imagen
@@ -60,16 +60,4 @@ function url_amigable($texto){
 	$texto=normalizar($texto);
 	return $texto;
 }
-/*
-function agregar_class_current($link){//ejemplo: agregar_class_current("index.php") o agregar_class_current("index.php, home.php, inicio.php")
-	$directorio="/estudioargeri/"; //directorio actual
-	$url=$_SERVER['REQUEST_URI'];
-	$aux=explode("?",$url);
-	$nombre_archivo=$aux[0];
-	$aux=explode(", ",$link);//varios archivos separados por ", "
-	foreach ($aux as $valor) {
-    if ($nombre_archivo=="$directorio$valor") echo 'class="current"';
-	}	
-}
-*/
 ?>

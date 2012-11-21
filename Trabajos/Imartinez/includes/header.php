@@ -1,4 +1,9 @@
 <div id="header">
+<?php /*para el correcto funcionamiento necesito 
+$ubicacion
+$categoria_actual
+$subcategoria_actual
+*/?>
 	<div class="logo">
 	<a href="index.php">logo</a>
 	</div>	

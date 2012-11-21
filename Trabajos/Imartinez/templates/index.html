@@ -1,0 +1,34 @@
+<div class="lateral">
+	<h4>Selecciona una provincia</h4>
+	<ul class="lista-provincias">
+		<!-- BEGIN listado_provincias_current -->	
+		<li>
+			{nombre_provincia}
+		</li>
+		<!-- END listado_provincias_current -->
+		<!-- BEGIN listado_provincias -->
+		<li>
+			<a href="{link_provincia}">{nombre_provincia}</a>
+		</li>
+		<!-- END listado_provincias -->
+	</ul>
+</div>	
+<div class="contenedor-categorias">
+	<!-- BEGIN categorias -->
+	<div class="categoria">
+		<div class="titulo-categoria">
+		
+			<h2><a href="{link_categoria}">{nombre_categoria}</a></h2>
+			<span class="cantidad">({cantidad})</span>
+		
+		</div>
+		<ul class="lista-subcategorias">
+			<!-- BEGIN subcategorias -->
+			<li>			
+				<a href="{link_subcategoria}">{nombre_subcategoria}</a>
+			</li>
+			<!-- END subcategorias -->
+		</ul>
+	</div>
+	<!-- END categorias -->
+</div>			

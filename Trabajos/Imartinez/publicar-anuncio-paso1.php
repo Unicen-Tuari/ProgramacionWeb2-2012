@@ -1,123 +1,132 @@
 <?php 
-require_once("includes/clases.php");
-$categoria = normalizar($_GET["categoria"]);
-$subcategoria = normalizar($_GET["subcategoria"]);
-$ubicacion = normalizar($_GET["ubicacion"]);
-$todos_los_municipios=array();
-$todas_las_provincias=array();
-$todas_las_categorias=array();
-$todas_las_subcategorias=array();
-$nombre_categoria="";
-$categoria_actual="";
-$subcategoria_actual="";
-$manager = new Mannagerdb;
-$manager->conectarse();
-$provincia_y_municipio = $manager->provincia_y_municipio($manager, $ubicacion);
-if ($provincia_y_municipio["municipio"]!="")
-	$ubicacion = capitalizar($provincia_y_municipio["municipio"]->get_nombre());
-else
-	if ($provincia_y_municipio["provincia"]!="")
-	$ubicacion = capitalizar($provincia_y_municipio["provincia"]->get_nombre());
-else
-	$ubicacion = "Argentina";
-if ($provincia_y_municipio["provincia"]!="")
-	$todos_los_municipios = $manager->todos_los_municipios($manager,$provincia_y_municipio["provincia"]->get_id());
-if ($categoria != ""){	
-	$categoria = $manager->categoria($manager,$categoria);
-	$nombre_categoria = $categoria->get_nombre();
-	$todas_las_subcategorias = $manager->todas_las_subcategorias($manager,$categoria->get_id());
+require_once 'config.php';
+require_once 'DataObjects/Ciudad.php';
+require_once 'DataObjects/Provincia.php';
+require_once 'DataObjects/Categoria.php';
+require_once 'DataObjects/Clasificado.php';
+
+require_once 'includes/common.php';
+require_once 'includes/funciones.php';
+
+require_once 'HTML/Template/Sigma.php';
+
+$nombre_categoria = normalizar($_GET["categoria"]);
+$nombre_subcategoria = normalizar($_GET["subcategoria"]);
+$ubicacion = capitalizar($_GET["ubicacion"]);
+
+$provincia_y_municipio = provincia_y_municipio($ubicacion);
+
+$ciudad=new DO_Ciudad();
+if ($provincia_y_municipio["municipio"]!=""){
+	$ciudad->id=$provincia_y_municipio["municipio"]->id;
+	$ciudad->find();
+	$ciudad->fetch();
 }
-if ($subcategoria != ""){	
-	$subcategoria = $manager->categoria($manager,$subcategoria);
-	$nombre_subcategoria = $subcategoria->get_nombre();
+
+$provincia=new DO_Provincia();
+if ($provincia_y_municipio["provincia"]!=""){
+	$provincia->id=$provincia_y_municipio["provincia"]->id;
+	$provincia->find();
+	$provincia->fetch();
 }
-$todas_las_provincias = $manager->todas_las_provincias($manager);
-$todas_las_categorias = $manager->todas_las_categorias($manager);	
-$manager->liberar_resultados();
-$manager->cerrar_conexion();
+
+$categoria=new DO_Categoria();
+if ($nombre_categoria!=""){
+	$categoria->nombre=$nombre_categoria;
+	$categoria->find();
+	$categoria->fetch();
+}
+
+$subcategoria=new DO_Categoria();
+if ($nombre_subcategoria!=""){
+	$subcategoria->nombre=$nombre_subcategoria;
+	$subcategoria->find();
+	$subcategoria->fetch();
+}
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/head.html");
+$tpl->setVariable('title', "Yastay - Cargar clasificado - Paso 1");
+$tpl->setVariable('description', "");
+$tpl->parse('encabezados');
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/header.html");
+$tpl->setVariable('titulo', "Anuncios clasificados gratis en $ubicacion");
+$tpl->setVariable('ubicacion', $ubicacion);
+$tpl->setVariable('categoria', $categoria->nombre);
+$tpl->setVariable('subcategoria', $subcategoria->nombre);
+$tpl->parse('header');
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/publicar-anuncio-paso1.html");
+
+$todas_las_provincias=new DO_Provincia();
+$todas_las_provincias->find();
+while ($todas_las_provincias->fetch()){
+	$tpl->setVariable('id_provincia', $todas_las_provincias->id);
+	$tpl->setVariable('nombre_provincia', utf8_encode($todas_las_provincias->provincia_nombre));
+	if ($todas_las_provincias->id==$provincia->id){
+		$tpl->parse('select_provincia_selected');
+	} else {
+		$tpl->parse('select_provincia_comun');
+	}
+	$tpl->parse('select_provincia');
+}
+
+if ($provincia_y_municipio["provincia"]!=""){
+	// si no preseleccione una provincia no cargo ningun municipio
+	$todas_las_ciudades=new DO_Ciudad();
+	$todas_las_ciudades->provincia_id=$provincia_y_municipio["provincia"]->id;
+	$todas_las_ciudades->find();
+	while ($todas_las_ciudades->fetch()){
+		$tpl->setVariable('id_municipio', $todas_las_ciudades->id);
+		$tpl->setVariable('nombre_municipio', capitalizar(utf8_encode($todas_las_ciudades->ciudad_nombre)));
+		if ($ciudad->id==$todas_las_ciudades->id){
+			$tpl->parse('select_municipio_selected');
+		} else {
+			$tpl->parse('select_municipio_comun');
+		}
+		$tpl->parse('select_municipio');
+	}
+}
+
+$todas_las_categorias=new DO_Categoria();
+$todas_las_categorias->idpadre=0;
+$todas_las_categorias->find();
+while ($todas_las_categorias->fetch()){
+	$tpl->setVariable('id_categoria', $todas_las_categorias->idcategoria);
+	$tpl->setVariable('nombre_categoria', capitalizar(utf8_encode($todas_las_categorias->nombre)));
+	if ($todas_las_categorias->idcategoria==$categoria->idcategoria){
+		$tpl->parse('select_categoria_selected');
+	} else {
+		$tpl->parse('select_categoria_comun');
+	}
+	$tpl->parse('select_categoria');
+}
+if ($nombre_categoria!=""){
+	//si no seleccione una categoria no muestro ninguna subcategoria
+	$todas_las_subcategorias=new DO_Categoria();
+	$todas_las_subcategorias->idpadre=$categoria->idcategoria;
+	$todas_las_subcategorias->find();
+	while ($todas_las_subcategorias->fetch()){
+		$tpl->setVariable('id_subcategoria', $todas_las_subcategorias->idcategoria);
+		$tpl->setVariable('nombre_subcategoria', capitalizar(utf8_encode($todas_las_subcategorias->nombre)));
+		if ($todas_las_subcategorias->idcategoria==$subcategoria->idcategoria){
+			$tpl->parse('select_subcategoria_selected');
+		} else {
+			$tpl->parse('select_subcategoria_comun');
+		}
+		$tpl->parse('select_subcategoria');
+	}
+}
+
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error=$tpl->loadTemplateFile("/templates/footer.html");
+$tpl->show();
+
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>Publicar anuncio gratis de <?php echo $nombre_categoria?> en <?php echo $ubicacion?></title>
-<meta name="description" content="" />
-<?php require_once("includes/encabezados.php")?>
-<script type="text/javascript" src="js/select_dependientes.js"></script>
-</head>
-<body>
-	<div id="container">
-		<?php require_once("includes/header.php")?>
-		<div id="content">
-			<h2>Publica tu aviso gratis</h2>
-			<div class="contenedor-paso1">
-				<form action="publicar-anuncio-paso2.php" method="post">					
-					<div class="caja-paso1">	
-						<p>Selecciona una ubicacion</p>					
-						<div class="caja-paso1-interior">
-							<h4>Provincia</h4>
-							<select class="select" name="provincia" id="provincia" onchange="cargaContenidoMunicipios(this.id)">
-								<option value="" selected="selected">-</option>
-							<?php foreach ($todas_las_provincias as $provincia) {
-								if (($provincia_y_municipio["provincia"]!="") && ($provincia_y_municipio["provincia"]->get_nombre() == $provincia->get_nombre())) {?>
-									<option value="<?php echo $provincia->get_id()?>" selected="selected"><?php echo $provincia->get_nombre()?></option>
-								<?php } else {?>
-									<option value="<?php echo $provincia->get_id()?>"><?php echo $provincia->get_nombre()?></option>
-								<?php }									
-							}?>							
-							</select>
-						</div>						
-						<div class="caja-paso1-interior">
-							<h4>Municipio</h4>
-							<select class="select" name="municipio" id="municipio">
-								<option value="" selected="selected">-</option>
-								<?php foreach ($todos_los_municipios as $municipio) {
-									if (($provincia_y_municipio["municipio"]!="") && ($provincia_y_municipio["municipio"]->get_nombre() == $municipio->get_nombre())) {?>
-										<option selected="selected" value="<?php echo $municipio->get_id()?>"><?php echo $municipio->get_nombre()?></option>
-									<?php } else {?>
-										<option value="<?php echo $municipio->get_id()?>"><?php echo $municipio->get_nombre()?></option>
-									<?php }
-								}?>
-							</select>	
-						</div>
-					</div>					
-					<div class="caja-paso1">	
-						<p>Selecciona una categoria</p>					
-						<div class="caja-paso1-interior">
-							<h4>Categoria</h4>
-							<select class="select" name="categoria" id="categoria" onchange="cargaContenidoSubcategorias(this.id)">
-								<option value="" selected="selected">-</option>
-							<?php foreach ($todas_las_categorias as $it_categoria) {
-									//o la subcategoria esta dentro de la categoria
-									if ($nombre_categoria == $it_categoria->get_nombre()) {?>									
-										<option value="<?php echo $it_categoria->get_id()?>" selected="selected"><?php echo $it_categoria->get_nombre()?></option>
-									<?php } else {?>
-									<option value="<?php echo $it_categoria->get_id()?>"><?php echo $it_categoria->get_nombre()?></option>
-									<?php }
-							}?>
-							</select>
-						</div>						
-						<div class="caja-paso1-interior">	
-							<h4>Subcategoria</h4>
-							<select class="select" name="subcategoria" id="subcategoria">
-								<option value="" selected="selected">-</option>								
-								<?php foreach ($todas_las_subcategorias as $it_subcategoria) {
-									if ($nombre_subcategoria == $it_subcategoria->get_nombre()) {?>									
-										<option value="<?php echo $it_subcategoria->get_id()?>" selected="selected"><?php echo $it_subcategoria->get_nombre()?></option>
-									<?php } else {?>
-										<option value="<?php echo $it_subcategoria->get_id()?>"><?php echo $it_subcategoria->get_nombre()?></option>
-									<?php }
-								}?>
-							</select>
-						</div>
-					</div>
-					<div class="caja-paso1">
-						<input name="enviar-paso1" id="enviar-paso1" type="submit"></input>
-					</div>
-				</form>
-			</div>
-		</div>			
-		<?php require_once("includes/footer.php")?>
-	</div>
-</body>
-</html>
