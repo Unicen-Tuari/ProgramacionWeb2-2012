@@ -3,6 +3,7 @@ include_once 'config.php';
 include_once("/usr/share/php/HTML/Template/Sigma.php");
 
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
+include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
 
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/admFormProducto.html");
@@ -11,21 +12,46 @@ if (!$retOK) {
     die ('Error al cargar template');
 }
 
+$accion     = $_GET["accion"];
 $idProducto = $_GET["producto"];
 
+$tpl->setVariable(abmAccion, $accion);
+
 $producto = new DO_Articulo();
-$producto->setid($idProducto);
-$nProductos = $producto->find();
+$rubro    = new DO_Rubro();
 
-if ($nProductos>0) {
-    $producto->fetch();
-    $tpl->setVariable(productoNombre, $producto->getnombre());
-    $tpl->setVariable(productoId, $producto->getid());
-    $tpl->setVariable(productoPrecioVenta, $producto->getprecio_venta());
-    $tpl->setVariable(productoImagenPath, $producto->getimagen_path());
-    $tpl->parse('producto_actualizar');
+if ($accion=='CHANGE') {
+    $tpl->setVariable(titulo, 'Modificar Producto');
+    $producto->setid($idProducto);
+    $nProductos = $producto->find();
+    if ($nProductos>0) {
+        $producto->fetch();
+        
+        $rubro->setid($producto->getrubro());
+        $rubro->find();
+        $rubro->fetch();
+        
+        $tpl->setVariable(productoNombre, $producto->getnombre());
+        $tpl->setVariable(productoId, $producto->getid());
+        $tpl->setVariable(productoPrecioVenta, $producto->getprecio_venta());
+        $tpl->setVariable(productoImagenPath, $producto->getimagen_path());
+        $tpl->setVariable(productoRubroId, $producto->getrubro());
+        $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
+        $tpl->parse('producto_actualizar');
+    }
 }
-
+else
+    if ($accion=='ADD') {
+        $tpl->setVariable(titulo, 'Agregar Producto');
+        $tpl->setVariable(productoNombre, '');
+        $tpl->setVariable(productoId, '');
+        $tpl->setVariable(productoPrecioVenta, '');
+        $tpl->setVariable(productoImagenPath, '');
+        $tpl->parse('producto_actualizar');
+    }
+    else
+        $tpl->setVariable(titulo, '¡ERROR!, No se ha determinado que acción aplicar a este producto!');
+    
 $tpl->show();
 
 ?>
