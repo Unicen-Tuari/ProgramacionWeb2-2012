@@ -2,8 +2,6 @@
 		require_once 'HTML/Template/Sigma.php';
 		include_once 'config.php';
 		include_once 'DataObjects/Usuario.php';
-		include_once 'config.php';
-		include_once 'DataObjects/Usuario.php';
 
 		//incluyo sigma
 		$template = new HTML_Template_Sigma('.');

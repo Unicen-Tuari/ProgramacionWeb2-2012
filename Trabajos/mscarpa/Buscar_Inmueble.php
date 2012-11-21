@@ -1,4 +1,3 @@
-
 <?php
 	require_once 'HTML/Template/Sigma.php';
 	include_once 'config.php';
