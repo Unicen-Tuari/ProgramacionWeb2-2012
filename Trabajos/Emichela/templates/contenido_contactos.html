@@ -1,0 +1,28 @@
+<div id="contenido_de_contacto">
+			<div id="formulario">
+			<form method="post" action="" onsubmit="return validarFormulario(this)">
+				<div id="nombre-formulario">
+				<p>Nombre:</p>
+				<p>Apellido:</p>
+				<p>Mail:</p>
+				<p>Ingresa tus comentarios:</p>
+				</div>
+				
+			    <div id="datos-formulario">		
+				<p><input name="nombre"/></p>
+				<p><input name="apellido"/></p>
+				<p><input name="email"/></p>
+				<p><textarea name="comentario" rows="4" cols="30"></textarea></p>
+			    </div>
+				<div> 
+				<!-- BEGIN mensajecontactos -->
+				    {mensaje}
+				  <!-- END mensajecontactos -->
+				</div>
+			    <div id="botones-formulario">	
+					<p><input type="submit" value="Enviar" name="enviar"/> <input type="reset"/></p>
+				</div>
+    		</form>
+    		</div>
+		</div> 
+		

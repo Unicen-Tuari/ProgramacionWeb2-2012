@@ -1,36 +1,37 @@
 <?php 
-require_once("include/clases.php");
-$manager = new Mannagerdb;
-$exposiciones = $manager->listado_exposiciones_descendientes();
-?>
+require_once 'config.php';
+require_once 'DataObjects/exposicion.php';
+require_once 'HTML/Template/Sigma.php';
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title> DIGITAL Art </title>
-<link href="style/estilo.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div id="container">
-		<?php include("include/superior.php")?>
-		<div id= "barramenu">
-		<?php include("include/menu-vertical.php")?>
-		</div>
-		<div id="contenido">
-		<h2> Ultimas exposiciones</h2>
-		<ul id= "lista-exposiciones">
-		<?php 
-			foreach ($exposiciones as $exposicion) {?>
-			<li>
-			<h3><a href="productos.php?id=<?php echo $exposicion->get_id()?>"><?php echo $exposicion->get_titulo()?></a></h3>
-			<img src="imagenes/exposiciones/<?php echo $exposicion->get_fotoportada()?>"/>
-			</li><?php }?>
-		</ul>	
-		<h2>Proxima Exposicion</h2>
-		
-		</div> 
-		<?php include("include/footer.php")?>
-	</div>
-</body>
-</html>
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/head.html");
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/superior.html");
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/barramenu.html");
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/exposicion.html");
+$expo = new DO_Exposicion();
+$expo->find(); //encuentro todoo aca
+while ($expo->fetch()){
+	$id_exposicion=$expo->idexposicion;
+	$link_exposicion="mostrar_fotos_exposicion.php?id=$id_exposicion";
+	$tpl->setVariable('link_exposicion',$link_exposicion);
+	$titulo=$expo->titulo;
+	$tpl->setVariable('titulo_exposicion',$titulo);
+	$foto_portada="imagenes/exposiciones/$id_exposicion/miniaturas/1.jpg";
+	$tpl->setVariable('foto_portada',$foto_portada);
+	$tpl->parse('exposiciones');//el begin y end de template en exposicion
+}
+$tpl->show();
+
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/footer.html");
+$tpl->show();
+?>
