@@ -21,6 +21,7 @@
 			$template->setVariable('caracteristicas', $producto->caracteristicas);
 			$template->setVariable('precio', $producto->precio);
 			$template->setVariable('nombre', $producto->nombre);
+			$template->setVariable('url', "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
 
 			$template->parse('listado');
 		}
