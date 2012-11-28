@@ -14,13 +14,14 @@
 	$producto->codigo_categoria = $_REQUEST['categoria'];
 	$producto->caracteristicas = $_REQUEST['caracteristicas'];
 
-	$producto->fecha_ingreso = date("Y-m-d");
+	$producto->fecha_ingreso = date("Y-m-d H:i:s");
 
-	$producto->nombre_imagen = $_SESSION['nombreImagen'];
+	$producto->nombre_imagen1 = $_SESSION['nombreImagen1'];
+	$producto->nombre_imagen2 = $_SESSION['nombreImagen2'];
+	$producto->nombre_imagen3 = $_SESSION['nombreImagen3'];
 
-	$origen = '../images/productos/grandes/' . $_SESSION['nombreImagen'];
-	$destino = '../images/productos/chicas/160/' . $_SESSION['nombreImagen'];
-	//copy($origen, $destino);
+	$origen = '../images/productos/grandes/' . $_SESSION['nombreImagen1'];
+	$destino = '../images/productos/chicas/160/' . $_SESSION['nombreImagen1'];
 
 	$it = Image_Transform::factory();
 	$it->load($origen);

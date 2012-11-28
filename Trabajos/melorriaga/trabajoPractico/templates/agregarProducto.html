@@ -2,22 +2,56 @@
 	Ingrese el nombre del producto: <input type='text' id='newNombre' /> <br />
 	Ingrese el precio del producto: <input type='text' id='newPrecio' /> <br />
 	Ingrese la cantidad de productos: <input type='text' id='newCantidad' /> <br />
-	Ingrese la categoria del producto: <input type='text' id='newCategoria' /> <br /> <br />
+	
+	<br /> Ingrese la categoria del producto: 
+
+	<select id='newCategoria'>
+
+	<!-- BEGIN select -->
+		<option value='{codigo}'>{categoria}</option>
+	<!-- END select -->
+
+	</select> <br /> <br />
+
 	Ingrese las caracteristicas del producto: <br /> <br />
 	<textarea id='newCaracteristicas'></textarea> <br /> <br />
-	Ingrese la imagen del producto: <br /> <br />
-	<button id='botonAgregarImagen' class='boton'>Agregar Imagen</button> <br /> <br />
+	Ingrese hasta tres (3) imagenes del producto: <br /> <br />
+	<button id='botonAgregarImagen1' class='boton upload'>Agregar Imagen</button>
+	<button id='botonAgregarImagen2' class='boton upload' disabled='true'>Desactivado</button>
+	<button id='botonAgregarImagen3' class='boton upload' disabled='true'>Desactivado</button> <br /> <br />
 	<button id='botonAgregarProducto' class='boton'>Agregar Producto</button>
 </div>
 <script type="text/javascript" src="js/ajaxupload.3.5.js"></script>
 <script type="text/javascript">
+	var boton1 = $('#botonAgregarImagen1');
+	var boton2 = $('#botonAgregarImagen2');
+	var boton3 = $('#botonAgregarImagen3');
 	$(function() {
-		var boton = $('#botonAgregarImagen');
-		new AjaxUpload(boton, {
-			action: 'php/agregarImagen.php',
+		new AjaxUpload(boton1, {
+			action: 'php/agregarImagen.php?img=1',
 			name: 'uploadfile',
 			onComplete: function() {
-				alert('Imagen Subida Correctamente!');
+				boton1.text('Imagen Cargada');
+				boton2.removeAttr('disabled').text('Agregar Imagen');
+			}
+		});	
+	});
+	$(function() {
+		new AjaxUpload(boton2, {
+			action: 'php/agregarImagen.php?img=2',
+			name: 'uploadfile',
+			onComplete: function() {
+				boton2.text('Imagen Cargada');
+				boton3.removeAttr('disabled').text('Agregar Imagen');
+			}
+		});	
+	});
+	$(function() {
+		new AjaxUpload(boton3, {
+			action: 'php/agregarImagen.php?img=3',
+			name: 'uploadfile',
+			onComplete: function() {
+				boton3.text('Imagen Cargada');
 			}
 		});	
 	});

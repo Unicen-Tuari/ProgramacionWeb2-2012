@@ -12,7 +12,9 @@ class DO_Producto extends DB_DataObject
     public $__table = 'producto';            // table name
     public $codigo;                          // int(4)  primary_key not_null
     public $nombre;                          // varchar(50)   not_null
-    public $nombre_imagen;                   // varchar(50)   not_null
+    public $nombre_imagen1;                  // varchar(50)  
+    public $nombre_imagen2;                  // varchar(50)  
+    public $nombre_imagen3;                  // varchar(50)  
     public $precio;                          // varchar(10)   not_null
     public $cantidad;                        // int(4)   not_null
     public $caracteristicas;                 // text   not_null

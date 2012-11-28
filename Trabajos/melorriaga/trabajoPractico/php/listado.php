@@ -15,7 +15,9 @@
 		$producto->orderBy('fecha_ingreso desc');
 		$producto->find();
 		while ($producto->fetch()) {
-			$template->setVariable('nombre_imagen', $producto->nombre_imagen);
+			$template->setVariable('nombre_imagen1', $producto->nombre_imagen1);
+			$template->setVariable('nombre_imagen2', $producto->nombre_imagen2);
+			$template->setVariable('nombre_imagen3', $producto->nombre_imagen3);
 			$template->setVariable('caracteristicas', $producto->caracteristicas);
 			$template->setVariable('precio', $producto->precio);
 			$template->setVariable('nombre', $producto->nombre);
