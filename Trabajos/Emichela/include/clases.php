@@ -185,6 +185,29 @@ class Mannagerdb{
 		$manager->cerrar_conexion();
 		return $arr;
 	}
+public function listado_completo_productos(){
+		$manager = new Mannagerdb;
+		$manager->conectarse();
+		$result = $manager->query('
+		SELECT * 
+		FROM producto		
+		');
+		$cantidad_resultados = mysql_num_rows($result);
+		if ($cantidad_resultados>0){
+			while ($renglon = mysql_fetch_assoc($result)) {
+				$producto = new Producto;
+				$producto->set_idproducto($renglon["idproducto"]);
+				$producto->set_cantidad($renglon["cantidad"]);
+				$producto->set_precio($renglon["precio"]);	
+				$producto->set_descripcion($renglon["descripcion"]);		
+				$producto->set_path($renglon["path"]);					
+				$arr[]=$producto;
+			}
+		}
+		$manager->liberar_resultados();
+		$manager->cerrar_conexion();
+		return $arr;
+	}
 	public function ampliar_producto($id){
 		$manager = new Mannagerdb;
 		$manager->conectarse();

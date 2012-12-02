@@ -1,12 +1,13 @@
 <!-- INCLUDE /templates/header.html -->
 <div id="form">
 		<h1>
-		<form name="Contactenos" method = "post" action="enviar.php">
+		<form name="Contactenos" method = "post" action="Contactenos.php" enctype="multipart/form-data">
 		<h6>Contactenos</h6>
-			<p>Nombre <input type = "text" name = "nombre" size= "15" </input><br></p>
-			<p>Apellido <input type = "text" name = "apellido" size= "15" </input><br></p>
+			<p>Nombre <input type = "text" name = "nombre" size= "15"><br></p>
+			<p>Apellido <input type = "text" name = "apellido" size= "15"><br></p>
 			<p>Comentario<br><textarea name="mensaje" rows="7" cols="70"></textarea> <br></p>
 			<p>ENVIAR <input type="submit" value="Enviar" onclick= "validarContacto()"></p>
+			<!-- INCLUDE /templates/notificaciones.html -->	
 		</h1>
         </form>	 
 </div>

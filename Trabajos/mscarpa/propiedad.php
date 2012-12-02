@@ -17,9 +17,6 @@
 		$propiedad = new propiedad;
 		$propiedad->ID = $id_inmueble;
 		
-
-		//$foto = new foto;
-		//$foto->get($foto->PROP_FK);
 		$foto = new foto;
 		$foto->PROP_FK = $id_inmueble;
 		$foto->find();

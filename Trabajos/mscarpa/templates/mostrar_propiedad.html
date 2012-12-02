@@ -1,10 +1,9 @@
 <!-- INCLUDE /templates/header.html -->
 	<!-- BEGIN mostrar_propiedad -->
 
-<script src="js/jquery-1.7.2.min.js"></script>
-<script src="js/lightbox.js"></script>
-<link href="css/lightbox.css" rel="stylesheet" />
-<script type="text/javascript" src="js/lightbox.js"></script>
+ <link rel="stylesheet" href="css/lightbox.css" type="text/css" media="screen" />
+ <script src="js/jquery-1.7.2.min.js"></script>
+ <script src="js/lightbox.js"></script>
 
 	<div id="propiedad">
 	     <a>
@@ -18,13 +17,14 @@
 	     		<div id="descripcion">
 	     			<h4><br>{descripcion}</br> </h4>
 	     		</div>
-	     		<div id= "imagenes">
-		         	<a href="{foto_URL1}" rel="lightbox[galeria]"> <img src="{foto_URL1}" width="200" height="200"></a>
-		         	<a href="{foto_URL2}" rel="lightbox[galeria]"> <img src="{foto_URL2}" width="200" height="200"></a>
-		         	<a href="{foto_URL3}" rel="lightbox[galeria]"> <img src="{foto_URL3}" width="200" height="200"></a>
+	     		<div id="imagenes">
+		         	<a href="{foto_URL1}" rel="lightbox[galeria]"><img src="{foto_URL1}" width="200" height="200"></a>
+		         	<a href="{foto_URL2}" rel="lightbox[galeria]"><img src="{foto_URL2}" width="200" height="200"></a>
+		         	<a href="{foto_URL3}" rel="lightbox[galeria]"><img src="{foto_URL3}" width="200" height="200"></a>
 	         	</div>
 
 		</a> 
 	 </div><br><br>
+
 	 <!-- END mostrar_propiedad -->
 <!-- INCLUDE /templates/footer.html -->

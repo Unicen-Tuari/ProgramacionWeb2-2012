@@ -6,22 +6,32 @@
 #container{width: 990px;
            margin-left: auto;
            margin-right: auto;
-           background-color: green;
+           background-color: white;
+           background-image: url("../imagenes/fondo_menu.jpg");
+           background-repeat: repeat-y;
 }
 #superior{
 	padding-bottom: 10px;
-	background-color: green;
-}
-#superior h1,h2{
-	text-align: center;
+	background-image:url("../imagenes/superior.png");
+	background-repeat: repeat-x;
+	background-position: center;
+	margin-left: 150px;
 }
 #superior h1{
+	color: black;
+	font-variant: small-caps;
+}
+
+#superior h1{
 	padding-top: 10px;
+	font-style: oblique;
+	
 }
 #superior h2{
 	text-decoration: underline;
 	font-family: fantasy;
 	font-style: italic;
+	text-align: right;
 }
 #superior img{
 	position: absolute;
@@ -29,11 +39,12 @@
 	margin-left: 10px;
 }
 #barramenu{
-	background-color: green;
 	float: left;
-	height: 500px;
-	width: 150px;
-
+	height: 600px;
+	width: 170px;
+	background-image: url("../imagenes/pelotitas.jpg");
+	background-repeat: no-repeat;
+	background-position: 0px 400px;
 }
 .menuvertical{
 	position:relative;
@@ -43,7 +54,7 @@
 .menuvertical li{
 	height: 40px;
 	display: block;
-	background-color:#2F0404;
+	background-color:#FE8737;
 	margin-bottom: 10px;
 	text-align: center;
 	
@@ -53,18 +64,30 @@
 	top: 10px;
 	color: white;
 }
+.menubotonespanel li{
+	height: 40px;
+	display: block;
+	background-color:#FE8737;
+	margin-bottom: 10px;
+	text-align: center;
+	width: 150px;
+	color: blue;
+}
+
 #portada{
 	margin-bottom: 10px;
 }
 #contenido{
-	background-image: url("../imagenes/hojas-verdes.png");
 	margin-top: 10px;
-	background-color:green;
 	min-height: 500px;
 	text-align: center;
 	float: left;
-	width: 840px;
+	width: 818px;
 	padding-bottom: 10px;
+	border: 1px solid pink;
+}
+.borde-rosa{
+	border: 1px solid pink;
 }
 #contenido p{
 	margin-left: 10px;
@@ -79,10 +102,12 @@
 }
 #lista-exposiciones{
 	list-style: none;
+	
 }
 #lista-exposiciones li{
-	display: block;
-	width: 840px;
+	display: inline-block;
+	width: 200px;
+	
 }	
 #lista-fotos{
 	width: 840px;
@@ -99,7 +124,6 @@
 }
 
 #footer{
-	background-color:green;
 	clear:both;
 	height: 50px;
 	text-align: center;
@@ -107,16 +131,15 @@
 }
 #contenido_de_contacto{
 	background-image:url("../imagenes/fondo_contacto.png");
-	height: 500px;
+	height: 400px;
 	text-align: center;
 	background-position: right;
 	background-repeat: no-repeat;
 }
 #formulario{
+	margin-left: 400px;
 	color: white;
-	width:500px;
 	padding-top:100px;
-	background-image: "imagenes/X-S3";
 }
 #nombre-formulario{
 float: left;
@@ -126,6 +149,11 @@ text-align: right;
 
 #datos-formulario{
 text-align: left;
+}
+
+#botones-formulario{
+	margin-left: 120px;
+	text-align: left;
 }
 
 .horizlinks{position:relative;
