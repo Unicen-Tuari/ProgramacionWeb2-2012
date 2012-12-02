@@ -1,11 +1,11 @@
 <?php
 include_once 'config.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
 
 $tpl = new HTML_Template_Sigma(".");
-$retOK = $tpl->loadTemplateFile("./templates/home.html");
+$retOK = $tpl->loadTemplateFile("./templates/index.html");
 
 if (!$retOK) {
     die ('Error al cargar template');

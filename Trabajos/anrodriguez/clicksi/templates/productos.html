@@ -1,36 +1,78 @@
-<!-- INCLUDE ./templates/encabezado.html -->
-<!-- INCLUDE ./templates/rubros.html -->
-<!-- INCLUDE ./templates/novedades.html -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Click S. I.</title>
+    </head>
 
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezado.html -->
+        </div>
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/rubros.html -->
+            
+        </div>
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
 
-<div class="contentCatalog">
-	<br>
-	<h1>Catalogo de productos</h1>
-    <h2>{rubroNombre}</h2>
-	<p>Los precios no incluyen I.V.A.</p>
-	<h2>
-	</h2>
-	<br>
-	<div id="divtablaproductos">
-        <form class='container'>
-            <table class="tablaproductos">
-                <tr><th>DESCRIPCION</th> 
-                    <th>M</th> 
-                    <th>PRECIO VENTA</th>
-                    <th>FOTOGRAFIA</th>
-                </tr>
-<!-- BEGIN producto -->               
-                <tr>
-                    <td><h2>{articuloNombre}</h2></td>
-                    <td><h2>{articuloMoneda}</h2></td>
-                    <td><h3>{articuloPrecioVenta}</h3></td>
-                    <td><img alt="{articuloImgalt}" src="{articuloImgSrc}"></td>                    
-                </tr>
-<!-- END producto -->    
-            </table>
+        <div class="contenidoCatalogo">
             <br>
-            <hr>        
-        </form>
-	</div>
-</div>
-<!-- INCLUDE ./templates/piePagina.html -->
+            <h1>Catalogo de productos</h1>
+            <h2>{rubroNombre} ({pag_CantFilas})</h2>
+            <p>Los precios no incluyen I.V.A.</p>    
+            <h2>
+            </h2>
+            <br>
+            <div id="divTablaproductos">
+                <form class="container">
+                    <table class="tablaproductos">
+                        <tr><th>DESCRIPCION</th> 
+                            <th>M</th> 
+                            <th>PRECIO VENTA</th>
+                            <th>FOTOGRAFIA</th>
+                        </tr>
+        <!-- BEGIN producto -->               
+                        <tr>
+                            <td><h3>{articuloNombre}</h3></td>
+                            <td><h3>{articuloMoneda}</h3></td>
+                            <td><h3>{articuloPrecioVenta}</h3></td>
+                            <td><img alt="{articuloImgalt}" src="{articuloImgSrc}"></td>                    
+                        </tr>
+        <!-- END producto -->    
+                    </table>
+                    <br>
+                    <hr>        
+                </form>
+            </div>
+        </div>
+        <div class="paginadoLeft">      
+        <!-- BEGIN paginado -->         
+        &nbsp;
+        <!-- BEGIN paginado -->               
+        </div>
+
+        <div class="controlespaginado">
+        <!-- BEGIN paginado -->         
+            <a href='productos.php?pagina=0&rubro={rubroNombre}'>Pagina Inicial</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaAnterior}&rubro={rubroNombre}'>Pagina Anterior</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaSiguiente}&rubro={rubroNombre}'>Pagina Siguiente</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaUltima}&rubro={rubroNombre}'>Ultima Pagina</a>
+        <!-- BEGIN paginado -->               
+        </div>
+        <div class="paginadoRight">
+        <!-- BEGIN paginado -->         
+                P&aacute;g.: {pag_actual} / {pag_paginaUltima}
+        <!-- BEGIN paginado -->               
+        </div>
+        
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePagina.html -->    
+        </div>
+    </body>
+</html>

@@ -1,92 +1,249 @@
-* {
-	margin: 0px
-}
-
 .logo {
 	float: right;
 }
 
-#container {
-	width: 990px;
-	margin-left: auto;
-	margin-right: auto;
+div.body {
+    width: 100%;
+    min-height: 430px; 
 }
 
-.header {
-	width: 990px;
-	min-height: 50px;
-    background-image: url("../imagenes/fondo.jpg");
+div.menu {
+    width: 100%;
+    height: 80px;
     border-bottom-style: solid;
+    background-color: activeborder;
+    font-style: italic;
 }
 
-.header h1 {
+div.menu h1 {
 	font-family: monospace;
 	font-size: large;
 	color: red;
 	text-align: left;
 }
 
-.header h2 {
+div.menu h2 {
 	font-size: x-small;
 	color: gray;
 	text-align: left;
 }
 
-.header li {
+div.menu ul {
+    background-color: activeborder;
+}
+
+div.menu li {
 	display: inline;
 	padding: 1px 30px;
 	margin: 45px;
-	background-image: url("../imagenes/fondo.jpg");
+	background-color: activeborder;
 	color: blue;
 	cursor: pointer;
 }
 
-.menuhoriz a {
-	font-style: italic;
+div.menu li:visited {
+    color: activeborder;
 }
 
-.menuhoriz a:visited {
+
+
+
+
+
+
+
+
+div.panelIzquierdo {
+	width: 20%;
+    min-height: 430px; 
+    background-color: activeborder;
+	border: 0px;
+	float: left;
+}
+
+div.panelIzquierdo h1 {
+	font-size: medium;
+	color: red;
+	text-align: center;
+}
+
+div.panelIzquierdo a {
+	color: navy;
+}
+
+div.panelIzquierdo a:visited {
 	text-decoration: underline overline;
 	color: black;
 }
 
-#content {
-	width: 890px;
-	min-height: 500px;
-	background-image: url("../imagenes/pared.gif");
+
+
+
+
+
+
+
+
+
+div.contenido{
+	width: 90%;
+    min-height: 430px; 
+	background-image: url("../imagenes/pared.gif");   
 }
 
-#contentIndex {
-	width: 890px;
-	min-height: 500px;
-	background-image: url("../imagenes/pared.gif");
-}
-
-#contentIndexImg {
+div.contenido img {
 	width: 100px;
 	height: 100px;
 	padding-left: 11px;
 	padding-top: 7px;
 }
 
-.contentCatalog {
-	width: 890px;
-	min-height: 500px;
+
+
+
+
+
+
+
+
+
+
+
+div.panelDerecho{
+	width: 10%;
+    min-height: 430px; 
+    background-color: activeborder;
+	float: right;
+}
+
+div.panelDerecho h1 {
+	font-size: medium;
+	color: green;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.pie{
+  	width: 100%;
+	background-color: activeborder;
+	clear: both;
+	font-style: italic;
+	font-size: small;
+	color: green;  
+}
+
+div.pie li {
+	display: inline;
+	padding: 1px 30px;
+	margin: 45px;
+	background-color: activeborder;
+	color: green;
+	cursor: pointer;
+}
+
+div.pie li:visited {
+    color: activeborder;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+div.contenidoEmpresa {
+	width: 100%;
+    min-height: 430px; 
+	background-image: url("../imagenes/pared.gif");    
+}
+
+div.contenidoEmpresa ul {
+	list-style: inside;
+	list-style-type: none;
+}
+
+div.contenidoEmpresa h1 {
+	font-style: italic;
+	color: teal;
+	font-size: small;
+	text-align: right;
+	margin-right: 10px;
+	padding-top: 10px;
+}
+
+div.gmapa {
+	width: 870px;
+    height: 370px;
+	size: auto;
+	margin-left: 5px;
+	border-style: dotted;
+}
+
+
+/*----------------------------------------------------------------------------*/
+
+div.contenidoContacto {
+	background-image: url("../imagenes/pared.gif");    	
+}
+
+.formContacto h1 {
+	font-size: x-large;
+	text-align: center;
+	text-decoration: underline;
+	font-style: italic;
+	color: olive;
+}
+
+.formContacto h4 {
+	font-size: x-small;
+	text-align: right;
+	font-style: italic;
+	color: red;
+}
+
+.formContacto input {
+	color: blue;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------*/
+
+div.contenidoCatalogo {
+	width: 100%;
+    min-height: 400px; 
 	background-image: url("../imagenes/pared.gif");
 }
 
-.contentCatalog h1 {
+div.contenidoCatalogo h1 {
 	font-size: medium;
 	text-align: center;
 }
 
-.contentCatalog h2 {
+div.contenidoCatalogo h2 {
 	font-size: large;
 	color: red;
 	text-align: center;
 }
 
-.contentCatalog h5 {
+div.contenidoCatalogo h5 {
 	font-size: small;
 	color: red;
 }
@@ -144,95 +301,34 @@
 	height: 50px;
 }
 
-.leftPanel {
-	width: 190px;
-	min-height: 500px;
-	background-image: url("../imagenes/fondo.jpg");
+/*----------------------------------------------------------------------------*/
+div.paginadoLeft{
+	width: 20%;
+	background-color: activeborder;
 	border: 0px;
 	float: left;
 }
 
-.leftPanel h1 {
-	font-size: medium;
-	color: red;
-	text-align: center;
+div.controlespaginado{
+	width: 100%;
+	background-color: activeborder;
 }
 
-.leftPanel a {
-	color: navy;
-}
-
-.leftPanel a:visited {
-	text-decoration: underline overline;
-	color: black;
-}
-
-.leftPanel td {
-	color: olive;
-	cursor: pointer;
-}
-
-.rightPanel {
-	min-height: 500px;
-	width: 100px;
-	background-image: url("../imagenes/fondo.jpg");
+div.paginadoRight {
+	width: 10%;
+	background-color: activeborder;
 	float: right;
 }
 
-.rightPanel h1 {
-	font-size: medium;
-	color: green;
-	text-align: center;
-}
-
-.footer {
-	width: 990px;
-	min-height: 20px;
-	background-color: activeborder;
-	clear: both;
-	font-style: italic;
-	font-size: small;
-	color: green;
-}
-
-.footer li {
-	display: inline;
-	padding: 1px 40px;
-	margin: 45px;
-	background-image: url("../imagenes/fondo.jpg");
-	color: blue;
-	cursor: pointer;
-}
-
-.formContacto {
-	
-}
-
-.formContacto h1 {
-	font-size: x-large;
-	text-align: center;
-	text-decoration: underline;
-	font-style: italic;
-	color: olive;
-}
-
-.formContacto h4 {
-	font-size: x-small;
-	text-align: right;
-	font-style: italic;
-	color: red;
-}
-
-.formContacto input {
-	color: blue;
-	cursor: pointer;
-}
-
-.formIngresar {
+/*----------------------------------------------------------------------------*/
+form.ingresar {
+	width: 100%;
+    min-height: 430px; 
+    background-image: url("../imagenes/pared.gif");
 	}
 
 
-.formIngresar h1 {
+form.ingresar h1 {
 	font-size: x-large;
 	text-align: center;
 	text-decoration: underline;
@@ -240,137 +336,21 @@
 	color: red;
 }
 
-.formIngresar h2 {
+form.ingresar h2 {
 	font-size: small;
 	text-align: left;
 	font-style: italic;
 	color: blue;
 }
 
-.formIngresar h4 {
+form.ingresar h4 {
 	font-size: x-small;
 	text-align: right;
 	font-style: italic;
 	color: red;
 }
 
-.formIngresar input {
+form.ingresar input {
 	color: blue;
 	cursor: pointer;
-}
-
-.contentEmpresa {
-	width: 890px;
-	min-height: 500px;
-	background-image: url("../imagenes/pared.gif");
-}
-
-.contentEmpresa ul {
-	list-style: inside;
-	list-style-type: none;
-}
-
-.contentEmpresa h1 {
-	font-style: italic;
-	color: teal;
-	font-size: small;
-	text-align: right;
-	margin-right: 10px;
-	padding-top: 10px;
-}
-
-.imgubicacionclicksi {
-	width: 400px;
-	size: auto;
-	margin-left: 5px;
-	margin-top: 5px;
-	border-style: dotted;
-}
-
-.contentAdministracion {
-	width: 990px;
-	min-height: 500px;
-	background-image: url("../imagenes/fondo.jpg");
-}
-
-.contentAdministracion h1 {
-	font-size: medium;
-	font-style: italic;
-	color: blue;
-}
-
-.contentAdministracion h5 {
-	text-align: right;
-}
-
-.contentAdministracion h6 {
-	color: red;
-	text-align: right;
-}
-
-.menuAdministracion {
-	color: navy;
-}
-
-.menuAdministracion a {
-	color: navy;
-}
-
-.menuAdministracion a:visited {
-	text-decoration: underline overline;
-	color: black;
-}
-
-table.administracion {
-	border-width: 1px;
-	border-spacing: 0px;
-	border-style: outset;
-	border-color: black;
-	border-collapse: separate;
-	background-color: white;
-}
-
-table.administracion th {
-	border-width: 1px;
-	padding: 1px;
-	border-style: inset;
-	border-color: gray;
-	background-color: silver;
-}
-
-table.administracion td {
-	border-width: 1px;
-	padding: 1px;
-	border-style: inset;
-	border-color: gray;
-	background-color: transparent;
-	background-image: url("../imagenes/pared.gif");
-}
-
-.menurubros {
-	border-style: none;
-	margin-left: 0px;
-	list-style: inside;
-	list-style-type: none;
-	padding: 2px;
-}
-
-.menurubros a {
-	font-style: italic;
-}
-
-.menurubros a:visited {
-	text-decoration: underline overline;
-	color: black;
-}
-
-#contentAdministrar {
-	width: 990px;
-	min-height: 500px;
-	background-image: url("../imagenes/pared.gif");
-}
-
-div.gmapa {
-    width: 700px;
-    height: 430px;
 }

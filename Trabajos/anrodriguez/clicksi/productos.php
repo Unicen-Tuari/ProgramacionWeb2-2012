@@ -1,11 +1,22 @@
 <?php
 include_once 'config.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
+$cantidadFilas = CANT_FILAS_PAGINADO;
 
 $par_rubro = $_GET["rubro"];
+
+$pag_pagina = $_GET["pagina"];
+if (!$pag_pagina) {
+    $pag_inicio = 0;
+    $pag_pagina = 1;
+}
+else {
+    $pag_inicio = ($pag_pagina - 1) * $cantidadFilas;
+} 
+
 
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/productos.html");
@@ -27,12 +38,40 @@ $rubro->fetch();
 $articulo->rubro = $rubro->getid(); 
 $nArticulos      = $articulo->find();
 
+// - Paginado
+$pag_totalPaginas = ceil($nArticulos / $cantidadFilas);
+$tpl->setVariable(pag_CantFilas, $nArticulos);
+$tpl->setVariable(pag_CantFilasPagina, $cantidadFilas);
+$tpl->setVariable(pag_actual, $pag_pagina);
+$tpl->setVariable(pag_paginaUltima, $pag_totalPaginas);
+if ($pag_pagina<$pag_totalPaginas)
+    $tpl->setVariable(pag_paginaSiguiente, $pag_pagina+1);
+else
+    $tpl->setVariable(pag_paginaSiguiente, $pag_pagina);
+
+if ($pag_pagina>0)
+    $tpl->setVariable(pag_paginaAnterior, $pag_pagina-1);
+else
+    $tpl->setVariable(pag_paginaAnterior, 0);
+
+$tpl->setVariable(pag_CantPaginas, $pag_totalPaginas);
+
+$articulo->limit($pag_inicio, CANT_FILAS_PAGINADO);
+$nArticulos      = $articulo->find();
+// Fin paginado
+
 if ($nArticulos) {
 	while($articulo->fetch()) {
         $tpl->setVariable(articuloNombre, $articulo->getnombre());
         $tpl->setVariable(articuloMoneda, MONEDA2);
         $tpl->setVariable(articuloPrecioVenta, $articulo->getprecio_venta());
-        $tpl->setVariable(articuloImgSrc, "./imagenes/productos/".$articulo->getimagen_path());
+        $imagen = $articulo->getimagen_path();
+        if (trim($imagen=='')) { 
+            $tpl->setVariable(articuloImgSrc, "./imagenes/productos/imagenNoDisponible.jpg".$articulo->getimagen_path());
+        }
+        else {
+            $tpl->setVariable(articuloImgSrc, "./imagenes/productos/".$articulo->getimagen_path());
+        }
         $tpl->setVariable(articuloImgalt, $articulo->getimagen_path());
         $tpl->parse('producto');
     }

@@ -3,14 +3,15 @@ require_once '../config.php';
 require_once '../rutinas/util.php';
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
 
-$target_path = "imagenes/productos";
-
 $par_abmAccion=$_POST["abmAccion"];
 
 $par_idProducto=$_POST["id"];
 $par_nombreProducto=$_POST["nombre"];
 $par_precioVenta=$_POST["precioVenta"];
-$par_imagenPath=$_POST["imagenPath"];
+
+$par_imagenPath=$_FILES['nombreArchivoImagen']['tmp_name'];
+$par_destinoImagenPath=ereg_replace(" ", "", htmlspecialchars(trim(PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']))));
+
 $par_productoRubroId=$_POST["productoRubroId"];
 
 $producto = new DO_Articulo();
@@ -18,7 +19,13 @@ $producto->setid($par_idProducto);
 $producto->setnombre($par_nombreProducto);
 $producto->setprecio_venta($par_precioVenta);
 $producto->setrubro($par_productoRubroId);
-$producto->setimagen_path($par_imagenPath);
+$producto->setimagen_path($_FILES['nombreArchivoImagen']['name']);
+
+if (move_uploaded_file($par_imagenPath, $par_destinoImagenPath)) {
+    print("Archivo subido correctamente");
+} else {
+    print('Imposible cargar archivo...');
+}
 
 if ($par_abmAccion=='CHANGE') {
     $ret = $producto->update();
@@ -36,12 +43,10 @@ if (!$ret) {
     else
         redirigirPagina('', '/tupar/clicksi/admProductos.php');
 } else { 
-//    $target_path = $target_path . basename( $_FILES['imagenfile']['name']); 
-//    if (!move_uploaded_file($_FILES['imagenfile']['tmp_name'], $target_path)) 
-//        redirigirPagina('Ha ocurrido un error, trate nuevamente!','/tupar/clicksi/admProductos.php');
-//    else
         redirigirPagina('Actualización correcta!','/tupar/clicksi/admProductos.php');
 }
 
 $producto->free();
+
 ?> 
+

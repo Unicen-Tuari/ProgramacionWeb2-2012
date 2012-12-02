@@ -3,8 +3,12 @@
 define ('MONEDA1','$');
 define ('MONEDA2','U$S');
 
-define ('PATH_IMAGENES', './imagenes/productos/');
-define ('CANT_FILAS_PAGINADO', 25);
+define ('PATH_IMAGENES', '../imagenes/productos/');
+define ('TAMMAXIMG', 1500000);
+
+
+define ('CANT_FILAS_PAGINADO', 5);
+define ('CANT_FILAS_PAGINADO_ADM', 15);
 
 $peardir = '/usr/share/php';
 ini_set('include_path', $peardir);

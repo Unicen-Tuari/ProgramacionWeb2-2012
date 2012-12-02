@@ -1,20 +1,48 @@
-<!-- INCLUDE ./templates/encabezadoAdministracion.html -->
-<script type="text/javascript" src="./js/validar.js"></script>
-<div id="contentAdministrar">
-    <form class="formIngresar" method="post" action="./rutinas/updateRubro.php" onSubmit="return ValidarAdmFormRubro(this);">
-        <div>
-            <h1>Modificar Rubro</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="./js/validar.js"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Click S. I.</title>
+    </head>
+
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezadoAdministracion.html -->
         </div>
-        <br/>
-        <div>
-        <!-- BEGIN rubro_actualizar -->
-            <h2>Rubro</h2> 
-            <input type="text" readOnly size="20" name="id" value="{rubroId}"/>
-            <h2>Nombre</h2> 
-            <input type="text"  size="60" name="nombre" value="{rubroNombre}"/>
-            <input type="submit" name="Modificar" value="Modificar"/>
-        <!-- END rubro_actualizar -->
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/menuAdministracion.html -->
+            
         </div>
-    </form>
-</div>
-<!-- INCLUDE ./templates/piePaginaAdministracion.html -->
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+        <div class="contenido">
+            <form class="formIngresar" method="post" action="./rutinas/updateRubro.php" onSubmit="return ValidarAdmFormRubro(this);">
+                <div>
+                    <h1>Modificar Rubro</h1>
+                </div>
+                <br/>
+                <div>
+                <!-- BEGIN rubro_actualizar -->
+                    <h2>Rubro</h2> 
+                    <input type="text" readOnly size="20" name="id" value="{rubroId}"/>
+                    <h2>Nombre</h2> 
+                    <input type="text"  size="60" name="nombre" value="{rubroNombre}"/>
+                    <input type="submit" name="Modificar" value="Modificar"/>
+                <!-- END rubro_actualizar -->
+                </div>
+            </form>
+        </div>
+        
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePaginaAdministracion.html -->    
+        </div>
+        
+    </body>
+</html>

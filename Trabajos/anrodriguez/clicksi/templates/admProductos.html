@@ -1,15 +1,62 @@
-<!-- INCLUDE ./templates/encabezadoAdministracion.html -->
-<div class="contentAdministracion">
-    <form class="formIngresar" method="post" action="admFormProducto.php?accion=ADD">
-        <input type="submit" value="Agregar" name="agregarProducto" />
-        <br><br>
-        <h1>Productos:</h1>    
-        <hr>
-        <ul class=menurubros>
-            <!-- BEGIN productos_administracion -->  
-            <li><a href='admFormProducto.php?accion=CHANGE&producto={productoId}'>{productoNombre}</a></li>
-            <!-- END productos_administracion -->  
-        </ul>
-    </form>
-</div>
-<!-- INCLUDE ./templates/piePaginaAdministracion.html -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Click S. I.</title>
+    </head>
+
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezadoAdministracion.html -->
+        </div>
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/menuAdministracion.html -->
+            
+        </div>
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+        <div class="contenido">
+            <form class="formIngresar" method="post" action="admFormProducto.php?accion=ADD">
+                <input type="submit" value="Agregar" name="agregarProducto" />
+                <br><br>
+                <h1>Productos:</h1>    
+                <hr>
+                <ul class=menurubros>
+                    <!-- BEGIN productos_administracion -->  
+                    <li><a href='admFormProducto.php?accion=CHANGE&producto={productoId}'>{productoNombre}</a></li>
+                    <!-- END productos_administracion -->  
+                </ul>
+            </form>
+        </div>
+        <div class="paginadoLeft">      
+        <!-- BEGIN paginado -->         
+        &nbsp;
+        <!-- BEGIN paginado -->               
+        </div>
+
+        <div class="controlespaginado">
+        <!-- BEGIN paginado -->         
+            <a href='admProductos.php?pagina=0'>Pagina Inicial</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaAnterior}'>Pagina Anterior</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaSiguiente}'>Pagina Siguiente</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaUltima}'>Ultima Pagina</a>
+        <!-- BEGIN paginado -->               
+        </div>
+        <div class="paginadoRight">
+        <!-- BEGIN paginado -->         
+                P&aacute;g.: {pag_actual} / {pag_paginaUltima}
+        <!-- BEGIN paginado -->               
+        </div>
+        
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePaginaAdministracion.html -->    
+        </div>
+        
+    </body>
+</html>
