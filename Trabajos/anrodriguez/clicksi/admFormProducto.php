@@ -5,12 +5,27 @@ include_once("/usr/share/php/HTML/Template/Sigma.php");
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
 include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
 
+function cargarRubros($tpl) {
+    $rubro    = new DO_Rubro();
+    $nRubros = $rubro->find();
+    if ($nRubros>0) {
+        while ($rubro->fetch()) {
+            $tpl->setVariable(productoRubroId, $rubro->getrubro());
+            $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
+            $tpl->parse('cargar_rubros');
+        }
+    }    
+    return;
+}
+
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/admFormProducto.html");
 
 if (!$retOK) {
     die ('Error al cargar template');
 }
+
+cargarRubros($tpl);
 
 $accion     = $_GET["accion"];
 $idProducto = $_GET["producto"];

@@ -1,12 +1,39 @@
-<!-- INCLUDE ./templates/encabezadoAdministracion.html -->
-<div class="contentAdministracion">
-    <h1>Rubros:</h1>
-    <ul class=menurubros>
-        <!-- BEGIN rubros_administracion -->  
-        <li><a href='admFormRubro.php?rubro={rubroId}'>{rubroNombre}</a>
-        <!-- END rubros_administracion -->  
-        </li>
-    </ul>
-</div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Click S. I.</title>
+    </head>
 
-<!-- INCLUDE ./templates/piePaginaAdministracion.html -->
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezadoAdministracion.html -->
+        </div>
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/menuAdministracion.html -->
+            
+        </div>
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+        <div class="contenido">
+            <h1>Rubros:</h1>
+            <ul class=menurubros>
+                <!-- BEGIN rubros_administracion -->  
+                <li><a href='admFormRubro.php?rubro={rubroId}'>{rubroNombre}</a>
+                <!-- END rubros_administracion -->  
+                </li>
+            </ul>
+        </div>
+        
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePaginaAdministracion.html -->    
+        </div>
+        
+    </body>
+</html>

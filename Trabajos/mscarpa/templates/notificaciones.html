@@ -1,8 +1,16 @@
 
 <!-- BEGIN notificacion -->
-<div class="{claseNotificacion} message">
-		 <h3>{mensajeNotificacion}</h3>
-		 <p>{descripcionNotificacion}</p>
-</div>
-<!-- END notificacion -->
 
+<input type="hidden" name="mensaje" id="mensaje" value="{mensajeNotificacion}" />
+<script type="text/javascript" src="./js/alertify.js"></script>
+<link rel="stylesheet" href="./css/alertify.core.css" />
+<link rel="stylesheet" href="./css/alertify.default.css" />
+
+
+<script type="text/javascript">
+
+alertify.alert(document.getElementById("mensaje").value, function () {
+});
+
+</script>
+<!-- END notificacion -->

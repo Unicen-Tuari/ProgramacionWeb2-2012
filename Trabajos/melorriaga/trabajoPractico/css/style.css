@@ -2,7 +2,7 @@
 @import url(../fonts/open-sans-condensed/stylesheet.css);
 
 body {
-	background-image: url('../images/bg8.png');
+	background-image: url('../images/bg.png');
 	font-family: 'OpenSansCondensedLight';
 	margin: 0;
 	padding: 0;
@@ -137,6 +137,10 @@ iframe {
 	margin-left: 180px;
 }
 
+.hidden {
+	display: none;
+}
+
 /********************************************************/
 
 #categories > ul {
@@ -267,10 +271,14 @@ iframe {
 }
 
 #newCategoria {
-	width: 319px;
+	width: 325px;
 }
 
 #newCaracteristicas {
 	width: 538px;
 	height: 150px;
+}
+
+.upload {
+	margin-right: 1em;
 }

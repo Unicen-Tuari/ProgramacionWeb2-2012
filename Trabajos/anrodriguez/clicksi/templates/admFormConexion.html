@@ -1,21 +1,45 @@
-<!-- INCLUDE ./templates/encabezado.html -->
-<!-- INCLUDE ./templates/rubros.html -->
-<!-- INCLUDE ./templates/novedades.html -->
-<script type="text/javascript" src="./rutinas/javaScripts/validar.js"></script>
-<div id="content">
-    <form class="formIngresar" method="post" action="administracion.php" onSubmit="return ValidarIngreso(this);">
-        <div>
-            <h1>Iniciar sesi&oacute;n</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="./js/validar.js"></script>
+        <title>Click S. I.</title>
+    </head>
+
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezado.html -->
         </div>
-        <br/>
-        <div>
-            <h2>Usuario</h2> 
-            <input type="text" size="20" name="usuario" onblur="return ValidarUsuario(this);"/>
-            <h2>Contrase&ntilde;</h2> 
-            <input	type="password" size="20" name="contrasenia" onblur="return ValidarPassword(this);"/> 
-            <input type="submit" name="Ingresar" value="Ingresar" />
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/rubros.html -->
+            
         </div>
-    </form>
-</div>
-</html>
-<!-- INCLUDE ./templates/piePagina.html -->
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+        <div id="content">
+            <form class="ingresar" method="post" action="administracion.php" onSubmit="return ValidarIngreso(this);">
+                <div>
+                    <h1>Iniciar sesi&oacute;n</h1>
+                </div>
+                <br/>
+                <div>
+                    <h2>Usuario</h2> 
+                    <input type="text" size="20" name="usuario" onblur="return ValidarUsuario(this);"/>
+                    <h2>Contrase&ntilde;</h2> 
+                    <input	type="password" size="20" name="contrasenia" onblur="return ValidarPassword(this);"/> 
+                    <input type="submit" name="Ingresar" value="Ingresar" />
+                </div>
+            </form>
+        </div>
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePagina.html -->    
+        </div>
+        
+    </body>
+</html> 

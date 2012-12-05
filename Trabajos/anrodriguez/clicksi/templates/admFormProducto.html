@@ -1,31 +1,68 @@
-<!-- INCLUDE ./templates/encabezadoAdministracion.html -->
-<div id="contentAdministrar">
-    <form class="formIngresar" method="post" action="./rutinas/updateProducto.php" onSubmit="return ValidarAdmFormProducto(this);">
-        <div>
-            <!-- BEGIN producto_actualizar -->  
-            <h1>{titulo}</h1>
-            <!-- END producto_actualizar -->  
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="./js/javaScripts/validar.js"></script>
+        <title>Click S. I.</title>
+    </head>
+
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezadoAdministracion.html -->
         </div>
-        <br/>
-        <div>
-            <!-- BEGIN producto_actualizar -->  
-            <h2>Producto</h2> 
-            <input type="text" readOnly size="20" name="id" value="{productoId}"/>
-            <h2>Nombre</h2> 
-            <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
-            <h2>Precio venta</h2> 
-            <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
-            <h2>Rubro</h2> 
-            <input type="text"  size="20" name="productoRubroId" value="{productoRubroId}"/>
-            <input type="text"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/>
-            <h2>Imagen</h2> 
-            <input type="text"  size="60" name="imagenPath" value="{productoImagenPath}"/>
-            <input type="file" name="imagenFile"/>
-            <!-- END producto_actualizar -->  
-            <br><br>
-            <input type="submit" name="Guardar" value="Guardar"/>
-            <input type="hidden" name="abmAccion" value="{abmAccion}"/>
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/menuAdministracion.html -->
+            
         </div>
-    </form>
-</div>
-<!-- INCLUDE ./templates/piePaginaAdministracion.html -->
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+        <div class="contenido">
+            <form class="formIngresar" enctype="multipart/form-data" method="post" action="./rutinas/updateProducto.php" onSubmit="return ValidarAdmFormProducto(this);">
+                <div>
+                    <!-- BEGIN producto_actualizar -->  
+                    <h1>{titulo}</h1>
+                    <!-- END producto_actualizar -->  
+                </div>
+                <br/>
+                <div>
+                    <!-- BEGIN producto_actualizar -->  
+                    <h2>Producto</h2> 
+                    <input type="text" readOnly size="20" name="id" value="{productoId}"/>
+                    <h2>Nombre</h2> 
+                    <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
+                    <h2>Precio venta</h2> 
+                    <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
+                    <h2>Rubro</h2> 
+                    <select id="rubro" title="Rubro" name="rubro">
+                        <!-- BEGIN cargar_rubros -->
+                        <option value={productoRubroId}>{productoRubroNombre}</option>
+                        <!-- END cargar_rubros -->
+                    </select>           
+
+
+
+                    <input type="text"  size="20" name="productoRubroId" value="{productoRubroId}"/>
+                    <input type="text"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/>
+                    <h2>Imagen</h2> 
+                    <input type="text"  readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
+                    <input type="file" id="nombreArchivoImagen" name="nombreArchivoImagen"/>
+                    <!-- END producto_actualizar -->  
+                    <br><br>
+                    <input type="submit" name="Guardar" value="Guardar"/>
+                    <input type="hidden" name="abmAccion" value="{abmAccion}"/>
+                </div>
+            </form>
+        </div>
+        
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePaginaAdministracion.html -->    
+        </div>
+        
+    </body>
+</html>

@@ -1,63 +1,72 @@
-<!-- INCLUDE ./templates/encabezado.html -->
-<!-- INCLUDE ./templates/rubros.html -->
-<!-- INCLUDE ./templates/novedades.html -->
-<script type="text/javascript" src="./js/validar.js"></script>
-<div id="content">
-	<form class="formContacto" method="post" onSubmit="return ValidarFormularioContacto(this);"
-		action="./rutinas/insertConsulta.php">
-		<div>
-			<h1>Formulario de Contacto</h1>
-		</div>
-		<br />
-		<div>
-			<table>
-				<tr>
-					<td>Razon Social (*)</td>
-					<td><input type="text" size="50" name="razonsocial" onBlur="return ValidarRazonSocialFormularioContacto(this);"/>
-					</td>
-				</tr>
-				<tr>
-					<td>Correo electronico (*)</td>
-					<td><input type="text" size="50" name="email" onBlur="return ValidarEmailFormularioContacto(this);"/>
-					</td>
-				</tr>
-				<tr>
-					<td>Telefono</td>
-					<td><input type="text" size="30" name="telefono" />
-					</td>
-				</tr>
-				<tr>
-					<td>Localidad</td>
-					<td><input type="text" size="30" name="localidad" />
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td>Motivo</td>
-					<td><select name="motivo">
-							<option value="0">Consulta</option>
-							<option value="1">Sugerencia</option>
-							<option value="2">Reclamo</option>
-							<option value="3">Otro</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td>Comentarios</td>
-						<td><textarea name="comentarios" rows="10" cols="70"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td><input type="submit" name="Enviar" value="Enviar comentario" />
-					</td>
-				</tr>
-			</table>
-		</div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="./js/validar.js"></script>
+        <title>Click S. I.</title>
+    </head>
 
-		<div>
-			<h4>(*) Datos obligatorios.</h4>
-		</div>
-	</form>
-</div>
-<!-- INCLUDE ./templates/piePagina.html -->
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezado.html -->
+        </div>
+        
+        <div class="panelIzquierdo">
+        <!-- INCLUDE ./templates/rubros.html -->
+            
+        </div>
+        
+        <div class="panelDerecho">
+        <!-- INCLUDE ./templates/novedades.html -->
+            
+        </div>
+
+
+        <div id="contenidoContacto" class="contenidoContacto">
+            <form class="formContacto" method="post" onSubmit="return ValidarFormularioContacto(this);"
+                action="./rutinas/insertConsulta.php">
+                    <h1>Formulario de Contacto</h1>
+                <br/>
+            
+                <p>         Razon Social (*)
+                            <input type="text" size="50" name="razonsocial" onBlur="return ValidarRazonSocialFormularioContacto(this);"/>
+                            <br>
+                            Correo electronico (*)
+                            <input type="text" size="50" name="email" onBlur="return ValidarEmailFormularioContacto(this);"/>
+                            <br>
+                
+                           Telefono
+                            <input type="text" size="30" name="telefono" />
+                            <br>
+                
+                                              
+                            Localidad
+                            <input type="text" size="30" name="localidad" />
+                            <br>
+                            Motivo
+                            <select name="motivo">
+                                    <option value="0">Consulta</option>
+                                    <option value="1">Sugerencia</option>
+                                    <option value="2">Reclamo</option>
+                                    <option value="3">Otro</option>
+                            </select>
+                            <br>
+                                Comentarios
+                                <textarea name="comentarios" rows="10" cols="70"></textarea>
+                                <input type="submit" name="Enviar" value="Enviar comentario" />
+                            <br>
+                </p>
+
+                <div>
+                    <h4>(*) Datos obligatorios.</h4>
+                </div>
+            </form>
+        </div>
+
+        <div class="pie">
+                <!-- INCLUDE ./templates/piePagina.html -->    
+        </div>
+        
+    </body>
+</html>

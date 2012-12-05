@@ -1,4 +1,5 @@
 <?php 
+
 	require_once 'HTML/Template/Sigma.php';
 
 	//incluyo sigma
@@ -13,30 +14,22 @@ if(!$_POST){
 else
 {
 
-	$mail='mauro.scarp@gmail.com'; 
-	$Nombre = $_POST['nombre']; 
-	$Apellido = $_POST['apellido']; 
-	$Mensaje = $_POST['mensaje']; 
- 
-	echo $Nombre;
-	echo $Apellido;
-	echo $Mensaje;
-
-
-	$message = "nombre:".$Nombre."apellido:".$Apellido."mensaje:".$Mensaje.""; 
-
-
-	if (mail($mail,"Consulta de Tandil Inmobiliario",$message)){
-		$template->setVariable('claseNotificacion', "success");
+	$to      = 'mauro.scarp@gmail.com';
+	$subject = 'Consulta de Tandil Inmobiliario';
+	$message = $_POST['mensaje']; 
+	$headers = 'From: mauro.scarp@gmail.com' . "\r\n" .
+	    'Reply-To: mauro.scarp@gmail.com' . "\r\n" .
+	    'X-Mailer: PHP/' . phpversion();
+	 
+	if(mail($to, $subject, $message, $headers)) {
 		$template->setVariable('mensajeNotificacion', "Su consulta se envio correctamente!");
-		$template->setVariable('descripcionNotificacion', "");				
-	}
-	else{
-		$template->setVariable('claseNotificacion', "error");
+	} else {
 		$template->setVariable('mensajeNotificacion', "Error al enviar su consulta!");
-		$template->setVariable('descripcionNotificacion', "");	
+	    die('Failure: Email was not sent!');
 	}
+
 	$template->parse("notificacion");
 	$template->show();
+
 }
 ?>

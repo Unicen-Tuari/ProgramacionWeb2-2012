@@ -5,7 +5,6 @@
 		include_once 'DataObjects/Propiedad.php';
 		include_once 'DataObjects/Tipo.php';
 		include("autorizacion.php");
-		require_once('Image/Transform.php');
 
 		//incluyo sigma
 		$template = new HTML_Template_Sigma('.');
@@ -68,15 +67,6 @@
 			$rutadestino = $ruta_servidor.'/'.$nombreImagen;
 			move_uploaded_file($rutaTemp, $rutadestino);
 
-			$origen = '/image/' . $nombreImagen;
-			$destino = '/image/img_chicas/' . $nombreImagen;
-			//copy($origen, $destino);
-
-			$it = Image_Transform::factory();
-			$it->load($origen);
-			$it->scaleByLength(160);
-			$it->save($destino);
-
 			$foto = new foto;
 			$foto->URL=$rutadestino;
 			$foto->Nombre=$nombreImagen;
@@ -86,16 +76,10 @@
 	
 		//verifico si se inserto en la DB
 		if($id > 0){
-			$template->setVariable('claseNotificacion', "success");
-			$template->setVariable('mensajeNotificacion', "Se inserto correctamente");
-			$template->setVariable('descripcionNotificacion', "");
-			
+			$template->setVariable('mensajeNotificacion', "La propiedad se inserto correctamente");	
 		}
 		else{
-		$template->setVariable('claseNotificacion', "error");
-			$template->setVariable('mensajeNotificacion', "No se insertó correctamente");
-			$template->setVariable('descripcionNotificacion', "");
-			
+		$template->setVariable('mensajeNotificacion', "Error al insertar la propiedad");	
 		}
 		$template->parse("notificacion");
 		$template->show();

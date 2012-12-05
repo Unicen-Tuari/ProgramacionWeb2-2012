@@ -38,14 +38,9 @@ else
 		}
 
 		if ($encontrado) {
-			$template->setVariable('claseNotificacion', "success");
-			$template->setVariable('mensajeNotificacion', "Usted se ha logeado Correctamente!");
-			$template->setVariable('descripcionNotificacion', "");
 			header("location:Index.php");
 		} else {
-			$template->setVariable('claseNotificacion', "error");
 			$template->setVariable('mensajeNotificacion', "Error en el Login!");
-			$template->setVariable('descripcionNotificacion', "");	
 		}
 		$template->show();
 
