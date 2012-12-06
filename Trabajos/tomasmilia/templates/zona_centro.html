@@ -1,0 +1,29 @@
+<div id="zona_centro">
+	<div id="estilotext"><p>Marcas</p>
+
+			<?php
+				ini_set('display_errors', '0');     #No muestra los errores
+				session_start(); 
+
+				require_once ('config.php'); 
+				require_once ('DataObjects/Marca.php'); 
+
+				$marca = new DO_Marca;
+
+				$marca->find();
+				
+
+				while($marca->fetch()){
+
+						
+
+					echo 	"<a href='prueba.php?id_cat=$marca->id' > $marca->marcas </a> <br>" ;	
+
+
+					}
+
+			?>
+
+
+			</div>	
+		</div>
