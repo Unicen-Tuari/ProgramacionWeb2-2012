@@ -16,11 +16,11 @@ else
 
 	$to      = 'mauro.scarp@gmail.com';
 	$subject = 'Consulta de Tandil Inmobiliario';
-	$message = $_POST['mensaje']; 
+	$message = $_POST['nombre']." ".$_POST['apellido']." : ".$_POST['mensaje'];
 	$headers = 'From: mauro.scarp@gmail.com' . "\r\n" .
 	    'Reply-To: mauro.scarp@gmail.com' . "\r\n" .
 	    'X-Mailer: PHP/' . phpversion();
-	 
+
 	if(mail($to, $subject, $message, $headers)) {
 		$template->setVariable('mensajeNotificacion', "Su consulta se envio correctamente!");
 	} else {
