@@ -1,0 +1,244 @@
+.titulo {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 36px;
+	font-weight: bolder;
+	text-align: center;
+	height: 100px;
+	padding-top: 50px;
+	text-shadow: 0px 0px 20px #000;
+	background-color: #999;
+}
+.pagina {
+	width: 795px;
+	background-color: rgba(255,255,255,0.7);
+	margin: auto;
+	color: #FFF;
+	text-shadow: 0px 0px 10px #000;
+	border-radius: 50px;
+	 /* Reemplazar los 0 por el numero de Pixeles que se inclina el borde*/
+	-webkit-border-radius: 50px;
+	 /* Si solo se da un Numero de Pixeles se interpreta automaticamente que se usa la misma inclinacion en todos los bordes*/
+	-moz-border-radius: 50px;
+	 /* Si se dan dos Numeros de Pixeles se interpreta automaticamente que se usan en el orden de esquinas SuperiorIzquierda y InferiorDerecha con el primer nro y los otros dos extremos con el otro*/
+	-o-border-radius: 50px; /* Si se dan los 4 Nros de Pixeles el orden de esquinas correspondiente es: SuperiorIzquierda - SuperiorDerecha - InferiorDerecha - InferiorIzquierda*/
+}
+
+a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+
+.menu {
+	text-align: center;
+	letter-spacing: 2px;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #03F;
+	text-decoration: none;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.menuinferior {
+	width: 775px;
+	float:left;
+	text-align: left;
+	letter-spacing: 2px;
+	font-family: "Courier New", Courier, monospace;
+	font-size: 12px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #999;
+	text-decoration: none;
+	padding-left: 20px;
+	margin-right: 0px;
+	margin-bottom: auto;
+	padding-bottom:30px;
+	margin-left: 0px;
+	border-radius: 0px 0px 50px 50px;
+	 /* Reemplazar los 0 por el numero de Pixeles que se inclina el borde*/
+	-webkit-border-radius: 0px 0px 50px 50px;
+	 /* Si solo se da un Numero de Pixeles se interpreta automaticamente que se usa la misma inclinacion en todos los bordes*/
+	-moz-border-radius: 0px 0px 50px 50px;
+	 /* Si se dan dos Numeros de Pixeles se interpreta automaticamente que se usan en el orden de esquinas SuperiorIzquierda y InferiorDerecha con el primer nro y los otros dos extremos con el otro*/
+	-o-border-radius: 0px 0px 50px 50px; /* Si se dan los 4 Nros de Pixeles el orden de esquinas correspondiente es: SuperiorIzquierda - SuperiorDerecha - InferiorDerecha - InferiorIzquierda*/
+}
+
+.contenido {
+	/*width: 625px;
+	float:left;*/
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 16px;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: rgba(255,255,255,0.8);
+	color: #666;
+	text-shadow: 0px 0px 0px #000;
+}
+
+.contenido a {
+	text-decoration: underline;
+	color: #666;
+}
+
+.fotosIzq {
+	float: left;
+	width: 200px;
+	margin-right: 50px;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: #CCC;
+}
+.menu a {
+	padding: 5px;
+	background-color: #09F;
+	border-radius: 10px 0px;
+	 /* Reemplazar los 0 por el numero de Pixeles que se inclina el borde*/
+	-webkit-border-radius: 10px 0px;
+	 /* Si solo se da un Numero de Pixeles se interpreta automaticamente que se usa la misma inclinacion en todos los bordes*/
+	-moz-border-radius: 10px 0px;
+	 /* Si se dan dos Numeros de Pixeles se interpreta automaticamente que se usan en el orden de esquinas SuperiorIzquierda y InferiorDerecha con el primer nro y los otros dos extremos con el otro*/
+	-o-border-radius: 10px 0px; /* Si se dan los 4 Nros de Pixeles el orden de esquinas correspondiente es: SuperiorIzquierda - SuperiorDerecha - InferiorDerecha - InferiorIzquierda*/
+}
+
+.menu a:hover {
+	background-color: #09C;
+}
+.formularioDer {
+	float: left;
+	position: relative;
+}
+form label {
+	width: 250px;
+	float: left;
+	height: 24px;
+	margin-left: 40px;
+	margin-bottom: 10px;
+}
+form select {
+	float: left;
+	margin-right: 4px;
+}
+
+form input {
+	float: left;
+	width: 200px;
+	height: 24px;
+	margin-bottom: 10px;
+}
+
+.titulo-contenido {
+	padding:10px;
+
+}
+
+.subtitulo-contenido{
+	padding:5px;
+	font-size:15px;
+}
+
+.consulta-orden{
+	padding:15px;
+	width:500px;
+	height:100px;
+}
+
+.consulta-orden button{
+	float: right;
+}
+
+.form-orden{
+	width:500px;
+	height:500px;
+	padding: 10px;
+}
+
+.menu-lateral{
+	/*width:150px;*/
+	background-color: #999;
+}
+
+.menu-lateral a{
+	font-size: 14px;
+	padding: 5px;
+	background-color: #777;
+}
+
+.menu-lateral a:hover{
+	background-color: #AAA;
+}
+
+.tabla {
+	border:2px solid #AAA;
+}
+
+.tabla-equipos {
+	border: 2px solid #AAAAAA;
+    height: auto;
+    width: 100%;
+}
+
+.header-tabla{
+	background-color: #EEEEEE;
+    border: 1px double #555555;
+}
+
+.header-tabla td{
+    border: 1px double #555555;	
+	padding: 2px;
+}
+
+.datos-tabla{
+	background-color: #EEFFEE;
+    border: 1px dotted grey;
+    font-size: 14px;
+}
+
+.datos-tabla:hover {
+	background-color: #AAFFAA;
+}
+
+.datos-tabla td{
+	border: 1px dotted grey;
+	padding: 2px;
+}
+
+.separador{
+	padding:20px;
+	width:100%;
+}
+
+.campo{
+	width:50%;
+	height:auto;
+	background-color: #EEFFEE;
+	padding:30px;
+	margin:5px;
+	border:3px double #00AA00;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	/* Si solo se da un Numero de Pixeles se interpreta automaticamente que se usa la misma inclinacion en todos los bordes*/
+	-moz-border-radius: 5px;
+	/* Si se dan dos Numeros de Pixeles se interpreta automaticamente que se usan en el orden de esquinas SuperiorIzquierda y InferiorDerecha con el primer nro y los otros dos extremos con el otro*/
+	-o-border-radius: 5px; /* Si se dan los 4 Nros de Pixeles el orden de esquinas correspondiente es: SuperiorIzquierda - SuperiorDerecha - InferiorDerecha - InferiorIzquierda*/
+}
+
+.dato-campo{
+    height: 24px;
+    padding: 5px 25px;
+}
+
+.header-campo{
+	padding:5px;
+	font-weight:bold;
+}

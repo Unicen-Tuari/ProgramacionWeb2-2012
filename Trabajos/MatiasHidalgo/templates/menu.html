@@ -1,0 +1,2 @@
+		<div class="menu"><a href="index.php" title="Página Principal">Inicio</a> | <a href="consulorden.php" title="Consulte su Orden de Reparación">Consultar Orden</a> | <a href="qienessomos.php" title="Conóscanos">Quienes Somos</a> | <a href="contacto.php" title="Contáctenos">Contacto</a></div>
+	</header>

@@ -1,0 +1,15 @@
+<!-- INCLUDE /templates/cabecera.html -->
+	<!-- INCLUDE /templates/menu.html -->
+	<div class="contenido">
+		<div class="titulo-contenido">Bienvenido al Sistema de Consultas de Ordenes de Reparacion.</div>
+
+		<div class="subtitulo-contenido">Por Favor Ingrese el Numero de Orden y Pulse el boton Consultar para poder visualizar el Estado de su Equipo en reparacion.</div>
+
+		<form class="consulta-orden" action="orden.php" onsubmit="return validarOrden()" method="post">
+			<label>Número de Orden:</label> <input name="nroorden" id="nroorden" type="text" /><br/>
+			<label>Contraseña:</label> <input name="contras" id="contras" type="password" /><br/>
+			<button name="Consultar" type="submit">Consultar</button>
+		</form><br/>
+		
+	</div>
+<!-- INCLUDE /templates/piedepagina.html -->

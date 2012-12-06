@@ -1,0 +1,92 @@
+<!-- INCLUDE ../../templates/admin/cabeceraAdmin.html -->
+	<!-- INCLUDE ../../templates/admin/menuAdmin.html -->
+	<!-- INCLUDE ../../templates/admin/menuGestionAdmin.html -->
+	<div class="contenido">
+		 <!-- TABLA con el listado de equipos -->
+		<table class="tabla tabla-equipos">
+			<thead>
+				<tr class="header-tabla">
+					<td>Tipo</td>
+					<td>Modelo</td>
+					<td>Marca</td>
+					<td>Nro de Serie</td>
+					<td>Adquirido en</td>
+					<td>Nro de Factura</td>
+					<td>Fecha de Compra</td>
+					<td>Modificar</td>
+					<td>Borrar</td>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- BEGIN equipo -->
+				<tr class="datos-tabla">
+					<td>{tipo}</td>
+					<td>{modelo}</td>
+					<td>{marca}</td>
+					<td>{nro_serie}</td>
+					<td>{adquiridoen}</td>
+					<td>{nrofactura}</td>
+					<td>{fechacompra}</td>
+					<td><a href="modificar.php?id={modificar}">Modificar</a></td>
+					<td><a href="borrar.php?id={borrar}">Borrar</a></td>
+				</tr>
+			<!-- END equipo -->
+			</tbody>
+		</table>
+		<!-- Fin de la tabla con el Listado -->
+		<div class="separador"></div>
+		<!-- TABLA para creacion rapida de equipo -->
+			<form action="crear.php" method="GET" id="form" name="formulario" enctype="multipart/form-data">
+					<input type="hidden" name="new" value="1">
+				<div class="campo">
+					<div class="header-campo">Tipo</div>
+					<div class="dato-campo"><input type="text" size="30" name="tipo"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Modelo</div>
+					<div class="dato-campo"><input type="text" size="30" name="modelo"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Marca</div>
+					<div class="dato-campo"><input type="text" size="30" name="marca"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Nro de Serie</div>
+					<div class="dato-campo"><input type="number" size="30" name="nro_serie"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Adquirido en</div>
+					<div class="dato-campo"><input type="text" size="30" name="adquiridoen"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Nro de Factura</div>
+					<div class="dato-campo"><input type="number" size="30" name="nrofactura"/></div>
+				</div>
+				<div class="campo">
+					<div class="header-campo">Fecha de Compra</div>
+					<div class="dato-campo"><input type="date" name="fechacompra"/></div>
+				</div>
+				
+				<div class="campo">
+					<div class="header-campo">Foto 1</div>
+					<div class="dato-campo"><input type="file" name="foto1" size="30" maxlength="100"/></div>
+				</div>
+				
+				<div class="campo">
+					<div class="header-campo">Foto 2</div>
+					<div class="dato-campo"><input type="file" name="foto2" size="30" maxlength="100"/></div>
+				</div>
+				
+				<div class="campo">
+					<div class="header-campo">Foto 3</div>
+					<div class="dato-campo"><input type="file" name="foto3" size="30" maxlength="100"/></div>
+				</div>
+				
+				<div class="campo">
+					<div class="header-campo">Crear</div>
+					<div class="dato-campo"><input type="submit" value="Crear Equipo" /></div>
+				</div>
+			</form>
+		<!-- Fin de la tabla creacion rapida de equipos -->
+	</div>
+<!-- INCLUDE ../../templates/admin/piedepaginaAdmin.html -->

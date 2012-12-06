@@ -13,6 +13,7 @@ class DO_Imagenes_equipos extends DB_DataObject
     public $id_imagen;                       // int(4)  primary_key not_null
     public $id_equipo;                       // int(4)   not_null
     public $direccion_web;                   // varchar(100)   not_null
+    public $nombre;                          // varchar(50)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('DO_Imagenes_equipos',$k,$v); }
