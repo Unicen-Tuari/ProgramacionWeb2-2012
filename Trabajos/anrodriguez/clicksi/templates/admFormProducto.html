@@ -3,7 +3,7 @@
     <head>
         <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="./js/validar.js"></script>
+        <script type="text/javascript" src="js/validar.js"></script>
         <title>Click S. I.</title>
     </head>
 
@@ -37,22 +37,22 @@
                     <h2>Precio venta</h2> 
                     <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
                     <h2>Rubro</h2> 
-                    <select id="rubro" title="Rubro" name="rubro">
+                    <select id="rubro" title="Rubro" name="$par_destinoImagenPath">
                         <!-- BEGIN cargar_rubros -->
                         <option value={productoRubroId}>{productoRubroNombre}</option>
                         <!-- END cargar_rubros -->
                     </select>           
 
-                    <input type="hidden"  readOnly size="20" name="productoRubroId" value="{productoRubroId}"/>
-                    <input type="hidden"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/>
+                    <!--input type="hidden"  readOnly size="20" name="productoRubroId" value="{productoRubroId}"/-->
+                    <!--input type="hidden"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/-->
                     <h2>Imagen</h2>
                     <img class="foto1" alt="{articuloImgalt}" src="{articuloImgSrc}"><br>
                     <input type="text"  readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
                     <input type="file" id="nombreArchivoImagen" name="nombreArchivoImagen"/>
                     <!-- END producto_actualizar -->  
                     <br>
-                    <input type="button" name="cancelar" value="Cancelar" onclick="location.href='admProductos.php'"/>
-                    <input type="submit" name="Guardar" value="Guardar"/>
+                    <input class="boton" type="button" name="cancelar" value="Cancelar" onclick="location.href='admProductos.php'"/>
+                    <input class="boton" type="submit" name="Guardar" value="Guardar"/>
                     <input type="hidden" name="abmAccion" value="{abmAccion}"/>
                 </div>
             </form>

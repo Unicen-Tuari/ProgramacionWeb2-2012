@@ -1,7 +1,7 @@
 <?php
 require_once '../config.php';
 require_once '../mensaje.php';
-//require_once '../rutinas/util.php';
+require_once '../rutinas/util.php';
 include_once '../clases/pear/dataobjects/Rubro.php';
 
 
@@ -13,12 +13,13 @@ $rubro->setid($par_idRubro);
 $rubro->setnombre($par_nombreRubro);
 
 $ret = $rubro->update();
+$rubro->free();
 
 if (!$ret) {
-	mensaje('','','', '/tupar/clicksi/admRubros.php','Volver');
+    $direccion=  mensaje('Rubro no actualizado', 'admRubros.php', 'Volver', 'La actualizacion del rubro no fue confirmada', '', '');
 } else { 
-	mensaje('Actualización correcta!','','','/tupar/clicksi/admRubros.php','Volver');
+    $direccion=  mensaje('Actualizacion correcta!', 'admRubros.php', 'Volver', 'El rubro fue modificado', '', '');
 }
+header("Location: $direccion");
 
-$rubro->free();
 ?>

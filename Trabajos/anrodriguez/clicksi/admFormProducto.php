@@ -10,7 +10,7 @@ function cargarRubros($tpl) {
     $nRubros = $rubro->find();
     if ($nRubros>0) {
         while ($rubro->fetch()) {
-            $tpl->setVariable(productoRubroId, $rubro->getrubro());
+            $tpl->setVariable(productoRubroId, $rubro->getid());
             $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
             $tpl->parse('cargar_rubros');
         }
@@ -77,3 +77,4 @@ else
 $tpl->show();
 
 ?>
+B
