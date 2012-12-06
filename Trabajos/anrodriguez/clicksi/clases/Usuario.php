@@ -1,5 +1,5 @@
 <?php
-    include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Usuario.php';
+    include_once 'clases/pear/dataobjects/Usuario.php';
 
 class Usuario extends DO_Usuario {
     

@@ -1,7 +1,7 @@
 <?php
 	require_once 'config.php';
 	require_once 'util.php';
-    include_once '/var/www/tupar/clicksi/clases/Usuario.php';	
+    include_once 'clases/Usuario.php';	
     
     session_start();
     if (!isset($_SESSION['usuario']) ) {

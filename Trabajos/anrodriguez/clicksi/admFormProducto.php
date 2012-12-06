@@ -77,4 +77,3 @@ else
 $tpl->show();
 
 ?>
-B
