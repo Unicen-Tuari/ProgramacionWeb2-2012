@@ -1,0 +1,354 @@
+p  {
+	font:10pt Verdana ;
+}
+/****    Aca se define el estilo de la pagina  ***/
+body {
+	background-color: #69D2E7;
+}
+
+#contenedor_global{
+	width:1000px ;
+	margin:0px auto;
+	background-color: #A7DBD8;
+	border:2px solid black ;
+}
+
+#cabecera{
+	height:150px ;
+	width:100% ;
+	margin:10px 0px ;	
+	border:1px solid black ;
+	background-image: url(./imagenes/coche.png) ;
+}
+
+#zona_centro{
+	
+	height:600px ;
+	width:20% ;
+	float:left ;
+	margin:10px 0px;	
+	border:1px solid black ;
+	background-color: #E0E4CC;
+	text-align: center;
+	font-family:arial,sans-serif;
+	font-size:14px;
+	color: orange;
+	font-size: 90%;  
+
+}
+
+#estilotext{
+	font-family: georgia, serif;
+	color: #E80000;
+	font-size: 15px;
+	font-weight: bold;
+	font-variant: small-caps;
+
+	
+}
+
+#zona_categorias{
+	height:600px ;
+	width:78% ;
+	float:right ;
+	margin:10px 0px 10px 10px ;	
+	border:1px solid black ;
+	background-color: #A7DBD8;
+}
+
+#pie{
+	height:50px ;
+	width:100% ;
+	clear:both ;
+	margin:10px 0px;	
+	border:1px solid black ;
+	background-color: #E0E4CC;
+}
+
+
+
+
+
+/*****   Estilo de Menu       ****/
+
+#menu{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	height:50px ;
+	width:100% ;
+	margin:10px 0px ;	
+	border:1px solid black ;
+
+}
+
+  
+#menu h1 {  
+
+background-color:#FF9900;  
+font-size: 90%;  
+padding: 10px 10 10px 10px;  
+border: 1px solid #000000;  
+color: #333333;  
+margin: 0px;  
+width:159px;  
+}  
+  
+#menu ul {  
+display: inline; 
+list-style: none; 
+
+margin: 6px;  
+padding: 6px;  
+border: none;  
+}  
+#menu ul li {  
+
+display: inline;
+margin: 10px;  
+padding: 0px;  
+}  
+#menu ul li a {  
+font-size: 80%;  
+display: inline;  
+border-bottom: 1px dashed #C39C4E;  
+padding: 5px 0px 2px 4px;  
+text-decoration: none;  
+color: #666666;  
+width:160px;  
+}  
+#menu ul li a:hover, #menu ul li a:focus {  
+color: #000000;  
+background-color: #eeeeee;  
+}
+
+
+
+
+	/*********        login       ***********/
+
+#Ingresar{
+	float: left;
+	/*background-color: black;*/
+	width: 48%;
+	height: 98%;
+	margin-right: 2%;
+	border:	1px solid black ;
+}
+
+#Registrarse{
+	
+	float: left;
+	/*background-color: white;*/
+	width: 49%;
+	height: 98%;
+	border:		1px solid black ;
+	
+}
+
+
+
+
+
+		/*******  Formularios   ******/
+
+
+/****  Formulario de contacto   *****/
+#formulario{
+
+margin-left: 19%;
+
+}
+
+#formulario{
+
+	
+	color:#333333;	
+
+}
+
+#formulario label {
+display:block;
+font-family:arial,sans-serif;
+font-size:14px;
+padding:2px 0 3px;
+
+}
+
+#formulario input.texto {
+
+
+color:#666666;
+font-size:12px;
+height:24px;
+padding-bottom:0;
+padding-left:5px;
+padding-top:5px;
+width:300px;
+font-family:arial,sans-serif;
+margin-left: 3px;
+}
+
+#formulario label {
+display:block;
+font-family:arial,sans-serif;
+font-size:14px;
+padding:10px 0 3px;
+}
+
+#formulario input.botonenviar {
+
+border:medium none !important;
+color:orange;
+display:block;
+float:left;
+font-family:arial,sans-serif;
+height:30px;
+margin-left:200px;
+margin-top:20px;
+text-align:center;
+width:99px;
+}
+
+
+/****  Formulario de Login   *****/
+
+#Ingresar{
+
+	
+	color:#333333;	
+
+}
+
+#Ingresar label {
+display:block;
+font-family:arial,sans-serif;
+font-size:14px;
+padding:2px 0 3px;
+
+}
+
+#Ingresar input.texto {
+
+
+	color:#666666;
+	font-size:12px;
+	height:24px;
+	padding-bottom:0;
+	padding-left:5px;
+	padding-top:5px;
+	width:300px;
+	font-family:arial,sans-serif;
+	margin-left: 3px;
+}
+
+#Ingresar label {
+	display:block;
+	font-family:arial,sans-serif;
+	font-size:14px;
+	padding:10px 0 3px;
+}
+
+#Ingresar input.botonenviar {
+
+	border:medium none !important;
+	color:orange;
+	display:block;
+	float:left;
+	font-family:arial,sans-serif;
+	height:30px;
+	margin-left:200px;
+	margin-top:20px;
+	text-align:center;
+	width:99px;
+}
+
+
+
+
+#Registrarse{
+
+	color:#333333;	
+}
+
+
+
+#Registrarse label {
+display:block;
+font-family:arial,sans-serif;
+font-size:14px;
+padding:2px 0 3px;
+
+}
+
+#Registrarse input.texto {
+
+
+	color:#666666;
+	font-size:12px;
+	height:24px;
+	padding-bottom:0;
+	padding-left:5px;
+	padding-top:5px;
+	width:300px;
+	font-family:arial,sans-serif;
+	margin-left: 3px;
+}
+
+#Registrarse label {
+	display:block;
+	font-family:arial,sans-serif;
+	font-size:14px;
+	padding:10px 0 3px;
+}
+
+#Registrarse input.botonenviar {
+
+	border:medium none !important;
+	color:orange;
+	display:block;
+	float:left;
+	font-family:arial,sans-serif;
+	height:30px;
+	margin-left:200px;
+	margin-top:20px;
+	text-align:center;
+	width:99px;
+}
+
+
+
+
+/*******  Muestra de Producto   ******/
+
+#principo{
+
+	border: 1px solid;
+}
+
+#modelo {
+	font-family: georgia, serif;
+	color: #ED0707;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+}
+#precio{
+	font-family: 'lucida sans unicode', 'lucida grande', sans-serif;
+	color: #C40606;
+	font-size: 15px;
+}
+
+#descripcion{
+
+	font-family: arial, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+
+}
+
+#mostrarimag{
+ 	height: 50%;
+ 	width: 50%;
+ 	background-color: black;
+}
+
+
