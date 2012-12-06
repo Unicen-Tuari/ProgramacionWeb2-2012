@@ -35,16 +35,10 @@ else
 		$id = $usuario->Insert();
 
 		if($id > 0){
-			$template->setVariable('claseNotificacion', "success");
-			$template->setVariable('mensajeNotificacion', "Se Registro correctamente!");
-			$template->setVariable('descripcionNotificacion', "");	
-			
+			$template->setVariable('mensajeNotificacion', "Se Registro correctamente!");	
 		}
 		else{
-		$template->setVariable('claseNotificacion', "error");
-			$template->setVariable('mensajeNotificacion', "Error en el Registro!");
-			$template->setVariable('descripcionNotificacion', "");
-			
+			$template->setVariable('mensajeNotificacion', "Error en el Registro!");		
 		}
 		$template->parse("notificacion");
 		$template->show();
