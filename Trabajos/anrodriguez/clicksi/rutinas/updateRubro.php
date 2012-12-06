@@ -1,7 +1,8 @@
 <?php
 require_once '../config.php';
-require_once '../rutinas/util.php';
-include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+require_once '../mensaje.php';
+//require_once '../rutinas/util.php';
+include_once '../clases/pear/dataobjects/Rubro.php';
 
 
 $par_idRubro        = $_POST["id"];
@@ -14,9 +15,9 @@ $rubro->setnombre($par_nombreRubro);
 $ret = $rubro->update();
 
 if (!$ret) {
-	redirigirPagina('', '/tupar/clicksi/admRubros.php');
+	mensaje('','','', '/tupar/clicksi/admRubros.php','Volver');
 } else { 
-	redirigirPagina('Actualización correcta!','/tupar/clicksi/admRubros.php');
+	mensaje('Actualización correcta!','','','/tupar/clicksi/admRubros.php','Volver');
 }
 
 $rubro->free();

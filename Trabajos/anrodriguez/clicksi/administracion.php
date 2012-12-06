@@ -1,7 +1,7 @@
 <?php
 include_once 'config.php';
 include_once 'rutinas/conexion.inc.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/administracion.html");

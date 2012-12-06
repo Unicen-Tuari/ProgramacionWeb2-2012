@@ -22,9 +22,13 @@
         </div>
 
         <div class="contenido">
+            <form method="post" action="admProductos.php">
+                    <input type="text" size="60" value="{nombreBuscar}" name="nombreBuscar" id="nombreBuscar">
+                    <input type="submit" value="Buscar">
+                </form> 
+
             <form class="formIngresar" method="post" action="admFormProducto.php?accion=ADD">
                 <input type="submit" value="Agregar" name="agregarProducto" />
-                <br><br>
                 <h1>Productos:</h1>    
                 <hr>
                 <ul class=menurubros>
@@ -42,10 +46,10 @@
 
         <div class="controlespaginado">
         <!-- BEGIN paginado -->         
-            <a href='admProductos.php?pagina=0'>Pagina Inicial</a> &VerticalBar;
-            <a href='admProductos.php?pagina={pag_paginaAnterior}'>Pagina Anterior</a> &VerticalBar;
-            <a href='admProductos.php?pagina={pag_paginaSiguiente}'>Pagina Siguiente</a> &VerticalBar;
-            <a href='admProductos.php?pagina={pag_paginaUltima}'>Ultima Pagina</a>
+            <a href='admProductos.php?pagina=0&nombreBuscar={nombreBuscar}'>Pagina Inicial</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaAnterior}&nombreBuscar={nombreBuscar}'>Pagina Anterior</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaSiguiente}&nombreBuscar={nombreBuscar}'>Pagina Siguiente</a> &VerticalBar;
+            <a href='admProductos.php?pagina={pag_paginaUltima}&nombreBuscar={nombreBuscar}'>Ultima Pagina</a>
         <!-- BEGIN paginado -->               
         </div>
         <div class="paginadoRight">

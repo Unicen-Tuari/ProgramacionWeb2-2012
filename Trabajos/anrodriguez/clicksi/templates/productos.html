@@ -13,24 +13,19 @@
         
         <div class="panelIzquierdo">
         <!-- INCLUDE ./templates/rubros.html -->
-            
         </div>
         
         <div class="panelDerecho">
         <!-- INCLUDE ./templates/novedades.html -->
-            
         </div>
 
         <div class="contenidoCatalogo">
-            <br>
             <h1>Catalogo de productos</h1>
             <h2>{rubroNombre} ({pag_CantFilas})</h2>
             <p>Los precios no incluyen I.V.A.</p>    
-            <h2>
-            </h2>
-            <br>
-            <div id="divTablaproductos">
-                <form class="container">
+            
+            <!--div id="divTablaproductos"-->
+                <form class="container" action="">
                     <table class="tablaproductos">
                         <tr><th>DESCRIPCION</th> 
                             <th>M</th> 
@@ -42,14 +37,12 @@
                             <td><h3>{articuloNombre}</h3></td>
                             <td><h3>{articuloMoneda}</h3></td>
                             <td><h3>{articuloPrecioVenta}</h3></td>
-                            <td><img alt="{articuloImgalt}" src="{articuloImgSrc}"></td>                    
+                            <td><img class="foto" alt="{articuloImgalt}" src="{articuloImgSrc}"></td>                    
                         </tr>
         <!-- END producto -->    
                     </table>
-                    <br>
-                    <hr>        
                 </form>
-            </div>
+            
         </div>
         <div class="paginadoLeft">      
         <!-- BEGIN paginado -->         

@@ -1,9 +1,9 @@
 <?php
 include_once 'config.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
-include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
-include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Rubro.php';
+include_once 'clases/pear/dataobjects/Articulo.php';
+include_once 'clases/pear/dataobjects/Rubro.php';
 
 function cargarRubros($tpl) {
     $rubro    = new DO_Rubro();
@@ -49,7 +49,14 @@ if ($accion=='CHANGE') {
         $tpl->setVariable(productoNombre, $producto->getnombre());
         $tpl->setVariable(productoId, $producto->getid());
         $tpl->setVariable(productoPrecioVenta, $producto->getprecio_venta());
-        $tpl->setVariable(productoImagenPath, $producto->getimagen_path());
+        $imagen = $producto->getimagen_path();
+        $tpl->setVariable(productoImagenPath, $imagen);
+        if (trim($imagen=='')) { 
+            $tpl->setVariable(articuloImgSrc, "./imagenes/productos/imagenNoDisponible.jpg".$imagen);
+        }
+        else {
+            $tpl->setVariable(articuloImgSrc, "./imagenes/productos/".$imagen);
+        }
         $tpl->setVariable(productoRubroId, $producto->getrubro());
         $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
         $tpl->parse('producto_actualizar');

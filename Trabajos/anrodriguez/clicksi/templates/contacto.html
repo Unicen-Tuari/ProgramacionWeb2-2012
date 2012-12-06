@@ -26,37 +26,27 @@
         <div id="contenidoContacto" class="contenidoContacto">
             <form class="formContacto" method="post" onSubmit="return ValidarFormularioContacto(this);"
                 action="./rutinas/insertConsulta.php">
-                    <h1>Formulario de Contacto</h1>
-                <br/>
-            
-                <p>         Razon Social (*)
-                            <input type="text" size="50" name="razonsocial" onBlur="return ValidarRazonSocialFormularioContacto(this);"/>
-                            <br>
-                            Correo electronico (*)
-                            <input type="text" size="50" name="email" onBlur="return ValidarEmailFormularioContacto(this);"/>
-                            <br>
-                
-                           Telefono
-                            <input type="text" size="30" name="telefono" />
-                            <br>
-                
-                                              
-                            Localidad
-                            <input type="text" size="30" name="localidad" />
-                            <br>
-                            Motivo
-                            <select name="motivo">
-                                    <option value="0">Consulta</option>
-                                    <option value="1">Sugerencia</option>
-                                    <option value="2">Reclamo</option>
-                                    <option value="3">Otro</option>
-                            </select>
-                            <br>
-                                Comentarios
-                                <textarea name="comentarios" rows="10" cols="70"></textarea>
-                                <input type="submit" name="Enviar" value="Enviar comentario" />
-                            <br>
-                </p>
+                    <h1>Formulario de Contacto</h1>            
+                    <p>
+                        <label>Razon Social (*)</label><br>
+                        <input type="text" size="50" name="razonsocial" onBlur="return ValidarRazonSocialFormularioContacto(this);"/><br>
+                        <label>Correo electronico (*)</label><br>
+                        <input type="text" size="50" name="email" onBlur="return ValidarEmailFormularioContacto(this);"/><br>
+                        <label>Telefono</label><br>
+                        <input type="text" size="30" name="telefono" /><br>
+                        <label>Localidad</label><br>
+                        <input type="text" size="30" name="localidad" /><br>
+                        <label>Motivo</label>
+                        <select name="motivo">
+                            <option value="0">Consulta</option>
+                            <option value="1">Sugerencia</option>
+                            <option value="2">Reclamo</option>
+                            <option value="3">Otro</option>
+                        </select><br>
+                        <label>Comentarios</label><br>
+                        <textarea name="comentarios" rows="8" cols="70"></textarea>
+                        <input type="submit" name="Enviar" value="Enviar comentario" /><br>
+                    </p>
 
                 <div>
                     <h4>(*) Datos obligatorios.</h4>

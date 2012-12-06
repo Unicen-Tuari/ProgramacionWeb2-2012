@@ -1,10 +1,15 @@
 <?php
 include_once 'config.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
-include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Articulo.php';
+include_once 'clases/pear/dataobjects/Articulo.php';
 
 $cantidadFilas = CANT_FILAS_PAGINADO_ADM;
+
+$nombreBuscar = NULL;
+if ($_REQUEST["nombreBuscar"]!=""){
+    $nombreBuscar = $_REQUEST["nombreBuscar"];
+}
 
 $pag_pagina = $_GET["pagina"];
 if (!$pag_pagina) {
@@ -23,9 +28,15 @@ if (!$retOK) {
     die ('Error al cargar template');
 }
 
-$articulo     = new DO_Articulo();
+$articulo   = new DO_Articulo();
+$where      = '';
+if ($nombreBuscar!=NULL) {
+    $where = "nombre like '%$nombreBuscar%'";
+}
+$articulo->whereAdd("$where");
 $nArticulos   = $articulo->find();
-
+// - Busqueda
+$tpl->setVariable(nombreBuscar, $nombreBuscar);
 // - Paginado
 $pag_totalPaginas = ceil($nArticulos / $cantidadFilas);
 $tpl->setVariable(pag_CantFilas, $nArticulos);

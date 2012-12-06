@@ -1,24 +1,23 @@
 <?php
 include_once 'config.php';
-include_once("/usr/share/php/HTML/Template/Sigma.php");
+include_once("HTML/Template/Sigma.php");
 
-function mensaje($titulo, $texto1, $texto2, $pagina) {    
+function mensaje($titulo, $texto1='', $texto2='', $pagina='', $textoPagina='') {
+    echo $titulo;
+    $tpl = new HTML_Template_Sigma(".");
+    $retOK = $tpl->loadTemplateFile("./templates/mensaje.html");
 
-$tpl = new HTML_Template_Sigma(".");
-$ret = $tpl->loadTemplateFile("./templates/mensaje.html");
+    if (!$retOK) {
+        die ('Error al cargar template');
+    }
+    
+    $tpl->setVariable(titulo, $titulo);
+    $tpl->setVariable(texto1, $texto1);
+    $tpl->setVariable(texto2, $texto2);
+    $tpl->setVariable(pagina, $pagina);
+    $tpl->setVariable(texto_pagina, $textoPagina);
 
-if (!$ret) {
-    die ('Error al cargar template');
+    $tpl->parse('mensaje');
+    $tpl->show();
 }
-
-$tpl->setVariable(titulo, $titulo);
-$tpl->setVariable(texto1, $texto1);
-$tpl->setVariable(texto2, $texto2);
-$tpl->parse('mensaje');
-}
-
-$tpl->show();
-
-//header("Location:".$pagina);
-
 ?>

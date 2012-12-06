@@ -1,13 +1,31 @@
-<!-- INCLUDE ./templates/encabezado.html -->
-<!-- INCLUDE ./templates/rubros.html -->
-<!-- INCLUDE ./templates/novedades.html -->
-<div id="contentIndex">
-	<div class=formIngresar>
-    <!-- BEGIN mensaje -->  
-		<br><h1>{titulo}</h1><br>
-		<h2>{texto1}</h2><br>
-		<h3>{texto2}</h3><br>
-    <!-- END mensaje -->  
-	</div>
-</div>
-<!-- INCLUDE ./templates/piePagina.html -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Click S. I.</title>
+    </head>
+
+    <body class="body">
+        <div class="menu">
+            <!-- INCLUDE ./templates/encabezado.html -->
+        </div>
+
+        <div class="contenidoMensajes">
+            <div class=formIngresar>
+            <!-- BEGIN mensaje -->  
+                <br><h1>{titulo}</h1><br>
+                <h2>{texto1}</h2><br>
+                <h3>{texto2}</h3><br>
+                <br><br><br><br><br>
+                <center><a href="{pagina}">{texto_pagina}</a></center>
+            <!-- END mensaje -->  
+            </div>
+        </div>
+
+        <div class="pie">
+            <!-- INCLUDE ./templates/piePagina.html -->    
+        </div>
+        
+    </body>
+</html>

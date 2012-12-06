@@ -16,9 +16,12 @@
         
         if (!$nUsuarios) { 
             errorConexionPagina();
+            exit();
         } else {
             if (!$usuario->validarPassword($par_contrasenia)) {
-                errorConexionPagina();
+                mensaje('Error de conexion','','','index.php','Inicio');
+                //errorConexionPagina();
+                exit();
             }
         else {
             $_SESSION['usuario']=$par_usuario;
