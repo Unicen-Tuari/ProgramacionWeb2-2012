@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 11-07-2012 a las 20:44:50
--- Versión del servidor: 5.5.16
--- Versión de PHP: 5.3.8
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-12-2012 a las 00:07:06
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sgt`
 --
+DROP DATABASE `sgt`;
 CREATE DATABASE `sgt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `sgt`;
 
@@ -38,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `consultas` (
   `email` varchar(50) NOT NULL,
   `consulta` text NOT NULL,
   PRIMARY KEY (`id_consulta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -57,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `nrofactura` int(50) DEFAULT NULL,
   `fechacompra` date DEFAULT NULL,
   PRIMARY KEY (`id_equipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `equipos_so` (
   UNIQUE KEY `cod_id_so` (`cod_id_so`),
   KEY `id_equipo` (`id_equipo`,`id_serviceo`),
   KEY `id_serviceo` (`id_serviceo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -108,9 +109,10 @@ CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
   `id_imagen` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
   `direccion_web` varchar(100) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_imagen`),
   KEY `id_equipo` (`id_equipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `noticias` (
   `noticia` text NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`id_noticia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -180,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `service_oficial` (
   `sitio_web` varchar(100) NOT NULL,
   `tipodeorden` varchar(15) NOT NULL,
   PRIMARY KEY (`id_serviceo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -192,6 +194,7 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta` varchar(16) NOT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
   `contras` varchar(16) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellido` varchar(30) NOT NULL,
@@ -202,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(50) NOT NULL,
   `observaciones` text NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Restricciones para tablas volcadas
@@ -232,8 +235,8 @@ ALTER TABLE `imagenes_equipos`
 -- Filtros para la tabla `ordenes`
 --
 ALTER TABLE `ordenes`
-  ADD CONSTRAINT `ordenes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`),
-  ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`id_equipo`) REFERENCES `equipos` (`id_equipo`);
+  ADD CONSTRAINT `ordenes_ibfk_1` FOREIGN KEY (`id_equipo`) REFERENCES `equipos` (`id_equipo`),
+  ADD CONSTRAINT `ordenes_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

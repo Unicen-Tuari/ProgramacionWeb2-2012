@@ -1,6 +1,4 @@
 <?php
-//require_once('DBmanager.inc.php');
-//$dbmanager=new DBmanager;
 require_once ('config.php');
 require_once('./DataObjects/Consultas.php');
 $consulta=new DO_Consultas;
@@ -13,18 +11,22 @@ $consulta->consulta = $_POST['consulta'];
 
 $consulta->insert();
 
-//$consulta=$dbmanager->crearConsulta($_POST['nombre'],$_POST['apellido'],$_POST['tipodni'],$_POST['dni'],$_POST['email'],$_POST['consulta']);
-//$dbmanager->sendConsulta($consulta);
 
-//Inicio de Carga de Web
-require_once('cabecera.php');
-require_once('menu.php');
-?>
-<div class="contenido">
-Muchas gracias por enviar su consulta Sr./a <?php echo($consulta->getapellido().", ".$consulta->getnombre()); ?> <br/>
-<br/>
-En breve le contestaremos su consulta. <br/>
-</div>
-<?php 
-require_once('piedepagina.php');
+require_once 'HTML/Template/Sigma.php';
+
+$tpl = new HTML_Template_Sigma('.');
+
+$error=$tpl->loadTemplateFile("/templates/email.html");
+
+$tpl->setVariable('titulo','Consulta enviada con exito!');
+
+$tpl->parse('Cabecera');
+
+$tpl->setVariable('apellido',$_POST['apellido']);
+$tpl->setVariable('nombre',$_POST['nombre']);
+
+$tpl->parse('consulta');
+
+$tpl->show();	
+
 ?>

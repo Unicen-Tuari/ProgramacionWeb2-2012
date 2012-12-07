@@ -4,46 +4,60 @@ require_once('./DataObjects/Ordenes.php');
 require_once('./DataObjects/Equipos.php');
 require_once('./DataObjects/Usuarios.php');
 $orden=new DO_Ordenes;
-$orden->nro_orden = $_POST['nroorden'];
-$cantidad = $orden->find();
+//$orden->nro_orden = $_POST['nroorden'];
+//$cantidad = $orden->find();
+//$orden->fetch();
+$cantidad = $orden->get($_POST['nroorden']);
 if($cantidad != 0){
 	$usuario=new DO_Usuarios;
-	$usuario->id_usuario = $orden->id_usuario;
-	$usuario->find();
+	$usuario->get($orden->id_usuario);
 	$equipo=new DO_Equipos;
-	$equipo->id_equipo = $orden->id_equipo;
+	$equipo->get($orden->id_equipo);
 	$contrascorrecta=false;
 	if ($usuario->contras==$_POST['contras']) {
 		$contrascorrecta=true;
 	}
 }
-require_once('cabecera.php');
-require_once('menu.php');
-?>
-<div class="contenido">
-<?php 
+
+require_once 'HTML/Template/Sigma.php';
+
+$tpl = new HTML_Template_Sigma('.');
+
 if($cantidad == 0){
-	echo("<br/><h2>La Orden nro: ".$_POST['nroorden']." no existe</h2>");
-	echo('<h3><a href="consulorden.php">Volver atras</a></h3>');
-} else if($contrascorrecta=false){
-	echo('<br/><h2>La contraseña no es válida</h2>');
-	echo('<h3><a href="consulorden.php">Volver atras</a></h3>');	
-} else echo('<form id="form">
-<label>Orden Numero:</label><label id="nro_orden"> '.$orden->get_nro_orden().'</label><br/>
-<label>Fecha de Ingreso:</label><label id="fecha_ingreso"> '.$orden->get_fecha_ingreso().'</label><br/>
-<label>Equipo:</label><label id="tipo">'.$equipo->get_tipo().'</label><br/>
-<label>Marca:</label><label id="marca">'.$equipo->get_marca().'</label><br/>
-<label>Modelo:</label><label id="modelo">'.$equipo->get_modelo().'</label><br/>
-<label>Nro de Serie:</label><label id="nro_serie">'.$equipo->get_nro_serie().'</label><br/>
-<label>Fecha de Compromiso:</label><label id="fecha_prometido">'.$orden->get_fecha_prometido().'</label><br/>
-<label>Estado:</label><label id="estado">'.$orden->get_estado().'</label><br/>
-</form>
-');
-?>
-</div>
-<?php 
-require_once('piedepagina.php');
+	$error=$tpl->loadTemplateFile("/templates/error.html");
+	$tpl->setVariable('titulo','Error: Orden Invalida');
+	$tpl->setVariable('error','La Orden nro: '.$_POST['nroorden'].' no existe');
+	$tpl->setVariable('anterior','consulorden.php');
+	$tpl->parse('Error');
+} else if($contrascorrecta==false){	
+	$error=$tpl->loadTemplateFile("/templates/error.html");
+	$tpl->setVariable('titulo','Error: Contraseña Invalida');
+	$tpl->setVariable('error','La contraseña no es válida');
+	$tpl->setVariable('anterior','consulorden.php');
+	$tpl->parse('Error');
+} else {
+	$error=$tpl->loadTemplateFile("/templates/orden.html");
+	$tpl->setVariable('titulo','Consulta enviada con exito!');
+	$tpl->setVariable('nro_orden',$orden->getnro_orden());
+	$tpl->setVariable('fecha_ingreso',$orden->getfecha_ingreso());
+	$tpl->setVariable('tipo',$equipo->gettipo());
+	$tpl->setVariable('marca',$equipo->getmarca());
+	$tpl->setVariable('modelo',$equipo->getmodelo());
+	$tpl->setVariable('nro_serie',$equipo->getnro_serie());
+	$tpl->setVariable('fecha_prometido',$orden->getfecha_prometido());
+	$tpl->setVariable('estado',$orden->getestado());
+	$tpl->parse('Consulta');
+}
+
+$tpl->parse('Cabecera');
+
+
+
 $orden->free();
-$usuario->free();
-$equipo->free();
+if(isset($usuario)){
+	$usuario->free();
+	$equipo->free();
+}
+
+$tpl->show();	
 ?>

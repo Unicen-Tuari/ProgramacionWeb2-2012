@@ -12,6 +12,7 @@ class DO_Usuarios extends DB_DataObject
     public $__table = 'usuarios';            // table name
     public $id_usuario;                      // int(4)  primary_key not_null
     public $cuenta;                          // varchar(16)   not_null
+    public $admin;                           // tinyint(1)   not_null
     public $contras;                         // varchar(16)   not_null
     public $nombre;                          // varchar(30)   not_null
     public $apellido;                        // varchar(30)   not_null
