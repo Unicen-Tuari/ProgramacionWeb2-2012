@@ -36,10 +36,10 @@
                     <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
                     <h2>Precio venta</h2> 
                     <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
-                    <h2>Rubro</h2> 
-                    <select id="rubro" title="Rubro" name="$par_destinoImagenPath">
+                    <h2>Rubro </h2>
+                    <select id="rubro" title="Rubro" name="rubro">
                         <!-- BEGIN cargar_rubros -->
-                        <option value={productoRubroId}>{productoRubroNombre}</option>
+                        <option {selectRubro} value={productoRubroId}>{productoRubroNombre}</option>
                         <!-- END cargar_rubros -->
                     </select>           
 

@@ -8,34 +8,31 @@ $par_abmAccion=$_POST["abmAccion"];
 $par_idProducto=$_POST["id"];
 $par_nombreProducto=$_POST["nombre"];
 $par_precioVenta=$_POST["precioVenta"];
-
-$par_imagenPath=$_FILES['nombreArchivoImagen']['tmp_name'];
-//$par_destinoImagenPath=ereg_replace(" ", "", htmlspecialchars(trim(PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']))));
-$par_destinoImagenPath=PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']);
-
 $par_productoRubroId=$_POST["rubro"];
+
+//    $par_imagenPath=$_FILES['nombreArchivoImagen']['tmp_name'];
+//$par_destinoImagenPath=ereg_replace(" ", "", htmlspecialchars(trim(PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']))));
+//    $par_destinoImagenPath=PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']);
 
 $producto = new DO_Articulo();
 $producto->setnombre($par_nombreProducto);
 $producto->setprecio_venta($par_precioVenta);
 $producto->setrubro($par_productoRubroId);
-$producto->setimagen_path($par_destinoImagenPath);
-
-echo $par_destinoImagenPath;
-var_dump($_FILES);
+$producto->setimagen_path('imagenes/productos/imagenNoDisponible.jpg');//$par_destinoImagenPath);
 
 
+/*
 if (!move_uploaded_file($par_imagenPath, $par_destinoImagenPath)) {
         $direccion=  mensaje('Imposible cargar archivo', 'admProductos.php', 'Volver', 'El siguiente archivo no fue cargado al servidor', $par_imagenPath, '');
         header("Location: $direccion");
         return;
 }
-
+*/
 
 if ($par_abmAccion=='CHANGE') {
     $producto->setid($par_idProducto);
     $ret = $producto->update();
-}
+ }
 else
     if ($par_abmAccion=='ADD') {    
         $ret = $producto->insert();
