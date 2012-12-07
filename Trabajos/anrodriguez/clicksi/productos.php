@@ -6,8 +6,12 @@ include_once 'clases/pear/dataobjects/Rubro.php';
 include_once 'clases/pear/dataobjects/Articulo.php';
 $cantidadFilas = CANT_FILAS_PAGINADO;
 
-$par_rubro = $_GET["rubro"];
+$nombreBuscar = NULL;
+if ($_REQUEST["nombreBuscar"]!=""){
+    $nombreBuscar = $_REQUEST["nombreBuscar"];
+}
 
+$par_rubro = $_GET["rubro"];
 $pag_pagina = $_GET["pagina"];
 if (!$pag_pagina) {
     $pag_inicio = 0;
@@ -16,7 +20,6 @@ if (!$pag_pagina) {
 else {
     $pag_inicio = ($pag_pagina - 1) * $cantidadFilas;
 } 
-
 
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/productos.html");
@@ -36,7 +39,19 @@ $rubro->setnombre($par_rubro);
 $rubro->find();
 $rubro->fetch();
 $articulo->rubro = $rubro->getid(); 
-$nArticulos      = $articulo->find();
+$where      = '';
+if ($nombreBuscar!=NULL) {
+    $where = "nombre like '%$nombreBuscar%'";
+    $tpl->setVariable(rubroNombre, $nombreBuscar);
+}
+ else { if ($par_rubro=="")
+            $tpl->setVariable(rubroNombre, 'Listado Completo');
+}
+
+$articulo->whereAdd("$where");
+$nArticulos   = $articulo->find();
+// - Busqueda
+$tpl->setVariable(nombreBuscar, $nombreBuscar);
 
 // - Paginado
 $pag_totalPaginas = ceil($nArticulos / $cantidadFilas);

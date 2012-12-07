@@ -2,7 +2,7 @@
 require_once '../config.php';
 require_once 'util.php';
 require_once 'enviarMail.php';
-include_once '/var/www/tupar/clicksi/clases/pear/dataobjects/Consulta.php';
+include_once '../clases/pear/dataobjects/Consulta.php';
 
 $par_razonsocial 	= $_POST["razonsocial"];
 $par_email		 	= $_POST["email"];
@@ -38,10 +38,13 @@ switch ($par_motivo) {
 
 
 if (!$idConsulta) {
-	redirigirPagina('', '/tupar/clicksi/errorConexion.php');
+    $direccion=  mensaje('Error al registrar su consulta', 'index.php', 'Volver', 'Intente nuevamente en unos minutos', '¡Muchas Gracias!', '');
+    header("Location: $direccion");
 } else { 
     enviarMail($par_razonsocial, $par_email, $par_telefono, $par_localidad, $motivo, $par_comentarios);
-	redirigirPagina('Su consulta ha sido registrada. En breve nos comunicaremos con usted. ¡Muchas Gracias!', '/tupar/clicksi/index.php');
+    $direccion=  mensaje('Su consulta ha sido registrada', 'index.php', 'Volver', 'En breve nos comunicaremos con usted', '¡Muchas Gracias!', '');
+    header("Location: $direccion");
+
 }
 
 $consulta->free();
