@@ -61,7 +61,7 @@ if ($accion=='CHANGE') {
             $tpl->setVariable(articuloImgSrc, "./imagenes/productos/imagenNoDisponible.jpg".$imagen);
         }
         else {
-            $tpl->setVariable(articuloImgSrc, "".$imagen);
+            $tpl->setVariable(articuloImgSrc, "./imagenes/productos/".$imagen);
         }
         $tpl->setVariable(productoRubroId, $producto->getrubro());
         $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
