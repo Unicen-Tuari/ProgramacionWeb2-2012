@@ -44,7 +44,6 @@ if (!$idConsulta) {
     enviarMail($par_razonsocial, $par_email, $par_telefono, $par_localidad, $motivo, $par_comentarios);
     $direccion=  mensaje('Su consulta ha sido registrada', 'index.php', 'Volver', 'En breve nos comunicaremos con usted', '¡Muchas Gracias!', '');
     header("Location: $direccion");
-
 }
 
 $consulta->free();

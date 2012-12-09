@@ -72,3 +72,10 @@ function ValidarAdmFormRubro(form){
 function ValidarAdmFormRubroNombre(nombre){
 	return true;
 };
+
+function confirmarOperacion() {
+    if(confirm('¿Esta Seguro de suprimir este registro?'))
+        return true;
+    else
+        return false; //this.form.submit();
+}

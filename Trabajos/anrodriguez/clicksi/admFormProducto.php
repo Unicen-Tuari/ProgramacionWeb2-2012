@@ -37,10 +37,12 @@ $producto = new DO_Articulo();
 $rubro    = new DO_Rubro();
 
 $tpl->setVariable(abmAccion, $accion);
-
-
-if ($accion=='CHANGE') {
+if ($accion=='CHANGE')
     $tpl->setVariable(titulo, 'Modificar Producto');
+else
+    $tpl->setVariable(titulo, 'Suprimir Producto');
+
+if ($accion=='CHANGE'||$accion=='DEL') {
     $producto->setid($idProducto);
     $nProductos = $producto->find();
     if ($nProductos>0) {

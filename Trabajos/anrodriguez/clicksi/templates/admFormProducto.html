@@ -45,13 +45,14 @@
 
                     <h2>Imagen</h2>
                     <img class="foto1" alt="{articuloImgalt}" src="{articuloImgSrc}"><br>
-                    <input type="text"  readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
+                    <input type="text" readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
                     <input type="file" id="nombreArchivoImagen" name="nombreArchivoImagen"/>
-                    <!-- END producto_actualizar -->  
                     <br>
                     <input class="boton" type="button" name="cancelar" value="Cancelar" onclick="location.href='admProductos.php'"/>
-                    <input class="boton" type="submit" name="Guardar" value="Guardar"/>
+                    <input class="boton" type="submit" name="Guardar" value="Aceptar"/><br>
+                    <input class="boton" type="button" name="Borrar" value="Borrar" onclick="if (confirmarOperacion())location.href='./rutinas/updateProducto.php?id={productoId}&abmAccion=DEL'"/> 
                     <input type="hidden" name="abmAccion" value="{abmAccion}"/>
+                    <!-- END producto_actualizar -->  
                 </div>
             </form>
         </div>

@@ -13,11 +13,8 @@ $mensaje .= "Localidad: ".$par_localidad." \r\n";
 $mensaje .= "Motivo: ".$par_motivo." \r\n";
 $mensaje .= "Comentarios: ".$par_comentarios." \r\n";
 $mensaje .= "Enviado el " . date('d/m/Y', time());
-  header("Location:".$pagina);
 $para = 'anrodriguez.click@gmail.com';
 $asunto = 'Clicksi site.'.$par_motivo;
-
 mail($para, $asunto, utf8_decode($mensaje), $header);
-
 }
 ?>
