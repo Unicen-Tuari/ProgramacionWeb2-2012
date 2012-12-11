@@ -5,7 +5,6 @@ require_once 'DataObjects/Provincia.php';
 require_once 'DataObjects/Categoria.php';
 require_once 'DataObjects/Clasificado.php';
 
-require_once 'includes/common.php';
 require_once 'includes/funciones.php';
 
 require_once 'HTML/Template/Sigma.php';
