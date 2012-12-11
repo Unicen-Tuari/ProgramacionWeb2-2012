@@ -5,17 +5,26 @@ require_once 'DataObjects/Provincia.php';
 require_once 'DataObjects/Categoria.php';
 require_once 'DataObjects/Clasificado.php';
 
-require_once 'includes/common.php';
 require_once 'includes/funciones.php';
 
 require_once 'HTML/Template/Sigma.php';
 
 //logica ubicacion
-$ubicacion = "";
-if (isset($_GET["ubicacion"]))
-	$ubicacion=$_GET["ubicacion"];
-$provincia_y_municipio = provincia_y_municipio($ubicacion);
-$ubicacion = ubicacion_para_mostrar($ubicacion,$provincia_y_municipio);
+$provincia=new DO_Provincia();
+$ciudad=new DO_Ciudad();
+$ubicacion = "Argentina";
+if (isset($_GET["provincia"]) && ($_GET["provincia"]!="")){
+	$ubicacion=capitalizar($_GET["provincia"]);
+	$provincia->provincia_nombre=$ubicacion;
+	$provincia->find();
+	$provincia->fetch();
+}
+if (isset($_GET["ciudad"]) && ($_GET["ciudad"]!="")){
+	$ubicacion=capitalizar($_GET["ciudad"]);
+	$ciudad->ciudad_nombre=$ubicacion;
+	$ciudad->find();
+	$ciudad->fetch();
+}
 //fin logica ubicacion
 
 $tpl = new HTML_Template_Sigma('.');
@@ -25,48 +34,54 @@ $tpl->setVariable('description', "");
 $tpl->parse('encabezados');
 $tpl->show();
 
-$categoria="";
-$subcategoria="";
-if (isset($_GET["categoria"]))
-	$categoria=$_GET["categoria"];
-if (isset($_GET["subcategoria"]))
-	$subcategoria = $_GET["subcategoria"];
+$categoria=new DO_Categoria();
+$categoria->nombre=$_GET["categoria"];
+$categoria->find();
+$categoria->fetch();
+$subcategoria=new DO_Categoria();
+
+$categoria_para_mostrar=$_GET["categoria"];
+if (isset($_GET["subcategoria"]) && ($_GET["subcategoria"]!="")){
+	$categoria_para_mostrar = $_GET["subcategoria"];
+	$subcategoria->nombre=$_GET["subcategoria"];
+	$subcategoria->find();
+	$subcategoria->fetch();
+}
 
 $tpl = new HTML_Template_Sigma('.');
 $error=$tpl->loadTemplateFile("/templates/header.html");
 $tpl->setVariable('titulo', "Anuncios clasificados gratis en $ubicacion");
-$tpl->setVariable('ubicacion', $ubicacion);
-$tpl->setVariable('categoria', $categoria);
-$tpl->setVariable('subcategoria', $subcategoria);
+$tpl->setVariable('provincia', $provincia->provincia_nombre);
+$tpl->setVariable('ciudad', $ciudad->ciudad_nombre);
+$tpl->setVariable('categoria', $categoria->nombre);
+$tpl->setVariable('subcategoria', $subcategoria->nombre);
 $tpl->parse('header');
 $tpl->show();
 
 $tpl = new HTML_Template_Sigma('.');
 $error=$tpl->loadTemplateFile("/templates/navegacion.html");
-if ($provincia_y_municipio["provincia"]!=""){
-	$provincia=$provincia_y_municipio["provincia"]->provincia_nombre;
-	$link_provincia="index.php?ubicacion=".url_amigable($provincia);
-	$tpl->setVariable('provincia', capitalizar($provincia));
+if ($provincia->provincia_nombre!=""){
+	$link_provincia="index.php?provincia=".url_amigable($provincia->provincia_nombre);
+	$tpl->setVariable('provincia', capitalizar($provincia->provincia_nombre));
 	$tpl->setVariable('link_provincia', $link_provincia);
 	$tpl->parse('navegacion_provincia');
 }
-if ($provincia_y_municipio["municipio"]!=""){
-	$ciudad=$provincia_y_municipio["municipio"]->ciudad_nombre;
-	$link_ciudad="index.php?ubicacion=".url_amigable($ciudad);
-	$tpl->setVariable('ciudad', capitalizar($ciudad));
+if ($ciudad->ciudad_nombre!=""){
+	$link_ciudad="index.php?ciudad=".url_amigable($ciudad->ciudad_nombre);
+	$tpl->setVariable('ciudad', capitalizar($ciudad->ciudad_nombre));
 	$tpl->setVariable('link_ciudad', $link_ciudad);
 	$tpl->parse('navegacion_ciudad');
 }
-$link_categoria="categorias.php?categoria=".url_amigable($categoria."&amp;ubicacion=".$ubicacion);
+$link_categoria="categorias.php?categoria=".url_amigable($categoria_para_mostrar."&amp;provincia=".$provincia->provincia_nombre."&amp;ciudad=".$ciudad->ciudad_nombre);
 $tpl->setVariable('link_categoria', $link_categoria);
-$tpl->setVariable('categoria', $categoria);
+$tpl->setVariable('categoria', $categoria->nombre);
 $tpl->setVariable('ubicacion', $ubicacion);
 $tpl->parse('navegacion_categoria');
 
-if ($subcategoria!=""){
-	$link_subcategoria="categorias.php?categoria=".url_amigable($categoria."&amp;subcategoria=".$subcategoria."&amp;ubicacion=".$ubicacion);
+if ($subcategoria->nombre!=""){
+	$link_subcategoria="categorias.php?categoria=".url_amigable($categoria->nombre."&amp;subcategoria=".$subcategoria->nombre."&amp;provincia=".$provincia->provincia_nombre."&amp;ciudad=".$ciudad->ciudad_nombre);
 	$tpl->setVariable('link_subcategoria', $link_subcategoria);
-	$tpl->setVariable('subcategoria', $subcategoria);
+	$tpl->setVariable('subcategoria', $subcategoria->nombre);
 	$tpl->setVariable('ubicacion', $ubicacion);
 	$tpl->parse('navegacion_subcategoria');
 }
@@ -77,18 +92,18 @@ $tpl->show();
 $tpl = new HTML_Template_Sigma('.');
 $error=$tpl->loadTemplateFile("/templates/categorias.html");
 if ($subcategoria==""){
-	$tpl->setVariable('nombre_categoria', capitalizar($categoria));
+	$tpl->setVariable('nombre_categoria', capitalizar($categoria->nombre));
 	$tpl->parse('categorias_relacionadas_current');
 } else {
-	$link_categoria="categorias.php?".url_amigable("categoria=".$categoria."&amp;ubicacion=".$ubicacion);
+	$link_categoria="categorias.php?".url_amigable("categoria=".$categoria->nombre."&amp;provincia=".$provincia->provincia_nombre."&amp;ciudad=".$ciudad->ciudad_nombre);
 	$tpl->setVariable('link_categoria', $link_categoria);
-	$tpl->setVariable('nombre_categoria_comun', capitalizar($categoria));
+	$tpl->setVariable('nombre_categoria_comun', capitalizar($categoria->nombre));
 	$tpl->parse('categorias_relacionadas_comun');
 }
 //termine el primero
 
 $categoria_aux=new DO_Categoria();
-$categora_aux->nombre=$categoria;
+$categoria_aux->idcategoria=$categoria->idcategoria;
 $categoria_aux->find();
 $categoria_aux->fetch();
 $subcategoria_aux=new DO_Categoria();
@@ -96,11 +111,11 @@ $subcategoria_aux->idpadre=$categoria_aux->idcategoria;
 $subcategoria_aux->find();
 while ($subcategoria_aux->fetch()){
 	//por cada subcategoria
-	if (normalizar($subcategoria_aux->nombre)==$subcategoria){
+	if (($subcategoria->nombre!="") && ($subcategoria_aux->idcategoria==$subcategoria->idcategoria)){
 		$tpl->setVariable('nombre_categoria', $subcategoria_aux->nombre);
 		$tpl->parse('categorias_relacionadas_current');
 	} else {
-		$link_categoria="categorias.php?".url_amigable("categoria=".$categoria_aux->nombre."&amp;subcategoria=".$subcategoria_aux->nombre."&amp;ubicacion=".$ubicacion);
+		$link_categoria="categorias.php?".url_amigable("categoria=".$categoria_aux->nombre."&amp;subcategoria=".$subcategoria_aux->nombre."&amp;provincia=".$provincia->provincia_nombre."&amp;ciudad=".$ciudad->ciudad_nombre);
 		$tpl->setVariable('link_categoria', $link_categoria);
 		$tpl->setVariable('nombre_categoria_comun', $subcategoria_aux->nombre);
 		$tpl->parse('categorias_relacionadas_comun');
@@ -108,25 +123,27 @@ while ($subcategoria_aux->fetch()){
 }
 $tpl->parse('categorias_relacionadas');
 
-$provincia=new DO_Provincia();
-$provincia->find();
-$link_onchange="location.href='categorias.php?categoria=$categoria&amp;subcategoria=$subcategoria&amp;ubicacion='+(this.value)";
+$prov=new DO_Provincia();
+$prov->find();
+$link_onchange="location.href='categorias.php?categoria=".$categoria->nombre."&amp;subcategoria=".$subcategoria->nombre."&amp;provincia='+(this.value)";
 $tpl->setVariable('link_onchange', $link_onchange);
-while ($provincia->fetch()){
-	$tpl->setVariable('nombre_provincia', utf8_encode($provincia->provincia_nombre));
-	if (($provincia_y_municipio["provincia"]!="") && ($provincia->id==$provincia_y_municipio["provincia"]->id))
+while ($prov->fetch()){
+	$tpl->setVariable('nombre_provincia', utf8_encode($prov->provincia_nombre));
+	if (($provincia->provincia_nombre!="") && ($prov->id==$provincia->id))
 		$tpl->parse('ubicacion_provincia_selected');
 	else
 		$tpl->parse('ubicacion_provincia');
 }
-if ($provincia_y_municipio["provincia"]!=""){
-	$ciudad=new DO_Ciudad();
-	$ciudad->provincia_id=$provincia_y_municipio["provincia"]->id;
-	$ciudad->find();
-	while ($ciudad->fetch()){
-		$tpl->setVariable('nombre_municipio', capitalizar(utf8_encode($ciudad->ciudad_nombre)));
-		if (($provincia_y_municipio["municipio"]!="") && ($ciudad->id==$provincia_y_municipio["municipio"]->id))
-				$tpl->parse('ubicacion_municipio_selected');
+if ($provincia->provincia_nombre!=""){
+	$ciud=new DO_Ciudad();
+	$ciud->provincia_id=$provincia->id;
+	$ciud->find();
+	$link_onchange="location.href='categorias.php?categoria=".$categoria->nombre."&amp;subcategoria=".$subcategoria->nombre."&amp;provincia=".$provincia->provincia_nombre."&amp;ciudad='+(this.value)";
+	$tpl->setVariable('link_onchange_municipio', $link_onchange);
+	while ($ciud->fetch()){
+		$tpl->setVariable('nombre_municipio', capitalizar(utf8_encode($ciud->ciudad_nombre)));
+		if (($ciudad->ciudad_nombre!="") && ($ciud->id==$ciudad->id))
+			$tpl->parse('ubicacion_municipio_selected');
 		else
 			$tpl->parse('ubicacion_municipio');
 	}
@@ -134,24 +151,29 @@ if ($provincia_y_municipio["provincia"]!=""){
 $tpl->parse('ubicacion');
 
 //lista de clasificados
-$cantidad_clasificados=1;
-$tpl->setVariable('cantidad_clasificados', $cantidad_clasificados);
-if ($subcategoria=="")
-	$categoria_actual=$categoria;
-else 
-	$categoria_actual=$subcategoria;
-$tpl->setVariable('categoria', $categoria_actual);
+
+$tpl->setVariable('categoria', $categoria_para_mostrar);
 $tpl->setVariable('ubicacion', $ubicacion);
 
 $clasificado=new DO_Clasificado();
-//como hago grupos de cosas? onda todos los clasificados de una categoria?
-//lo mismo para las provincias
-//ahora traigo todos
+if ($provincia->provincia_nombre!="")
+	$clasificado->idprovincia=$provincia->id;
+if ($ciudad->ciudad_nombre!="")
+	$clasificado->idciudad=$ciudad->id;
+$clasificado->idcategoria=$categoria->idcategoria;
+if ($subcategoria->nombre!="")
+	$clasificado->idsubcategoria=$subcategoria->idcategoria;
 $clasificado->find();
+$cantidad_clasificados=$clasificado->count();
+
 while ($clasificado->fetch()){
 	$precio="";
-	if ($clasificado->precio!="")
-		$precio="$clasificado->moneda $clasificado->precio";
+	if ($clasificado->precio!=""){
+		if ($clasificado->moneda=="pesos")
+			$precio='$ '.$clasificado->precio;
+		else
+			$precio='u$s '.$clasificado->precio;
+	}
 	$tpl->setVariable('precio', $precio);
 	$link_clasificado="amplia.php?id=$clasificado->idclasificado";
 	if (existe_thumbnail($clasificado->idclasificado,1)){
@@ -164,7 +186,7 @@ while ($clasificado->fetch()){
 	$tpl->setVariable('clasificado_titulo', $clasificado->titulo);
 	$tpl->setVariable('clasificado_detalle', $clasificado->detalle);
 	$categoria_aux=new DO_Categoria();
-	$categoria_aux->idcategoria=$clasificado->idcategoria;
+	$categoria_aux->idcategoria=$clasificado->idsubcategoria;
 	$categoria_aux->find();
 	$categoria_aux->fetch();
 	$tpl->setVariable('clasificado_categoria', utf8_encode($categoria_aux->nombre));
@@ -176,6 +198,7 @@ while ($clasificado->fetch()){
 	$tpl->setVariable('clasificado_fecha', $clasificado->fecha);
 	$tpl->parse('lista_clasificados');
 }
+$tpl->setVariable('cantidad_clasificados', $cantidad_clasificados);
 
 $tpl->parse('clasificados');
 $tpl->show();

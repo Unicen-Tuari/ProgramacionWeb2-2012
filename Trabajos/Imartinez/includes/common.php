@@ -1,4 +1,5 @@
 <?php 
+/*
 require_once 'DataObjects/Ciudad.php';
 require_once 'DataObjects/Provincia.php';
 require_once 'DataObjects/Categoria.php';
@@ -93,6 +94,7 @@ function cantidad_clasificados($nombre_categoria,$ubicacion){
 		}
 		return mysql_result($result2,0);
 		*/
+/*
 }
 	
 function categorias_relacionadas($categoria_para_mostrar){
@@ -125,4 +127,5 @@ function categorias_relacionadas($categoria_para_mostrar){
 	}
 	return $arr;
 }
+*/
 ?>

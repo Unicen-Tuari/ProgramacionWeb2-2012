@@ -21,6 +21,8 @@ class DO_Clasificado extends DB_DataObject
     public $telefono;                        // int(4)  
     public $moneda;                          // varchar(11)  
     public $estado;                          // varchar(30)   not_null default_pendiente
+    public $idprovincia;                     // int(4)   not_null
+    public $idsubcategoria;                  // int(4)   not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('DO_Clasificado',$k,$v); }
