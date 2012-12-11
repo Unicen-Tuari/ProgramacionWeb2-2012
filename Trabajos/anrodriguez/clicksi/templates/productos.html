@@ -24,6 +24,11 @@
             <h2>{rubroNombre} ({pag_CantFilas})</h2>
             <p>Los precios no incluyen I.V.A.</p>    
             
+            <form method="post" action="productos.php">
+                <input class="boton" type="submit" value="Buscar">
+                <input type="text" size="80" value="{nombreBuscar}" name="nombreBuscar" id="nombreBuscar">
+            </form> 
+            
             <!--div id="divTablaproductos"-->
                 <form class="container" action="">
                     <table class="tablaproductos">
@@ -52,10 +57,10 @@
 
         <div class="controlespaginado">
         <!-- BEGIN paginado -->         
-            <a href='productos.php?pagina=0&rubro={rubroNombre}'>Pagina Inicial</a> &VerticalBar;
-            <a href='productos.php?pagina={pag_paginaAnterior}&rubro={rubroNombre}'>Pagina Anterior</a> &VerticalBar;
-            <a href='productos.php?pagina={pag_paginaSiguiente}&rubro={rubroNombre}'>Pagina Siguiente</a> &VerticalBar;
-            <a href='productos.php?pagina={pag_paginaUltima}&rubro={rubroNombre}'>Ultima Pagina</a>
+            <a href='productos.php?pagina=0&rubro={rubroNombre}&nombreBuscar={nombreBuscar}'>Pagina Inicial</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaAnterior}&rubro={rubroNombre}&nombreBuscar={nombreBuscar}'>Pagina Anterior</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaSiguiente}&rubro={rubroNombre}&nombreBuscar={nombreBuscar}'>Pagina Siguiente</a> &VerticalBar;
+            <a href='productos.php?pagina={pag_paginaUltima}&rubro={rubroNombre}&nombreBuscar={nombreBuscar}'>Ultima Pagina</a>
         <!-- BEGIN paginado -->               
         </div>
         <div class="paginadoRight">

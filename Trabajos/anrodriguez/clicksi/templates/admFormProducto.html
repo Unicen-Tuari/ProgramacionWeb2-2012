@@ -36,24 +36,23 @@
                     <input type="text"  size="60" name="nombre" value="{productoNombre}"/>
                     <h2>Precio venta</h2> 
                     <input type="text"  size="20" name="precioVenta" value="{productoPrecioVenta}"/>
-                    <h2>Rubro</h2> 
-                    <select id="rubro" title="Rubro" name="$par_destinoImagenPath">
+                    <h2>Rubro </h2>
+                    <select id="rubro" title="Rubro" name="rubro">
                         <!-- BEGIN cargar_rubros -->
-                        <option value={productoRubroId}>{productoRubroNombre}</option>
+                        <option {selectRubro} value={productoRubroId}>{productoRubroNombre}</option>
                         <!-- END cargar_rubros -->
                     </select>           
 
-                    <!--input type="hidden"  readOnly size="20" name="productoRubroId" value="{productoRubroId}"/-->
-                    <!--input type="hidden"  readonly size="60" name="productoRubroNombre" value="{productoRubroNombre}"/-->
                     <h2>Imagen</h2>
                     <img class="foto1" alt="{articuloImgalt}" src="{articuloImgSrc}"><br>
-                    <input type="text"  readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
+                    <input type="text" readOnly size="60" name="nombreArchivoImagen" value="{productoImagenPath}"/>
                     <input type="file" id="nombreArchivoImagen" name="nombreArchivoImagen"/>
-                    <!-- END producto_actualizar -->  
                     <br>
                     <input class="boton" type="button" name="cancelar" value="Cancelar" onclick="location.href='admProductos.php'"/>
-                    <input class="boton" type="submit" name="Guardar" value="Guardar"/>
+                    <input class="boton" type="submit" name="Guardar" value="Aceptar"/><br>
+                    <input class="boton" type="button" name="Borrar" value="Borrar" onclick="if (confirmarOperacion())location.href='./rutinas/updateProducto.php?id={productoId}&abmAccion=DEL'"/> 
                     <input type="hidden" name="abmAccion" value="{abmAccion}"/>
+                    <!-- END producto_actualizar -->  
                 </div>
             </form>
         </div>

@@ -3,6 +3,7 @@
     <head>
         <link href="./css/clicksi.css" rel="stylesheet" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="./js/validar.js"></script>
         <title>Click S. I.</title>
     </head>
 
@@ -23,12 +24,12 @@
 
         <div class="contenido">
             <form method="post" action="admProductos.php">
-                    <input class="boton" type="submit" value="Buscar">
-                    <input type="text" size="60" value="{nombreBuscar}" name="nombreBuscar" id="nombreBuscar">
-                </form> 
+                <input class="boton" type="submit" value="Buscar">
+                <input type="text" size="60" value="{nombreBuscar}" name="nombreBuscar" id="nombreBuscar">
+            </form> 
 
             <form class="formIngresar" method="post" action="admFormProducto.php?accion=ADD">
-                <input class="boton" type="submit" value="Agregar" name="agregarProducto" />
+                <input class="boton" type="submit" value="Agregar" name="agregarProducto"/>
                 <h1>Productos:</h1>    
                 <hr>
                 <ul class=menurubros>

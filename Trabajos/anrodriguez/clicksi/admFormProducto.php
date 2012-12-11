@@ -5,18 +5,23 @@ include_once("HTML/Template/Sigma.php");
 include_once 'clases/pear/dataobjects/Articulo.php';
 include_once 'clases/pear/dataobjects/Rubro.php';
 
-function cargarRubros($tpl) {
+function cargarRubros(&$tpl, $rubroActual) {
     $rubro    = new DO_Rubro();
     $nRubros = $rubro->find();
     if ($nRubros>0) {
         while ($rubro->fetch()) {
             $tpl->setVariable(productoRubroId, $rubro->getid());
             $tpl->setVariable(productoRubroNombre, $rubro->getnombre());
+            if($rubroActual==$rubro->getid()) {
+                $tpl->setVariable(selectRubro, 'selected="selected"');
+            }
             $tpl->parse('cargar_rubros');
         }
     }    
     return;
 }
+
+// Main ------------------------------------------------------------------------
 
 $tpl = new HTML_Template_Sigma(".");
 $retOK = $tpl->loadTemplateFile("./templates/admFormProducto.html");
@@ -25,18 +30,19 @@ if (!$retOK) {
     die ('Error al cargar template');
 }
 
-cargarRubros($tpl);
-
 $accion     = $_GET["accion"];
 $idProducto = $_GET["producto"];
-
-$tpl->setVariable(abmAccion, $accion);
 
 $producto = new DO_Articulo();
 $rubro    = new DO_Rubro();
 
-if ($accion=='CHANGE') {
+$tpl->setVariable(abmAccion, $accion);
+if ($accion=='CHANGE')
     $tpl->setVariable(titulo, 'Modificar Producto');
+else
+    $tpl->setVariable(titulo, 'Suprimir Producto');
+
+if ($accion=='CHANGE'||$accion=='DEL') {
     $producto->setid($idProducto);
     $nProductos = $producto->find();
     if ($nProductos>0) {
@@ -45,6 +51,8 @@ if ($accion=='CHANGE') {
         $rubro->setid($producto->getrubro());
         $rubro->find();
         $rubro->fetch();
+
+        cargarRubros($tpl, $rubro->id);
         
         $tpl->setVariable(productoNombre, $producto->getnombre());
         $tpl->setVariable(productoId, $producto->getid());
@@ -64,6 +72,7 @@ if ($accion=='CHANGE') {
 }
 else
     if ($accion=='ADD') {
+        cargarRubros($tpl, 0);
         $tpl->setVariable(titulo, 'Agregar Producto');
         $tpl->setVariable(productoNombre, '');
         $tpl->setVariable(productoId, '');

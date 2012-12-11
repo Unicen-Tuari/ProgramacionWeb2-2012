@@ -11,6 +11,8 @@ if (!$retOK) {
     die ('Error al cargar template');
 }
 
+session_start();
+
 $rubro     = new DO_Rubro();
 $nRubros   = $rubro->find();
 
@@ -20,6 +22,11 @@ if ($nRubros>0) {
         $tpl->setVariable(nombreRubro, $rubro->getnombre());
         $tpl->parse('rubros');
     }
+}
+
+if (isset($_SESSION['usuario']) ) {
+    $tpl->setVariable(linkCerrarSesion, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="cerrarSesion.php">Cerrar Sesion ('.$_SESSION['usuario'].')</a>');
+    $tpl->parse('cerrarSesion');
 }
 
 $tpl->show();
