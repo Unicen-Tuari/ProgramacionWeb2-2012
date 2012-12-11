@@ -2,6 +2,7 @@
 require_once ('../../config.php');
 require_once 'DB/DataObject.php';
 require_once '../../DataObjects/Equipos.php';
+require_once '../../DataObjects/Imagenes_equipos.php';
 
 require_once 'HTML/Template/Sigma.php';
 $tpl = new HTML_Template_Sigma('.');
@@ -9,7 +10,7 @@ $tpl = new HTML_Template_Sigma('.');
 session_start();
 
 if(isset($_SESSION['admin'])){
-	if(isset($_GET['search'])){
+	if(isset($_POST['search'])){
 		// Creo el objeto
 		$equipo = new DO_Equipos;
 
@@ -17,28 +18,37 @@ if(isset($_SESSION['admin'])){
 		foreach($criterios as $key => $value){
 			$equipo->$key = $value;
 		}*/
-		if(isset($_GET['tipo'])){
-			$equipo->tipo = $_GET['tipo'];
+		if($_POST['tipo']!=''){
+			$equipo->tipo = $_POST['tipo'];
 		}
-		if(isset($_GET['modelo'])){
-			$equipo->modelo = $_GET['modelo'];
+		if($_POST['modelo']!=''){
+			$equipo->modelo = $_POST['modelo'];
 		}
-		if(isset($_GET['marca'])){
-			$equipo->marca = $_GET['marca'];
+		if($_POST['marca']!=''){
+			$equipo->marca = $_POST['marca'];
 		}
-		if(isset($_GET['nro_serie'])){
-			$equipo->nro_serie = $_GET['nro_serie'];
+		if($_POST['nro_serie']!=''){
+			$equipo->nro_serie = $_POST['nro_serie'];
+		}
+		if($_POST['adquiridoen']!=''){
+			$equipo->nro_serie = $_POST['adquiridoen'];
+		}
+		if($_POST['nrofactura']!=''){
+			$equipo->nro_serie = $_POST['nrofactura'];
+		}
+		if($_POST['fechacompra']!=''){
+			$equipo->nro_serie = $_POST['fechacompra'];
 		}
 		// Le doy un orden
-		if(isset($_GET['orden'])){
-			$equipo->orderBy($_GET['orden']);
+		if(isset($_POST['orden'])){
+			$equipo->orderBy($_POST['orden']);
 		}
 		// Busco todas las ocurrencias con esos criterios y ordenados por orden
 		$cant = $equipo->find();
 
 		if($cant>=1){
 			$error=$tpl->loadTemplateFile("../../templates/admin/equipos/listar.html");
-			$tpl->setVariable('titulo','Equipo eliminado Correctamente');
+			$tpl->setVariable('titulo','Resultado de la busqueda');
 			while($equipo->fetch()){
 				$tpl->setVariable('tipo', $equipo->tipo);
 				$tpl->setVariable('modelo', $equipo->modelo);

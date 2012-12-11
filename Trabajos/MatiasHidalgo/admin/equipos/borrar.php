@@ -2,6 +2,7 @@
 require_once ('../../config.php');
 require_once 'DB/DataObject.php';
 require_once '../../DataObjects/Equipos.php';
+require_once '../../DataObjects/Imagenes_equipos.php';
 
 require_once 'HTML/Template/Sigma.php';
 $tpl = new HTML_Template_Sigma('.');
@@ -12,7 +13,17 @@ if(isset($_SESSION['admin'])){
 		// Creo el objeto y le cargo los datos del objeto que se desea eliminar
 		$equipo = new DO_Equipos;
 		$equipo->get($_GET['id']);
-
+		
+		$imagenes = new DO_Imagenes_equipos;
+		$imagenes->id_equipo = $equipo->id_equipo;
+		$imagenes->find();
+		
+		while($imagenes->fetch()){
+			unlink('../../'.$imagenes->direccion_web);
+			unlink('../../img/uploads/miniaturas/'.$imagenes->nombre);
+			$imagenes->delete();
+		}
+		
 		// Lo elimino y obtengo la cantidad de filas eliminadas en el proceso
 		$cant = $equipo->delete();
 

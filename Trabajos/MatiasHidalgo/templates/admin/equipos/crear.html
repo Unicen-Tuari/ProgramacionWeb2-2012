@@ -2,11 +2,86 @@
 	<!-- INCLUDE ../../templates/admin/menuAdmin.html -->
 	<!-- INCLUDE ../../templates/admin/menuGestionAdmin.html -->
 	<div class="contenido">
-		Administracion de Usuarios:<br/>
-		Listar Usuarios<br/>
-		Crear Usuario<br/>
-		Buscar Usuario<br/>
-		Modificar Usuario<br/>
-		Borrar Usuario<br/>
+		<!-- TABLA para creacion rapida de equipo -->
+		<form action="crear.php" method="POST" id="form" name="formulario" enctype="multipart/form-data">
+			<div class="campo">
+				<div class="header-campo">Tipo</div>
+				<div class="dato-campo"><input type="text" size="30" name="tipo"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Modelo</div>
+				<div class="dato-campo"><input type="text" size="30" name="modelo"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Marca</div>
+				<div class="dato-campo"><input type="text" size="30" name="marca"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Nro de Serie</div>
+				<div class="dato-campo"><input type="number" size="30" name="nro_serie"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Adquirido en</div>
+				<div class="dato-campo"><input type="text" size="30" name="adquiridoen"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Nro de Factura</div>
+				<div class="dato-campo"><input type="number" size="30" name="nrofactura"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Fecha de Compra</div>
+				<div class="dato-campo"><input class="fecha" type="date" name="fechacompra"/></div>
+			</div>
+			
+			<div class="campo">
+				<div class="header-campo">Foto 1</div>
+				<div class="dato-campo"><input type="file" name="foto0" size="30" maxlength="100"/></div>
+			</div>
+			
+			<div class="campo">
+				<div class="header-campo">Foto 2</div>
+				<div class="dato-campo"><input type="file" name="foto1" size="30" maxlength="100"/></div>
+			</div>
+			
+			<div class="campo">
+				<div class="header-campo">Foto 3</div>
+				<div class="dato-campo"><input type="file" name="foto2" size="30" maxlength="100"/></div>
+			</div>
+			
+			<div class="masImagenes" style="display:none">
+				
+			</div>
+			
+			<button type="button" class="agregar-foto">Añadir más fotos</button>
+			
+			<input id="fotos" name="fotos" type="hidden" value="3" />
+			
+			<div class="campo">
+				<div class="header-campo">Crear</div>
+				<div class="dato-campo"><input type="submit" value="Crear Equipo" /></div>
+			</div>
+		</form>
+		<!-- Fin de la tabla creacion rapida de equipos -->
+		<script type="text/javascript">
+			$('.fecha').datepicker({ dateFormat: "yy-mm-dd" });
+			
+			$('.agregar-foto').button();
+			
+			$('.agregar-foto').click(function(e){
+				e.preventDefault;
+				var cantidadFotos = parseInt($('#fotos').val());
+				var textoFotos = cantidadFotos + 1;
+				
+				var campoImagen = '<div class="campo"><div class="header-campo">Foto '+ textoFotos +'</div><div class="dato-campo"><input type="file" name="foto'+ cantidadFotos +'" size="30" maxlength="100"/></div></div>';
+				
+				$('#fotos').val(textoFotos);
+				
+				if(cantidadFotos===3){
+					$('.masImagenes').show('fast').html(campoImagen);
+				} else {
+					$('.masImagenes').html($('.masImagenes').html() + campoImagen);
+				}
+			});
+		</script>
 	</div>
 <!-- INCLUDE ../../templates/admin/piedepaginaAdmin.html -->

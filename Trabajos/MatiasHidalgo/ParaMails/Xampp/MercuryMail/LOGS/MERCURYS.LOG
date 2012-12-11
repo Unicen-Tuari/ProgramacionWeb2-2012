@@ -1,0 +1,8 @@
+T 20121128 172828 50b644be Connection from 127.0.0.1
+T 20121128 172828 50b644be HELO lab3pc03.exa.unicen.edu.ar
+T 20121128 172828 50b644be MAIL FROM:<postmaster@localhost>
+T 20121128 172828 50b644be RCPT TO:<chuj4pr0@hotmail.com>
+T 20121128 172828 50b644be DATA
+T 20121128 172828 50b644be DATA - 6 lines, 135 bytes.
+T 20121128 172828 50b644be QUIT
+T 20121128 172828 50b644be Connection closed with 127.0.0.1, 0 sec. elapsed.

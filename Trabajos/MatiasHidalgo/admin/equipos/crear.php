@@ -1,7 +1,7 @@
 <?php
 require_once ('../../config.php');
 require_once 'DB/DataObject.php';
-//require_once('Image/Transform.php');
+require_once('Image/Transform.php');
 require_once '../../DataObjects/Equipos.php';
 require_once '../../DataObjects/Imagenes_equipos.php';
 
@@ -10,27 +10,27 @@ $tpl = new HTML_Template_Sigma('.');
 
 session_start();
 if(isset($_SESSION['admin'])){
-	if(isset($_GET['new'])){
+	if(isset($_POST['tipo'])){
 		// Creo el objeto y le cargo los datos del objeto que se desea eliminar
 		$equipo = new DO_Equipos;
 
-		$equipo->tipo = $_GET['tipo']; 
-		$equipo->modelo = $_GET['modelo'];
-		$equipo->marca = $_GET['marca'];
-		$equipo->marca = $_GET['nro_serie'];
+		$equipo->tipo = $_POST['tipo']; 
+		$equipo->modelo = $_POST['modelo'];
+		$equipo->marca = $_POST['marca'];
+		$equipo->nro_serie = $_POST['nro_serie'];
 		
-		if(isset($_GET['adquiridoen'])){
-			$equipo->adquiridoen = $_GET['adquiridoen'];
+		if(isset($_POST['adquiridoen'])){
+			$equipo->adquiridoen = $_POST['adquiridoen'];
 		} else {
 			$equipo->adquiridoen = "Desconocido";
 		}
 
-		if(isset($_GET['nro_factura'])){
-			$equipo->nro_factura = $_GET['nro_factura'];
+		if(isset($_POST['nrofactura'])){
+			$equipo->nrofactura = $_POST['nrofactura'];
 		}
 
-		if(isset($_GET['fechacompra'])){
-			$equipo->fechacompra = $_GET['fechacompra'];
+		if(isset($_POST['fechacompra'])){
+			$equipo->fechacompra = $_POST['fechacompra'];
 		}
 
 		// Lo elimino y obtengo la cantidad de filas eliminadas en el proceso
@@ -38,24 +38,26 @@ if(isset($_SESSION['admin'])){
 		
 		$cant = $equipo->get($id);
 		
-		for ($i=1; $i<=3 ; $i++) {
+		$cantFotos= $_POST['fotos'];
+		
+		for ($i=0; $i<$cantFotos ; $i++) {
 			$ruta_servidor = "img/uploads";
 			$rutaTemp = $_FILES ['foto'.$i]['tmp_name'];
 			$nombreImagen = uniqid().'.jpg';
-			$rutadestino = $ruta_servidor.'/'.$nombreImagen;
+			$rutadestino = '../../'.$ruta_servidor.'/'.$nombreImagen;
 			move_uploaded_file($rutaTemp, $rutadestino);
 			
-			/* $origen = '/'. $ruta_servidor . '/' . $nombreImagen;
-			$destino = '/'. $ruta_servidor . '/miniaturas/' . $nombreImagen;
+			$origen = '../../'. $ruta_servidor . '/' . $nombreImagen;
+			$destino = '../../'. $ruta_servidor . '/miniaturas/' . $nombreImagen;
 			//copy($origen, $destino);
 			
 			$it = Image_Transform::factory();
 			$it->load($origen);
-			$it->scaleByLength(150);
-			$it->save($destino); */
+			$it->scaleByLength(200);
+			$it->save($destino); 
 			
 			$foto = new DO_Imagenes_equipos;
-			$foto->direccion_web=$rutadestino;
+			$foto->direccion_web=$ruta_servidor.'/'.$nombreImagen;;
 			$foto->nombre=$nombreImagen;
 			$foto->id_equipo=$id;
 			$foto->insert();
