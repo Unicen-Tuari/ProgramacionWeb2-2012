@@ -4,7 +4,7 @@ include_once 'C:\xampp\php\PEAR\HTML\Template\Sigma.php';
 require_once 'clases\config.inc.php';
 include_once 'clases\pear\dataobjects\Productos.php';
 
-$cantidadFilas = 15 ;
+$cantidadFilas = 17 ;
 
 if (isset($_GET['ordenamiento']))
     $ordenamiento= $_REQUEST['ordenamiento'];

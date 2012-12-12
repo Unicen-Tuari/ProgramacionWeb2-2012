@@ -23,13 +23,13 @@ if ( (isset($_POST['usuario'])) && (isset($_POST['clave'])))
 			$_SESSION['usuario']= $_POST['usuario'];
 			$_SESSION['clave']= $_POST['clave'];
                         
-                        //header("Location:/dgm/principal.php");
+                       // header("Location:/dgm/principal.php");
                         echo " <script lenguaseje='JavaScript'>
 			location.href= 'principal.php';
-			</script>";
+			</script>"; 
                 }
               else
-                  //header("Location:/dgm/index.html");
+                 // header("Location:/dgm/index.html");
 		echo " <script lenguaseje='JavaScript'>
 			location.href= 'index.html?msg=usuario_invalido';
 			</script>";

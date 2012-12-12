@@ -1,8 +1,8 @@
 <?php
 
-include_once '.\clases\pear\dataobjects\Login.php';
+include_once '.\clases\pear\dataobjects\Cliente.php';
 
-class login extends DO_Login{
+class login extends DO_Cliente{
 
 public function validarClave($clave)
 	{
