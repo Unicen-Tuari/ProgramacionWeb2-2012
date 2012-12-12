@@ -1,29 +1,37 @@
 <?php 
-require_once 'config.php';
+require_once '../config.php';
+require_once '../DataObjects/Producto.php';
+require_once 'HTML/Template/Sigma.php';
+session_start();
+
+
+$cuadro=new DO_Producto();
+$cuadro->idproducto=$_GET["id"];
+$cuadro->find();
+$cuadro->fetch();
+
+if (isset ($_POST['modificar'])){	
+	$cuadro->titulo = $_POST['titulo'];
+	if ($_FILES['foto']['name']!="")
+		$cuadro->path = $_FILES['foto']['name'];
+	$cuadro->descripcion = $_POST['descripcion'];
+	$cuadro->update();
+	if ($_FILES['foto']['name']!="")
+		copy($_FILES['foto']['tmp_name'],"../imagenes/$cuadro->path");//copio la imagen temporal
+		
+  $_SESSION["mensaje_exitoso"]= "CUADRO MODIFICADO CON EXITO!!";
+  header('Location:exito.php');
+}
+
+
+
+$tpl = new HTML_Template_Sigma('.');
+$error = $tpl->loadTemplateFile("/templates/modificar_cuadro.html");
+$tpl->setVariable('titulo',$cuadro->titulo);
+$path="../imagenes/miniaturas/$cuadro->path";
+$tpl->setVariable('path-imagen',$path);
+$tpl->setVariable('descripcion',$cuadro->descripcion);
+$tpl->parse('cuadro');
+$tpl->show();
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
-<title> DIGITAL Art </title>
-<link href="../style/estilo.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	 <div id="container">
-		<?php include("../include/superior.php")?>
-		
-		<div id= "barramenu">
-	
-		
-		</div>
-		<div id="contenido">
-		<a href="panel.php">VOLVER AL MENU </a>
-		</div> 
-		<div id="footer">
-		</div>
-	</div>
-	
-</body>
-</html>

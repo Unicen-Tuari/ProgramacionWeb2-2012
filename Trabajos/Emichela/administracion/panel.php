@@ -1,6 +1,7 @@
 <?php 
 require_once '../config.php';
 require_once 'HTML/Template/Sigma.php';
+session_start();
 
 $tpl = new HTML_Template_Sigma('.');
 $error = $tpl->loadTemplateFile("/templates/head.html");

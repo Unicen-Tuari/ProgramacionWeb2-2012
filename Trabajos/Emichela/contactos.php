@@ -5,12 +5,12 @@ require_once 'HTML/Template/Sigma.php';
 //funcion para poder mandar a mi mail los datos de quien escribe en el sitio
 $mens_er=""; //mensaje vacio, por ahora no lo uso
 if (isset ($_POST['enviar'])){
-$para      = 'evelinamichela@hotmail.com';
+$para      = 'evelinamichela@gmail.com';
 $desde= $_POST["email"];
 $titulo = 'Mensaje enviado desde Digital Art';
 $mensaje = $_POST["comentario"];
-$email = 'From: $_POST["email"]' . "\r\n" .
-    'Reply-To: $_POST["email"]' . "\r\n" .
+$email = 'From: '.$_POST["email"] . "\r\n" .
+    'Reply-To: '.$_POST["email"] . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 //if y el control que sea correcto el mail{mail, header} 
 function check_email_address($email) //para ver si el mail es valido
@@ -50,35 +50,19 @@ function check_email_address($email) //para ver si el mail es valido
   return true;
 }
 
+
 if (check_email_address($desde) && ($mensaje!="")){
 	mail($para, $titulo, $mensaje, $email);
-		header('Location:exito-contacto.php');
+	echo ($para); echo ($titulo);echo($mensaje);echo( $email);
+//		header('Location:exito-contacto.php');
 	}else{
 		$mens_er= "Los datos estan erroneos";}
 		}
-
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/head_contacto.html");
-$tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/superior.html");
-$tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/barramenu.html");
-$tpl->show();
 
 $tpl = new HTML_Template_Sigma('.');
 $error = $tpl->loadTemplateFile("/templates/contenido_contactos.html");
 $tpl->setVariable('mensaje',$mens_er);
 $tpl->parse('mensajecontactos');
 $tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/footer.html");
-$tpl->show();
-
 ?>
 

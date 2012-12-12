@@ -1,0 +1,21 @@
+<!-- INCLUDE /templates/head.html -->
+<!-- INCLUDE /templates/superior.html -->
+<!-- INCLUDE /templates/barramenu.html -->
+<div id="contenido">
+		<h2> Exposiciones Disponibles... </h2>	
+		<ul id="lista-exposiciones">	
+		<!-- BEGIN exposicion -->
+		
+				<li id="administracion">
+					<div>
+						<a href="modificar_expos.php?id={id}"> <img src="{foto_portada}" /></a>
+						<a href="modificar_expos.php?id={id}">modificar</a>
+						<a href="eliminar_expos.php?id={id}">eliminar</a>
+					</div>
+				</li>
+			
+		<!-- END exposicion -->
+		</ul>
+		
+</div> 
+<!-- INCLUDE /templates/footer.html -->

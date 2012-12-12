@@ -1,0 +1,18 @@
+<!-- INCLUDE /templates/head.html -->
+<!-- INCLUDE /templates/superior.html -->
+<!-- INCLUDE /templates/barramenu.html -->
+<div id="contenido">
+			<!-- BEGIN exposicion -->
+		<h2> Fotos de la exposicion{titulo_exposicion}</h2>	
+		<a href="agregar_foto_expo.php?id={idexpo}">Agregar una foto</a>
+			<!-- END exposicion -->
+		<ul id="lista-exposiciones">
+			<!-- BEGIN fotos_exposicion -->
+			<li>
+			<h3><img src="{foto_miniatura}"/></h3>
+			<a href="eliminar_foto_expo.php?idexpo={idexpo}&amp;archivo={archivo}">eliminar</a>			
+			</li>
+			<!-- END fotos_exposicion -->
+		</ul>
+</div> 
+<!-- INCLUDE /templates/footer.html -->
