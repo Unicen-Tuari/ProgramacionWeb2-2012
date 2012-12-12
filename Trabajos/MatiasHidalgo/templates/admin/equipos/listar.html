@@ -30,14 +30,26 @@
 					<td><a href="modificar.php?id={modificar}">Modificar</a></td>
 					<td><a href="borrar.php?id={borrar}">Borrar</a></td>
 				</tr>
+				<!-- BEGIN fotos -->
+				<tr class="datos-tabla">
+					<td colspan="9">
+						<div class="imageRow">
+							<div class="set">
+								<!-- BEGIN foto -->
+								{foto}
+								<!-- END foto -->
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- END fotos -->
 			<!-- END equipo -->
 			</tbody>
 		</table>
 		<!-- Fin de la tabla con el Listado -->
 		<div class="separador"></div>
-		<!-- TABLA para creacion rapida de equipo -->
-			<form action="crear.php" method="GET" id="form" name="formulario" enctype="multipart/form-data">
-					<input type="hidden" name="new" value="1">
+		<!-- buscador de equipos -->
+			<form action="buscar.php" method="POST" id="form" name="formulario" enctype="multipart/form-data">
 				<div class="campo">
 					<div class="header-campo">Tipo</div>
 					<div class="dato-campo"><input type="text" size="30" name="tipo"/></div>
@@ -64,29 +76,17 @@
 				</div>
 				<div class="campo">
 					<div class="header-campo">Fecha de Compra</div>
-					<div class="dato-campo"><input type="date" name="fechacompra"/></div>
+					<div class="dato-campo"><input class="fecha" type="date" name="fechacompra"/></div>
 				</div>
-				
+				<input id="change" name="search" type="hidden" value="1" />
 				<div class="campo">
-					<div class="header-campo">Foto 1</div>
-					<div class="dato-campo"><input type="file" name="foto1" size="30" maxlength="100"/></div>
-				</div>
-				
-				<div class="campo">
-					<div class="header-campo">Foto 2</div>
-					<div class="dato-campo"><input type="file" name="foto2" size="30" maxlength="100"/></div>
-				</div>
-				
-				<div class="campo">
-					<div class="header-campo">Foto 3</div>
-					<div class="dato-campo"><input type="file" name="foto3" size="30" maxlength="100"/></div>
-				</div>
-				
-				<div class="campo">
-					<div class="header-campo">Crear</div>
-					<div class="dato-campo"><input type="submit" value="Crear Equipo" /></div>
+					<div class="header-campo">Buscar</div>
+					<div class="dato-campo"><input type="submit" value="Buscar Equipo/s" /></div>
 				</div>
 			</form>
-		<!-- Fin de la tabla creacion rapida de equipos -->
+		<!-- Fin del buscador de equipos -->
+		<script type="text/javascript">
+			$('.fecha').datepicker({ dateFormat: "yy-mm-dd" });
+		</script>
 	</div>
 <!-- INCLUDE ../../templates/admin/piedepaginaAdmin.html -->

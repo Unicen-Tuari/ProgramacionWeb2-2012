@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2012 a las 00:06:49
+-- Tiempo de generación: 12-12-2012 a las 01:51:04
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sgt`
 --
-DROP DATABASE `sgt`;
 CREATE DATABASE `sgt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `sgt`;
 
@@ -29,7 +28,6 @@ USE `sgt`;
 -- Estructura de tabla para la tabla `consultas`
 --
 
-DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE IF NOT EXISTS `consultas` (
   `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
@@ -39,14 +37,23 @@ CREATE TABLE IF NOT EXISTS `consultas` (
   `email` varchar(50) NOT NULL,
   `consulta` text NOT NULL,
   PRIMARY KEY (`id_consulta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Volcado de datos para la tabla `consultas`
 --
 
 INSERT INTO `consultas` (`id_consulta`, `nombre`, `apellido`, `tipo_doc`, `num_doc`, `email`, `consulta`) VALUES
-(7, 'Matias Hidalgo', 'Hidalgo', 'DNI', 55555555, 'chuj4pr0@hotmail.com', 'fsafdasfasdasda ads asd asdda');
+(7, 'Matias Hidalgo', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'fsafdasfasdasda ads asd asdda'),
+(8, 'Matias', 'Hidalgo', 'DNI', 36608291, 'mmh_x_100pre@hotmail.com', 'A ver si funciona esto??\r\n\r\nasdasd\r\n\r\nmas asdasd'),
+(9, 'Matias', 'Hidalgo', 'DNI', 36608291, 'mmh_x_100pre@hotmail.com', 'A ver si funciona esto??\r\n\r\nasdasd\r\n\r\nmas asdasd'),
+(10, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'sadadasda\r\nadasd\r\nasdasd'),
+(11, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'nueva version'),
+(12, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'nueva version'),
+(13, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'nueva version'),
+(14, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'nueva version'),
+(15, 'Matias', 'Hidalgo', 'DNI', 36608291, 'chuj4pr0@hotmail.com', 'nueva version'),
+(16, 'Matias', 'Hidalgo', 'DNI', 77887788, 'chuj4pr0@hotmail.com', 'Hola! si usted recibio este mail significa que Matias Hidalgo logro hacer funcionar los Emails en su SGT(Sistema de Gestion de Talleres).\r\nSi usted es Ignacio Jonas, le comunicamos que Matias Hidalgo no asistira a su domicilio esta tarde.\r\nEsperamos que este mail se visualize correctamente. Caso contrario adviertanos respondiendo este email.\r\n\r\nSaludos!');
 
 -- --------------------------------------------------------
 
@@ -54,7 +61,6 @@ INSERT INTO `consultas` (`id_consulta`, `nombre`, `apellido`, `tipo_doc`, `num_d
 -- Estructura de tabla para la tabla `equipos`
 --
 
-DROP TABLE IF EXISTS `equipos`;
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id_equipo` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) NOT NULL,
@@ -65,16 +71,15 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `nrofactura` int(50) DEFAULT NULL,
   `fechacompra` date DEFAULT NULL,
   PRIMARY KEY (`id_equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `equipos`
 --
 
 INSERT INTO `equipos` (`id_equipo`, `tipo`, `modelo`, `marca`, `nro_serie`, `adquiridoen`, `nrofactura`, `fechacompra`) VALUES
-(2, 'tv', 'mod1', 'marca1', 222, 'Desconocido', NULL, NULL),
-(3, 'dvd', 'mod2', 'marca2', 333, 'Desconocido', NULL, NULL),
-(4, 'tv', 'mod1', 'marca1', 222, 'Desconocido', NULL, NULL),
+(4, 'tv', 'mod1', 'marca1', 222, 'Desconocido', 51651, '2012-12-04'),
+(7, 'tv', 'test', 'test', 123321, 'Fravega', 123123, '2012-12-14');
 
 -- --------------------------------------------------------
 
@@ -82,7 +87,6 @@ INSERT INTO `equipos` (`id_equipo`, `tipo`, `modelo`, `marca`, `nro_serie`, `adq
 -- Estructura de tabla para la tabla `equipos_repuestos`
 --
 
-DROP TABLE IF EXISTS `equipos_repuestos`;
 CREATE TABLE IF NOT EXISTS `equipos_repuestos` (
   `id_compatible` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -99,7 +103,6 @@ CREATE TABLE IF NOT EXISTS `equipos_repuestos` (
 -- Estructura de tabla para la tabla `equipos_so`
 --
 
-DROP TABLE IF EXISTS `equipos_so`;
 CREATE TABLE IF NOT EXISTS `equipos_so` (
   `id_equipo_so` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -112,14 +115,14 @@ CREATE TABLE IF NOT EXISTS `equipos_so` (
   UNIQUE KEY `cod_id_so` (`cod_id_so`),
   KEY `id_equipo` (`id_equipo`,`id_serviceo`),
   KEY `id_serviceo` (`id_serviceo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `equipos_so`
 --
 
 INSERT INTO `equipos_so` (`id_equipo_so`, `id_equipo`, `id_serviceo`, `cod_id_so`, `fecha_pedido`, `fecha_respuesta`, `estado`) VALUES
-(1, 2, 1, 2147483647, '2012-12-11', '2012-12-13', 'Aprobado');
+(3, 7, 1, 5555, '2012-12-13', '0000-00-00', 'En Taller');
 
 -- --------------------------------------------------------
 
@@ -127,7 +130,6 @@ INSERT INTO `equipos_so` (`id_equipo_so`, `id_equipo`, `id_serviceo`, `cod_id_so
 -- Estructura de tabla para la tabla `imagenes_equipos`
 --
 
-DROP TABLE IF EXISTS `imagenes_equipos`;
 CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
   `id_imagen` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -135,7 +137,15 @@ CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_imagen`),
   KEY `id_equipo` (`id_equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Volcado de datos para la tabla `imagenes_equipos`
+--
+
+INSERT INTO `imagenes_equipos` (`id_imagen`, `id_equipo`, `direccion_web`, `nombre`) VALUES
+(12, 7, 'img/uploads/50c7d3bcbd21e.jpg', '50c7d3bcbd21e.jpg'),
+(13, 7, 'img/uploads/50c7d3bce7fe7.jpg', '50c7d3bce7fe7.jpg');
 
 -- --------------------------------------------------------
 
@@ -143,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
 -- Estructura de tabla para la tabla `noticias`
 --
 
-DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
   `id_noticia` int(11) NOT NULL AUTO_INCREMENT,
   `noticia` text NOT NULL,
@@ -165,7 +174,6 @@ INSERT INTO `noticias` (`id_noticia`, `noticia`, `fecha`) VALUES
 -- Estructura de tabla para la tabla `ordenes`
 --
 
-DROP TABLE IF EXISTS `ordenes`;
 CREATE TABLE IF NOT EXISTS `ordenes` (
   `nro_orden` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -196,7 +204,6 @@ INSERT INTO `ordenes` (`nro_orden`, `id_usuario`, `id_equipo`, `descripcion`, `o
 -- Estructura de tabla para la tabla `repuestos`
 --
 
-DROP TABLE IF EXISTS `repuestos`;
 CREATE TABLE IF NOT EXISTS `repuestos` (
   `id_repuesto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -213,7 +220,6 @@ CREATE TABLE IF NOT EXISTS `repuestos` (
 -- Estructura de tabla para la tabla `service_oficial`
 --
 
-DROP TABLE IF EXISTS `service_oficial`;
 CREATE TABLE IF NOT EXISTS `service_oficial` (
   `id_serviceo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -236,7 +242,6 @@ INSERT INTO `service_oficial` (`id_serviceo`, `nombre`, `sitio_web`, `tipodeorde
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta` varchar(16) NOT NULL,

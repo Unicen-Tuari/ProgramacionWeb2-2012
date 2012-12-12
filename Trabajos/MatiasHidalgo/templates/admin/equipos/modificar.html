@@ -2,11 +2,93 @@
 	<!-- INCLUDE ../../templates/admin/menuAdmin.html -->
 	<!-- INCLUDE ../../templates/admin/menuGestionAdmin.html -->
 	<div class="contenido">
-		Administracion de Usuarios:<br/>
-		Listar Usuarios<br/>
-		Crear Usuario<br/>
-		Buscar Usuario<br/>
-		Modificar Usuario<br/>
-		Borrar Usuario<br/>
+		<!-- BEGIN update -->
+		<form action="modificar.php?id={id}" method="POST" id="form" name="formulario" enctype="multipart/form-data">
+			<div class="campo">
+				<div class="header-campo">Tipo</div>
+				<div class="dato-campo"><input type="text" size="30" name="tipo" value="{tipo}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Modelo</div>
+				<div class="dato-campo"><input type="text" size="30" name="modelo" value="{modelo}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Marca</div>
+				<div class="dato-campo"><input type="text" size="30" name="marca" value="{marca}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Nro de Serie</div>
+				<div class="dato-campo"><input type="number" size="30" name="nro_serie" value="{nro_serie}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Adquirido en</div>
+				<div class="dato-campo"><input type="text" size="30" name="adquiridoen" value="{adquiridoen}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Nro de Factura</div>
+				<div class="dato-campo"><input type="number" size="30" name="nrofactura" value="{nrofactura}"/></div>
+			</div>
+			<div class="campo">
+				<div class="header-campo">Fecha de Compra</div>
+				<div class="dato-campo"><input class="fecha" type="date" name="fechacompra" value="{fechacompra}"/></div>
+			</div>
+			<!-- END update -->
+			
+			<!-- BEGIN fotos -->		
+			<div class="imageRow">
+				<div class="set">
+					<!-- BEGIN foto -->
+					{foto}
+					<!-- END foto -->
+				</div>
+			</div>
+			<!-- END fotos -->
+			
+			<div class="masImagenes" style="display:none">
+				
+			</div>
+			
+			<button type="button" class="agregar-foto">Añadir fotos</button>
+			
+			<!-- BEGIN borrar -->
+			<a href="borrarImagenes.php?id={id}"><button type="button" class="borrar-foto">Borrar todas las fotos</button></a>
+			<!-- END borrar -->
+			
+			<!-- BEGIN cantFotos -->
+			<input id="fotosOriginales" name="fotosOriginales" type="hidden" value="{cantidadOriginal}" />
+			<input id="fotos" name="fotos" type="hidden" value="{cantidad}" />
+			<!-- END cantFotos -->
+			
+			<input id="change" name="change" type="hidden" value="1" />
+			
+			<div class="campo">
+				<div class="header-campo">Modificar</div>
+				<div class="dato-campo"><input type="submit" value="Modificar Equipo" /></div>
+			</div>
+		</form>
+		
+		<script type="text/javascript">
+			$('.fecha').datepicker({ dateFormat: "yy-mm-dd" });
+			
+			$('.agregar-foto').button();
+			
+			$('.borrar-foto').button();
+			
+			$('.agregar-foto').click(function(e){
+				e.preventDefault;
+				var cantidadFotos = parseInt($('#fotos').val());
+				var textoFotos = cantidadFotos + 1;
+				
+				var campoImagen = '<div class="campo"><div class="header-campo">Foto '+ textoFotos +'</div><div class="dato-campo"><input type="file" name="foto'+ cantidadFotos +'" size="30" maxlength="100"/></div></div>';
+				
+				$('#fotos').val(textoFotos);
+				
+				if(cantidadFotos===$('#fotosOriginales').val()){
+					$('.masImagenes').show('fast').html(campoImagen);
+				} else {
+					$('.masImagenes').html($('.masImagenes').html() + campoImagen);
+				}
+			});
+		</script>
 	</div>
 <!-- INCLUDE ../../templates/admin/piedepaginaAdmin.html -->

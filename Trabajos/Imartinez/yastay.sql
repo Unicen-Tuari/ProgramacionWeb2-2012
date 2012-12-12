@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-09-2012 a las 17:18:26
--- Versión del servidor: 5.5.24
+-- Tiempo de generación: 11-12-2012 a las 20:48:39
+-- Versión del servidor: 5.5.28
 -- Versión de PHP: 5.3.10-1ubuntu3.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -38,14 +38,14 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 --
 
 INSERT INTO `categoria` (`idcategoria`, `nombre`, `idpadre`) VALUES
-(1, 'Inmuebles', NULL),
-(2, 'Vehículos', NULL),
-(3, 'Servicios', NULL),
-(4, 'Trabajo', NULL),
-(5, 'Grupos', NULL),
-(6, 'Contactos', NULL),
-(7, 'Compra - Venta', NULL),
-(8, 'Clases - Cursos', NULL),
+(1, 'Inmuebles', 0),
+(2, 'Vehículos', 0),
+(3, 'Servicios', 0),
+(4, 'Trabajo', 0),
+(5, 'Grupos', 0),
+(6, 'Contactos', 0),
+(7, 'Compra - Venta', 0),
+(8, 'Clases - Cursos', 0),
 (9, 'Alquiler temporario', 1),
 (10, 'Compartir departamento', 1),
 (11, 'Departamento - Casa en alquiler', 1),
@@ -23139,72 +23139,18 @@ CREATE TABLE IF NOT EXISTS `clasificado` (
   `telefono` int(11) DEFAULT NULL,
   `moneda` varchar(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `estado` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pendiente',
+  `idprovincia` int(11) NOT NULL,
+  `idsubcategoria` int(11) NOT NULL,
   PRIMARY KEY (`idclasificado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=61 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `clasificado`
 --
 
-INSERT INTO `clasificado` (`idclasificado`, `idciudad`, `titulo`, `detalle`, `idcategoria`, `contacto`, `fecha`, `precio`, `telefono`, `moneda`, `estado`) VALUES
-(1, 16359, 'Clasificado de prubea', 'detalle del clasificado de prueba', 9, 'prueba@nacho.com.ar', '0000-00-00 00:00:00', NULL, NULL, 'pesos', 'pendiente'),
-(2, 16359, 'Prueba 2', 'detalle prueba 2', 9, 'yo', '2012-07-29 23:28:11', NULL, NULL, 'dolares', 'pendiente'),
-(3, 16359, 'prueba 3', 'texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto ', 10, 'zaraza@zaraza.com.ar', '2012-08-22 04:28:07', NULL, NULL, 'pesos', 'pendiente'),
-(4, 16359, 'Vendo terreno', 'asdasd', 14, 'prueba@terreno.com.ar', '2012-08-28 00:48:07', 250000, 4445678, 'dolares', 'pendiente'),
-(5, 16359, 'Vendo terreno', 'asdasd', 14, 'prueba@terreno.com.ar', '2012-08-28 00:48:13', 250000, 4445678, 'pesos', 'pendiente'),
-(6, 16359, 'Oficina puchi', 'puchi puchongi', 13, 'godita@inio.com', '2012-08-28 00:50:13', 2000, 0, 'pesos', 'pendiente'),
-(7, 16359, 'Estacionamiento 45', 'prueba estacionamiento', 15, 'prueba@terreno.com.ar', '2012-08-28 04:21:14', 50, 4445678, 'dolares', 'pendiente'),
-(8, 16359, 'Vendo terreno 2', 'asdasd', 14, 'prueba@terreno.com.ar', '2012-09-01 00:11:40', 250000, 4445678, 'pesos', 'pendiente'),
-(11, 16359, 'vendo celular', 'asdasdasd', 65, 'prueba@celular.com.ar', '2012-09-01 01:08:09', 500, 4445678, 'pesos', 'pendiente'),
-(12, 4793, 'joya de mi abuela', 'alta joya', 70, 'nachomartineztandil@gmail.com', '2012-09-01 01:34:18', 200000, 4445678, 'dolares', 'pendiente'),
-(13, 8981, 'ensenio computacion', 'salis aprendiendo si o si\r\n', 56, 'prueba@terreno.com.ar', '2012-09-01 01:56:35', 50, 4445678, 'pesos', 'pendiente'),
-(14, 16359, 'bote', 'enorme', 35, 'asdasd', '2012-09-01 16:09:15', 250000, 4445678, 'dolares', 'pendiente'),
-(15, 5514, 'Vendo LAG!!!!!!!!!!!!!!', 'Vendo LAG!!!!!!!!!!!!!!', 78, 'carlos@carlos.carlos', '2012-09-01 22:29:34', 2, 1234, 'pesos', 'pendiente'),
-(16, 2187, 'vendo en santa fe', 'zarpada casa', 13, 'prueba@celular.com.ar', '2012-09-04 20:16:37', 23000, 123123123, 'dolares', 'pendiente'),
-(17, 16359, 'comparto auto', 'comparto autazo', 27, 'prueba@celular.com.ar', '2012-09-17 19:05:44', 10000, 4445678, 'pesos', 'pendiente'),
-(18, 16359, 'comparto auto', 'sadasd', 27, 'evelinamichela@hotmail.com', '2012-09-17 19:08:29', 200000, 4445678, 'pesos', 'pendiente'),
-(19, 16359, 'comparto auto', 'sadasd', 27, 'evelinamichela@hotmail.com', '2012-09-17 19:09:03', 200000, 4445678, 'pesos', 'pendiente'),
-(20, 16359, 'comparto auto', 'asdasd', 27, 'evelinamichela@hotmail.com', '2012-09-17 19:09:15', 250000, 4445678, 'pesos', 'pendiente'),
-(21, 5001, 'asdasd', 'asdasdasdsad', 27, 'prueba@celular.com.ar', '2012-09-17 19:12:23', 250000, 4445678, 'pesos', 'pendiente'),
-(22, 5001, 'departamento espectacular', 'asdas', 27, 'prueba@celular.com.ar', '2012-09-17 19:15:46', 250000, 4445678, 'pesos', 'pendiente'),
-(23, 5001, 'Vendo terreno', 'asdasd', 27, 'prueba@celular.com.ar', '2012-09-17 19:23:19', 250000, 4445678, 'pesos', 'pendiente'),
-(24, 16359, 'comparto auto', 'asdasd', 27, 'evelinamichela@hotmail.com', '2012-09-17 19:26:32', 250000, 4445678, 'pesos', 'pendiente'),
-(25, 16359, 'Vendo terreno', '4fdsfsdf', 27, 'prueba@celular.com.ar', '2012-09-17 19:26:47', 250000, 4445678, 'pesos', 'pendiente'),
-(26, 16359, 'departamento espectacular', 'asdasdasd', 27, 'prueba@terreno.com.ar', '2012-09-17 19:29:42', 250000, 4445678, 'pesos', 'pendiente'),
-(27, 16359, 'departamento espectacular', 'asdasd', 27, 'nachomartineztandil@hotmail.com', '2012-09-17 19:32:59', 250000, 4445678, 'pesos', 'pendiente'),
-(28, 16359, 'Vendo Moto!!', 'espectacular moto 0km', 33, 'prueba@celular.com.ar', '2012-09-17 20:00:00', 250000, 4445678, 'pesos', 'pendiente'),
-(29, 16359, 'Vendo terreno', 'asdasd', 33, 'evelinamichela@hotmail.com', '2012-09-17 20:07:29', 250000, 4445678, 'pesos', 'pendiente'),
-(30, 3593, 'asdasd', 'asdasd', 33, 'nachomartineztandil@gmail.com', '2012-09-17 20:08:05', 200000, 4445678, 'pesos', 'pendiente'),
-(31, 16359, 'asdasd', 'asdasd', 33, 'evelinamichela@hotmail.com', '2012-09-17 20:08:51', 10000, 4445678, 'pesos', 'pendiente'),
-(32, 16359, 'departamento espectacular', 'sdasd', 33, 'nachomartineztandil@gmail.com', '2012-09-17 20:12:50', 2000, 4445678, 'pesos', 'pendiente'),
-(33, 4137, 'Vendo terreno', 'asdasd', 31, 'nachomartineztandil@gmail.com', '2012-09-17 20:20:50', 250000, 4445678, 'pesos', 'pendiente'),
-(34, 2494, 'departamento espectacular', 'asdasd', 31, 'evelinamichela@hotmail.com', '2012-09-17 20:25:30', 200000, 4445678, 'pesos', 'pendiente'),
-(35, 2494, 'departamento espectacular', 'asdasd', 31, 'evelinamichela@hotmail.com', '2012-09-17 20:26:52', 200000, 4445678, 'pesos', 'pendiente'),
-(36, 2494, 'departamento espectacular', 'asdasd', 31, 'evelinamichela@hotmail.com', '2012-09-17 20:29:00', 250000, 4445678, 'pesos', 'pendiente'),
-(37, 4602, 'departamento espectacular', 'asdasd', 34, 'nachomartineztandil@hotmail.com', '2012-09-17 20:37:43', 250000, 4445678, 'pesos', 'pendiente'),
-(38, 4695, 'departamento espectacular', 'asdasd', 34, 'prueba@celular.com.ar', '2012-09-17 20:38:59', 0, 4445678, 'pesos', 'pendiente'),
-(39, 4695, 'bote', 'asdasd', 34, 'nachomartineztandil@hotmail.com', '2012-09-17 20:39:55', 250000, 4445678, 'pesos', 'pendiente'),
-(40, 4695, 'Vendo terreno', 'Aadsd', 34, 'evelinamichela@hotmail.com', '2012-09-17 20:41:58', 200000, 4445678, 'pesos', 'pendiente'),
-(41, 4695, 'departamento espectacular', 'asdasd', 34, 'prueba@celular.com.ar', '2012-09-17 20:45:55', 200000, 4445678, 'pesos', 'pendiente'),
-(42, 4263, 'abogado', 'asdasd', 36, 'nachomartineztandil@hotmail.com', '2012-09-17 20:48:21', 250000, 4445678, 'pesos', 'pendiente'),
-(43, 4695, 'asdasd', 'assdasd', 36, 'evelinamichela@hotmail.com', '2012-09-17 20:52:24', 250000, 4445678, 'pesos', 'pendiente'),
-(44, 4779, 'Abogado pro', 'asdasd', 36, 'nachomartineztandil@gmail.com', '2012-09-17 20:55:55', 200000, 4445678, 'dolares', 'pendiente'),
-(45, 3723, 'callcenter', 'asdasd', 38, 'prueba@celular.com.ar', '2012-09-17 21:06:36', 200000, 4445678, 'pesos', 'pendiente'),
-(46, 2464, 'comparto auto', 'asdasd', 38, 'nachomartineztandil@hotmail.com', '2012-09-17 21:08:23', 200000, 4445678, 'pesos', 'pendiente'),
-(47, 5001, 'departamento espectacular', 'asdas', 38, 'nachomartineztandil@gmail.com', '2012-09-17 21:11:19', 250000, 4445678, 'pesos', 'pendiente'),
-(48, 16359, 'necesito un amigo', 'amigooo', 79, 'nachomartineztandil@hotmail.com', '2012-09-18 03:17:22', 0, 0, 'pesos', 'pendiente'),
-(49, 16359, 'amigote', 'asdasdas', 79, 'evelinamichela@hotmail.com', '2012-09-18 03:21:09', 0, 0, 'pesos', 'pendiente'),
-(50, 16359, 'amigacho', 'asd', 79, 'nachomartineztandil@gmail.com', '2012-09-18 03:29:44', 0, 0, 'pesos', 'pendiente'),
-(51, 16359, 'Abogado pro', 'asdasd', 79, 'nachomartineztandil@gmail.com', '2012-09-18 03:54:35', 0, 4445678, 'pesos', 'pendiente'),
-(52, 16359, 'amigacho', 'asdasd', 79, 'nachomartineztandil@hotmail.com', '2012-09-18 03:56:02', 0, 4445678, 'pesos', 'pendiente'),
-(53, 16359, 'amigacho', 'asdasd', 79, 'prueba@celular.com.ar', '2012-09-18 04:00:38', 0, 4445678, 'pesos', 'pendiente'),
-(54, 16359, 'Vendo remera de mesi', 'asdasd', 65, 'nachomartineztandil@gmail.com', '2012-09-18 04:16:15', 250000, 0, 'pesos', 'pendiente'),
-(55, 14103, 'lala', 'lalala', 9, '', '2012-09-18 16:49:47', 44, 0, 'pesos', 'pendiente'),
-(56, 4302, 'test adr', 'adr', 36, 'adr@cds.com', '2012-09-18 17:44:59', 147, 0, 'pesos', 'pendiente'),
-(57, 8472, 'sdfgh', 'lag', 82, 'resonanciaazul@hotmail.com', '2012-09-20 23:16:04', 546, 0, 'pesos', 'pendiente'),
-(58, 16359, 'lag 2', 'lag lag lag', 11, '', '2012-09-20 23:23:53', 0, 0, 'pesos', 'pendiente'),
-(59, 16359, 'test foto', 'asd', 35, 'evelinamichela@hotmail.com', '2012-09-21 23:43:45', 250000, 4445678, 'pesos', 'pendiente'),
-(60, 16359, 'departamento espectacular', 'asd', 61, 'nachomartineztandil@gmail.com', '2012-09-22 00:02:54', 250000, 4445678, 'pesos', 'pendiente');
+INSERT INTO `clasificado` (`idclasificado`, `idciudad`, `titulo`, `detalle`, `idcategoria`, `contacto`, `fecha`, `precio`, `telefono`, `moneda`, `estado`, `idprovincia`, `idsubcategoria`) VALUES
+(4, 16359, 'Vendo terreno', 'asdasd', 1, 'nachomartineztandil@gmail.com', '2012-12-05 18:07:24', 20, 2147483647, 'pesos', 'pendiente', 1, 9),
+(5, 16359, 'departamendo 2 dormitorios', 'alquilo departamento', 1, 'nachomartineztandil@gmail.com', '2012-12-10 18:08:27', 111, 4445678, 'dolares', 'pendiente', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -23247,6 +23193,26 @@ INSERT INTO `provincia` (`id`, `provincia_nombre`) VALUES
 (22, 'Santiago del Estero'),
 (23, 'Tierra del Fuego'),
 (24, 'Tucumán');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `nombre` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`nombre`, `password`, `id`) VALUES
+('admin', 'admin', 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

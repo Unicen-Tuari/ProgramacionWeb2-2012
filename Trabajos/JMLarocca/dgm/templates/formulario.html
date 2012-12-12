@@ -1,0 +1,48 @@
+<!-- INCLUDE ./templates/cabecera.html -->
+<!-- INCLUDE ./templates/panel_izquierdo.html -->
+
+<form class="contextoformulario" method="post"
+	action="grabar_consulta.php">
+     <!-- BEGIN form -->
+	<div>
+		<table class="tablaformulario">
+			
+			<tr>
+				<td>E-Mail:</td>
+                               
+                                <td><input type="text" size="70" name="e_mail" value="{mail}" disabled />
+                                <td><input type="text" size="70" name="e_mail" value="{mail}" hidden />
+                               
+				</td>
+			</tr>
+			<tr>
+				<td>Motivo:</td>
+				<td><select name="motivo">  
+					<option	value="0"> Consulta</option>
+					<option	value="1"> Sugerencia</option>
+					<option	value="2"> Reclamo</option>
+					<option	value="3"> Otro</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Comentario:</td>
+				<td><textarea rows="10" cols="70" name="comentario"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<br> <br> <br>
+		<input id="boton" type="submit" name="enviar" value="Enviar" />
+	<br>
+	<h3>
+		<a  href="principal.php?&ordenamiento=0"><button id="boton">Cancelar</button></a>
+                
+                    {mensaje}
+             
+	</h3>
+           <!-- END form -->
+</form>
+
+<!-- INCLUDE ./templates/pie.html -->

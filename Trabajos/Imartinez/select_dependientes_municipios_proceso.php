@@ -25,17 +25,26 @@ $selectDestino=$_GET["select"]; $opcionSeleccionada=$_GET["opcion"];
 if(validaSelect($selectDestino) && validaOpcion($opcionSeleccionada))
 {
 	$tabla=$listadoSelects[$selectDestino];
-	require_once("includes/clases.php");
-	$manager = new Mannagerdb;
-	$manager->conectarse();
-	$todos_los_municipios = $manager->todos_los_municipios($manager,$opcionSeleccionada);
-	$manager->liberar_resultados();
-	$manager->cerrar_conexion();?>
-	<h4>Municipio</h4>
-	<select class="select" name="<?php echo $selectDestino?>" id="<?php echo $selectDestino?>" <?php //onChange="cargaContenidoMunicipios(this.id)>"?>>
-		<option value="" selected="selected">-</option>
-		<?php foreach ($todos_los_municipios as $municipio) {?>
-				<option value="<?php echo $municipio->get_id()?>"><?php echo $municipio->get_nombre()?></option>
-			<?php }?>
-	</select>	
-<?php } ?>
+	require_once 'config.php';
+	require_once 'DataObjects/Ciudad.php';
+	
+	require_once 'includes/funciones.php';
+	
+	require_once 'HTML/Template/Sigma.php';	
+	
+	$municipio=new DO_Ciudad();
+	$municipio->provincia_id=$opcionSeleccionada;
+	$municipio->find();
+
+	$tpl = new HTML_Template_Sigma('.');
+	$error=$tpl->loadTemplateFile("/templates/select_dependientes_municipios_proceso.html");
+	$tpl->setVariable('selectDestino', $selectDestino);
+	while($municipio->fetch()){
+		$tpl->setVariable('municipio_id', $municipio->id);
+		$tpl->setVariable('municipio_nombre', $municipio->ciudad_nombre);
+		$tpl->parse('municipio');
+	}
+	$tpl->parse('dependientes_municipio');
+	$tpl->show();
+}
+?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2012 a las 00:07:06
+-- Tiempo de generación: 12-12-2012 a las 01:51:59
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `sgt`
 --
-DROP DATABASE `sgt`;
 CREATE DATABASE `sgt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `sgt`;
 
@@ -29,7 +28,6 @@ USE `sgt`;
 -- Estructura de tabla para la tabla `consultas`
 --
 
-DROP TABLE IF EXISTS `consultas`;
 CREATE TABLE IF NOT EXISTS `consultas` (
   `id_consulta` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) NOT NULL,
@@ -39,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `consultas` (
   `email` varchar(50) NOT NULL,
   `consulta` text NOT NULL,
   PRIMARY KEY (`id_consulta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -47,7 +45,6 @@ CREATE TABLE IF NOT EXISTS `consultas` (
 -- Estructura de tabla para la tabla `equipos`
 --
 
-DROP TABLE IF EXISTS `equipos`;
 CREATE TABLE IF NOT EXISTS `equipos` (
   `id_equipo` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) NOT NULL,
@@ -58,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `nrofactura` int(50) DEFAULT NULL,
   `fechacompra` date DEFAULT NULL,
   PRIMARY KEY (`id_equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -66,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `equipos` (
 -- Estructura de tabla para la tabla `equipos_repuestos`
 --
 
-DROP TABLE IF EXISTS `equipos_repuestos`;
 CREATE TABLE IF NOT EXISTS `equipos_repuestos` (
   `id_compatible` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -83,7 +79,6 @@ CREATE TABLE IF NOT EXISTS `equipos_repuestos` (
 -- Estructura de tabla para la tabla `equipos_so`
 --
 
-DROP TABLE IF EXISTS `equipos_so`;
 CREATE TABLE IF NOT EXISTS `equipos_so` (
   `id_equipo_so` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -96,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `equipos_so` (
   UNIQUE KEY `cod_id_so` (`cod_id_so`),
   KEY `id_equipo` (`id_equipo`,`id_serviceo`),
   KEY `id_serviceo` (`id_serviceo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -104,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `equipos_so` (
 -- Estructura de tabla para la tabla `imagenes_equipos`
 --
 
-DROP TABLE IF EXISTS `imagenes_equipos`;
 CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
   `id_imagen` int(11) NOT NULL AUTO_INCREMENT,
   `id_equipo` int(11) NOT NULL,
@@ -112,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id_imagen`),
   KEY `id_equipo` (`id_equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -120,7 +114,6 @@ CREATE TABLE IF NOT EXISTS `imagenes_equipos` (
 -- Estructura de tabla para la tabla `noticias`
 --
 
-DROP TABLE IF EXISTS `noticias`;
 CREATE TABLE IF NOT EXISTS `noticias` (
   `id_noticia` int(11) NOT NULL AUTO_INCREMENT,
   `noticia` text NOT NULL,
@@ -134,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `noticias` (
 -- Estructura de tabla para la tabla `ordenes`
 --
 
-DROP TABLE IF EXISTS `ordenes`;
 CREATE TABLE IF NOT EXISTS `ordenes` (
   `nro_orden` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -158,7 +150,6 @@ CREATE TABLE IF NOT EXISTS `ordenes` (
 -- Estructura de tabla para la tabla `repuestos`
 --
 
-DROP TABLE IF EXISTS `repuestos`;
 CREATE TABLE IF NOT EXISTS `repuestos` (
   `id_repuesto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -175,7 +166,6 @@ CREATE TABLE IF NOT EXISTS `repuestos` (
 -- Estructura de tabla para la tabla `service_oficial`
 --
 
-DROP TABLE IF EXISTS `service_oficial`;
 CREATE TABLE IF NOT EXISTS `service_oficial` (
   `id_serviceo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
@@ -190,7 +180,6 @@ CREATE TABLE IF NOT EXISTS `service_oficial` (
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `cuenta` varchar(16) NOT NULL,
