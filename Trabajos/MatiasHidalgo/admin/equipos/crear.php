@@ -3,6 +3,8 @@ require_once ('../../config.php');
 require_once 'DB/DataObject.php';
 require_once('Image/Transform.php');
 require_once '../../DataObjects/Equipos.php';
+require_once '../../DataObjects/Equipos_so.php';
+require_once '../../DataObjects/Service_oficial.php';
 require_once '../../DataObjects/Imagenes_equipos.php';
 
 require_once 'HTML/Template/Sigma.php';
@@ -10,7 +12,7 @@ $tpl = new HTML_Template_Sigma('.');
 
 session_start();
 if(isset($_SESSION['admin'])){
-	if(isset($_POST['tipo'])){
+	if(isset($_POST['new'])){
 		// Creo el objeto y le cargo los datos del objeto que se desea eliminar
 		$equipo = new DO_Equipos;
 
@@ -63,6 +65,25 @@ if(isset($_SESSION['admin'])){
 			$foto->insert();
 		}
 		
+		// Si se cargo un registro de Service oficial
+		if($_POST['equipo_so']!=0){
+			// Recupero el service oficial seleccionado
+			$serviceOficial = new DO_Service_oficial;
+			$serviceOficial->nombre = $_POST['serviceO_name'];
+			$serviceOficial->find();
+			$serviceOficial->fetch();
+			
+			$equipo_so = new DO_Equipos_so;
+			$equipo_so->id_equipo = $id;
+			$equipo_so->id_serviceo = $serviceOficial->id_serviceo;
+			$equipo_so->cod_id_so = $_POST['cod_id_so'];
+			$equipo_so->fecha_pedido = $_POST['fecha_pedido'];
+			$equipo_so->fecha_respuesta = $_POST['fecha_respuesta'];
+			$equipo_so->estado = $_POST['estado'];
+			
+			$equipo_so->insert();
+		}
+		
 		// Si la cantidad de filas eliminadas es igual a 1, el proceso de eliminacion se dio correctamente
 		if($cant==1){
 			$error=$tpl->loadTemplateFile("../../templates/admin/equipos/listar.html");
@@ -79,21 +100,42 @@ if(isset($_SESSION['admin'])){
 			$tpl->setVariable('borrar', $equipo->id_equipo);
 			$tpl->parse('equipo');
 		} else {
-			$error=$tpl->loadTemplateFile("../../templates/error.html");
+			$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 			$tpl->setVariable('titulo','Error: Error al crear');
 			$tpl->setVariable('error','La creacion devolvio un valor invalido.');
-			$tpl->setVariable('anterior','/admin/equipos/listar.php');
+			$tpl->setVariable('anterior','../Equipos.php');
 			$tpl->parse('Error');
 		}
 	} else {
 		$error=$tpl->loadTemplateFile("../../templates/admin/equipos/crear.html");
-		$tpl->setVariable('titulo','Gestor para crear Equipos');	
+		
+		// Recupero todos los service oficiales para listarlos
+		$serviceOficiales = new DO_Service_oficial;
+		
+		$cant = $serviceOficiales->find();
+		$services = ' ';
+		
+		if ($cant>0) {
+			while ($serviceOficiales->fetch()) {
+				$services .= '<option>';
+				$services .= $serviceOficiales->nombre;
+				$services .= '</option>';
+			};
+		} else {
+			$services = '<option>Ninguno</option>';
+		}
+		
+		$tpl->setVariable('serviceOficiales',$services);
+		
+		$tpl->parse('serviceOficial');
+		// Llenar variable serviceOficiales con los options y nombres de cada service oficial registrado 
+		$tpl->setVariable('titulo','Gestor para crear Equipos');
 	}
 } else {
-	$error=$tpl->loadTemplateFile("../../templates/error.html");
+	$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 	$tpl->setVariable('titulo','Error: Acceso Denegado');
 	$tpl->setVariable('error','Intento ingresar a una pagina invalida');
-	$tpl->setVariable('anterior','index.php');
+	$tpl->setVariable('anterior','/index.php');
 	$tpl->parse('Error');
 }
 

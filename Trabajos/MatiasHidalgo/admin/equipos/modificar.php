@@ -60,7 +60,7 @@ if(isset($_SESSION['admin'])){
 			$tpl->setVariable('borrar', $equipo->id);
 			$tpl->parse('equipo');
 		} else { // ANTE UN VALOR INVALIDO DEVUELTO POR EL UPDATE SE ADVIERTE AL USUARIO
-			$error=$tpl->loadTemplateFile("../../templates/error.html");
+			$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 			$tpl->setVariable('titulo','Error: Error al actualizar');
 			$tpl->setVariable('error','La actualizacion devolvio un valor invalido.');
 			$tpl->setVariable('anterior','/admin/equipos/listar.php');
@@ -113,17 +113,17 @@ if(isset($_SESSION['admin'])){
 				
 		$tpl->setVariable('titulo','Gestion para actualizar datos de Equipos');
 	} else {
-		$error=$tpl->loadTemplateFile("../../templates/error.html");
+		$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 		$tpl->setVariable('titulo','Error: Acceso Denegado');
 		$tpl->setVariable('error','Intento ingresar a una pagina invalida');
-		$tpl->setVariable('anterior','index.php');
+		$tpl->setVariable('anterior','/index.php');
 		$tpl->parse('Error');
 	}
 } else {
-	$error=$tpl->loadTemplateFile("../../templates/error.html");
+	$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 	$tpl->setVariable('titulo','Error: Acceso Denegado');
 	$tpl->setVariable('error','Intento ingresar a una pagina invalida');
-	$tpl->setVariable('anterior','index.php');
+	$tpl->setVariable('anterior','/index.php');
 	$tpl->parse('Error');
 }
 

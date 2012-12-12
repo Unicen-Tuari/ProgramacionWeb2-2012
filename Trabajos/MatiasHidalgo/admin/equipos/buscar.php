@@ -62,10 +62,10 @@ if(isset($_SESSION['admin'])){
 				$tpl->parse('equipo');
 			}
 		} else {
-			$error=$tpl->loadTemplateFile("../../templates/error.html");
+			$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 			$tpl->setVariable('titulo','Error: Error al buscar');
 			$tpl->setVariable('error','La busqueda no devolvio ningun resultado.');
-			$tpl->setVariable('anterior','/admin/equipos/listar.php');
+			$tpl->setVariable('anterior','../Equipos.php');
 			$tpl->parse('Error');
 		}
 	} else {
@@ -73,10 +73,10 @@ if(isset($_SESSION['admin'])){
 		$tpl->setVariable('titulo','Gestor de Busquedas');
 	}
 } else {
-	$error=$tpl->loadTemplateFile("../../templates/error.html");
+	$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 	$tpl->setVariable('titulo','Error: Acceso Denegado');
 	$tpl->setVariable('error','Intento ingresar a una pagina invalida');
-	$tpl->setVariable('anterior','index.php');
+	$tpl->setVariable('anterior','listar.php');
 	$tpl->parse('Error');
 }
 

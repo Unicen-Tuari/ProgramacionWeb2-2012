@@ -163,3 +163,74 @@ form input {
 .imageRow {
 	margin:0 50px;
 }
+
+.button{
+	float:none;
+}
+
+
+.tabla {
+	border:2px solid #AAA;
+}
+
+.tabla-equipos {
+	border: 2px solid #AAAAAA;
+    height: auto;
+    width: 100%;
+}
+
+.header-tabla{
+	background-color: #EEEEEE;
+    border: 1px double #555555;
+}
+
+.header-tabla td{
+    border: 1px double #555555;	
+	padding: 2px;
+}
+
+.datos-tabla{
+	background-color: #EEFFEE;
+    border: 1px dotted grey;
+    font-size: 14px;
+}
+
+.datos-tabla:hover {
+	background-color: #AAFFAA;
+}
+
+.datos-tabla td{
+	border: 1px dotted grey;
+	padding: 2px;
+}
+
+.separador{
+	padding:20px;
+	width:100%;
+}
+
+.campo{
+	width:50%;
+	height:auto;
+	background-color: #EEFFEE;
+	padding:30px;
+	margin:5px;
+	border:3px double #00AA00;
+	border-radius:5px;
+	-webkit-border-radius: 5px;
+	/* Si solo se da un Numero de Pixeles se interpreta automaticamente que se usa la misma inclinacion en todos los bordes*/
+	-moz-border-radius: 5px;
+	/* Si se dan dos Numeros de Pixeles se interpreta automaticamente que se usan en el orden de esquinas SuperiorIzquierda y InferiorDerecha con el primer nro y los otros dos extremos con el otro*/
+	-o-border-radius: 5px; /* Si se dan los 4 Nros de Pixeles el orden de esquinas correspondiente es: SuperiorIzquierda - SuperiorDerecha - InferiorDerecha - InferiorIzquierda*/
+}
+
+.dato-campo{
+    height: 24px;
+    padding: 5px 25px;
+    font-weight: bold;
+}
+
+.header-campo{
+	padding:5px;
+    font-size: 20px;
+}
