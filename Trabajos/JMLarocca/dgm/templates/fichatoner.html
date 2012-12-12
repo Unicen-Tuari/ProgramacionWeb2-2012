@@ -1,0 +1,66 @@
+<!-- INCLUDE ./templates/cabecera.html -->
+<!-- INCLUDE ./templates/panel_izquierdo.html -->
+
+<div class="contextofichatoner">
+        <div class="imagenficha">
+<!-- BEGIN ficha -->
+                <img alt="Imagen" src="./imagenes/{imagen}">
+        </div>
+        <div>
+                <table class="tablaficha">
+                        <tr>
+                                <td>Numero Orden:
+                                </td>
+                                <td><input type="text" size="25" name="idtoner" value="{nro_orden}" readonly="readonly" />
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Marca:
+                                </td>
+                                <td><input type="text" size="25" name="marca" value="{marca}" readonly="readonly"/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Modelo:
+                                </td>
+                                <td><input type="text" size="25" name="modelo" value="{modelo}" readonly="readonly"/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Propietario:
+                                </td>
+                                <td><input type="text" size="25" name="propietario" value="{apellido}, {nombre}" readonly="readonly" />
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Fecha Ingreso:
+                                </td>
+                                <td><input type="text" size="25" name="fingreso" value="{fechaingreso}" readonly="readonly"/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Fecha Egreso:
+                                </td>
+                                <td><input type="text" size="25" name="fegreso" value="{fechaegreso}" readonly="readonly"/>
+                                </td>
+                        </tr>
+                        <tr>
+                                <td>Tarea:
+                                </td>
+                                <td><input type="text" size="25" name="tarea" value="{tarea}" readonly="readonly"/>
+                                </td>
+                        </tr>
+<!-- END ficha -->
+                </table>
+        </div>
+        <br> <br> <br>
+        <h3>
+
+                <a href="principal.php?ordenamiento=0"><button id="boton">Volver</button></a>
+
+        </h3>
+</div>
+
+
+
+<!-- INCLUDE ./templates/pie.html -->

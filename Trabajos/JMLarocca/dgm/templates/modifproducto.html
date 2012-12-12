@@ -1,0 +1,37 @@
+<!-- INCLUDE ./templates/cabecera.html -->
+<!-- INCLUDE ./templates/panel_izquierdo.html -->
+
+<div class="contextoprincipa">
+    <div>
+        <!-- BEGIN tituloprincipal -->
+        <h5>-->USUARIO<--</h5><h4>-->{nombrecliente}, {apellidocliente}<--</h4>	
+        <!-- END tituloprincipal -->
+        <table class="tabla">
+            <tr>
+                <td><h2>Nro Producto</h2></td>
+                <td><h2>Marca</h2></td>
+                <td><h2>Modelo</h2></td>
+                <!-- BEGIN tablaadmin -->
+            <tr>
+
+                <td>{nro_producto}</td>
+                <td><a href="admin.php?id={nro_producto}">{marca}</a></td>
+                <td><a href="admin.php?id={nro_producto}">{modelo}</a></td> 
+
+
+            </tr>
+            <!-- END tablaadmin -->
+        </table>
+    </div>
+    <div class="paginado">
+        <!-- BEGIN paginado -->         
+        <a href='modifproducto.php?pagina=0'>Pagina Inicial</a>
+        <a href='modifproducto.php?pagina={pag_paginaAnterior}'>Pagina Anterior</a>
+        <a href='modifproducto.php?pagina={pag_paginaSiguiente}'>Pagina Siguiente</a>
+        <a href='modifproducto.php?pagina={pag_paginaUltima}'>Ultima Pagina</a>
+        <br>P&aacute;gina: {pag_actual} / {pag_paginaUltima}
+        <!-- END paginado -->               
+    </div>
+</div>
+
+<!-- INCLUDE ./templates/pie.html -->
