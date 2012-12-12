@@ -17,9 +17,12 @@
 	$mail = $_SESSION['usuario'];
       
 	if(!isset($_SESSION['usuariovalido']))
-            echo " <script lenguaje='JavaScript'>
+        {header("Location:/dgm/index.html");
+            return;
+        }
+            /*echo " <script lenguaje='JavaScript'>
 		location.href= '/dgm/index.html';
-		</script>";
+		</script>";*/
 
         if (isset($_GET['ordenamiento']))
             $ordenamiento= $_REQUEST['ordenamiento'];

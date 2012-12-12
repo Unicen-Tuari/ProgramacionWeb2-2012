@@ -28,9 +28,12 @@ session_start();
 $mail = $_SESSION['usuario'];
 
 if (!isset($_SESSION['usuariovalido']))
-    echo " <script lenguaje='JavaScript'>
+   {header("Location:/dgm/index.html");
+            return;
+        }
+    /* echo " <script lenguaje='JavaScript'>
 		location.href= '/dgm/index.html';
-		</script>";
+		</script>";*/
 
 if ($mail == "dgmadmin@gmail.com") {
     $tpl->setVariable(likadministrador, "'modifproducto.php'> Administrador");
