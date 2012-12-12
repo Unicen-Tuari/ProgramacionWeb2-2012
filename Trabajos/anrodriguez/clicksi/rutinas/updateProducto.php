@@ -10,8 +10,8 @@ $par_nombreProducto=$_REQUEST["nombre"];
 $par_precioVenta=$_REQUEST["precioVenta"];
 $par_productoRubroId=$_REQUEST["rubro"];
 
-$par_imagenPath=$_FILES['nombreArchivoImagen']['tmp_name'];
-$par_destinoImagenPath=PATH_IMAGENES.basename( $_FILES['nombreArchivoImagen']['name']);
+$par_imagenPath         = $_FILES['nombreArchivoImagen']['tmp_name'];
+$par_destinoImagenPath  = PATH_IMAGENES.basename($_FILES['nombreArchivoImagen']['name']);
 
 $producto = new DO_Articulo();
 $producto->setnombre($par_nombreProducto);
