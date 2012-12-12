@@ -5,43 +5,40 @@ require_once 'DataObjects/Provincia.php';
 require_once 'DataObjects/Categoria.php';
 require_once 'DataObjects/Clasificado.php';
 
-require_once 'includes/common.php';
 require_once 'includes/funciones.php';
 
 require_once 'HTML/Template/Sigma.php';
 
-$nombre_categoria = normalizar($_GET["categoria"]);
-$nombre_subcategoria = normalizar($_GET["subcategoria"]);
-$ubicacion = capitalizar($_GET["ubicacion"]);
-
-$provincia_y_municipio = provincia_y_municipio($ubicacion);
-
-$ciudad=new DO_Ciudad();
-if ($provincia_y_municipio["municipio"]!=""){
-	$ciudad->id=$provincia_y_municipio["municipio"]->id;
-	$ciudad->find();
-	$ciudad->fetch();
-}
-
+//logica ubicacion
 $provincia=new DO_Provincia();
-if ($provincia_y_municipio["provincia"]!=""){
-	$provincia->id=$provincia_y_municipio["provincia"]->id;
+$ciudad=new DO_Ciudad();
+$ubicacion = "Argentina";
+if (isset($_GET["provincia"]) && ($_GET["provincia"]!="")){
+	$ubicacion=capitalizar($_GET["provincia"]);
+	$provincia->provincia_nombre=$ubicacion;
 	$provincia->find();
 	$provincia->fetch();
 }
+if (isset($_GET["ciudad"]) && ($_GET["ciudad"]!="")){
+	$ubicacion=capitalizar($_GET["ciudad"]);
+	$ciudad->ciudad_nombre=$ubicacion;
+	$ciudad->find();
+	$ciudad->fetch();
+}
+//fin logica ubicacion
 
 $categoria=new DO_Categoria();
-if ($nombre_categoria!=""){
-	$categoria->nombre=$nombre_categoria;
+if (isset($_GET["categoria"]) && ($_GET["categoria"]!="")){
+	$categoria->nombre=$_GET["categoria"];
 	$categoria->find();
 	$categoria->fetch();
 }
 
 $subcategoria=new DO_Categoria();
-if ($nombre_subcategoria!=""){
-	$subcategoria->nombre=$nombre_subcategoria;
-	$subcategoria->find();
-	$subcategoria->fetch();
+if (isset($_GET["subcategoria"]) && ($_GET["subcategoria"]!="")){
+	$categoria->nombre=$_GET["subcategoria"];
+	$categoria->find();
+	$categoria->fetch();
 }
 
 $tpl = new HTML_Template_Sigma('.');
@@ -76,10 +73,10 @@ while ($todas_las_provincias->fetch()){
 	$tpl->parse('select_provincia');
 }
 
-if ($provincia_y_municipio["provincia"]!=""){
+if ($provincia!=""){
 	// si no preseleccione una provincia no cargo ningun municipio
 	$todas_las_ciudades=new DO_Ciudad();
-	$todas_las_ciudades->provincia_id=$provincia_y_municipio["provincia"]->id;
+	$todas_las_ciudades->provincia_id=$provincia->id;
 	$todas_las_ciudades->find();
 	while ($todas_las_ciudades->fetch()){
 		$tpl->setVariable('id_municipio', $todas_las_ciudades->id);
@@ -106,7 +103,7 @@ while ($todas_las_categorias->fetch()){
 	}
 	$tpl->parse('select_categoria');
 }
-if ($nombre_categoria!=""){
+if ($categoria!=""){
 	//si no seleccione una categoria no muestro ninguna subcategoria
 	$todas_las_subcategorias=new DO_Categoria();
 	$todas_las_subcategorias->idpadre=$categoria->idcategoria;

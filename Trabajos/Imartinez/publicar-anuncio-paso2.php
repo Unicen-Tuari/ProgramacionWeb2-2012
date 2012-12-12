@@ -5,7 +5,6 @@ require_once 'DataObjects/Provincia.php';
 require_once 'DataObjects/Categoria.php';
 require_once 'DataObjects/Clasificado.php';
 
-require_once 'includes/common.php';
 require_once 'includes/funciones.php';
 
 require_once 'HTML/Template/Sigma.php';
@@ -17,27 +16,32 @@ $id_municipio = $_POST["municipio"];
 
 if (isset($_POST["enviar-paso2"])){
 	$clasificado = new DO_Clasificado();
-	$clasificado->idclasificado=$clasificado->nextID();//esto no funciona
-	if ($_FILES["foto1"]["name"]!=""){
-		generar_archivos_imagenes($_FILES['foto1']['tmp_name'],$clasificado->idclasificado,1);
-	}
-	if ($_FILES["foto2"]["name"]!=""){
-		generar_archivos_imagenes($_FILES['foto2']['tmp_name'],$clasificado->idclasificado,2);
-	}
-	if ($_FILES["foto3"]["name"]!=""){
-		generar_archivos_imagenes($_FILES['foto3']['tmp_name'],$clasificado->idclasificado,3);
-	}	
+	
 	$clasificado->titulo=$_POST["titulo"];
 	$clasificado->detalle=$_POST["detalle"];	
 	$clasificado->idciudad=$id_municipio;
+	$clasificado->idprovincia=$id_provincia;
 	$clasificado->idcategoria=$id_categoria;
+	$clasificado->idsubcategoria=$id_subcategoria;
 	$clasificado->contacto=$_POST["email"];
 	$clasificado->precio=$_POST["precio"];
 	$clasificado->moneda=$_POST["moneda"];
 	$clasificado->telefono=$_POST["telefono"];
-	$clasificado->insert();
-	//si todo salio bien lo llevo al index
-	header("Location:index.php");
+	$id_clasificado=$clasificado->insert();
+	if ($id_clasificado!=""){
+		if ($_FILES["foto1"]["name"]!=""){
+			generar_archivos_imagenes($_FILES['foto1']['tmp_name'],$id_clasificado,1);
+		}
+		if ($_FILES["foto2"]["name"]!=""){
+			generar_archivos_imagenes($_FILES['foto2']['tmp_name'],$id_clasificado,2);
+		}
+		if ($_FILES["foto3"]["name"]!=""){
+			generar_archivos_imagenes($_FILES['foto3']['tmp_name'],$id_clasificado,3);
+		}
+		mail($clasificado->contacto,"alta de clasificado en Yastay","Su clasificado ha sido dado de alta satisfactoriamente.");
+		//si todo salio bien lo llevo al clasificado ampliado
+		header("Location:amplia.php?id=$id_clasificado");
+	}
 }
 
 $ciudad=new DO_Ciudad();
