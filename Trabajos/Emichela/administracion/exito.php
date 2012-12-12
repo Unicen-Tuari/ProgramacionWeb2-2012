@@ -1,37 +1,17 @@
 <?php 
-require_once 'config.php';
-require_once 'DataObjects/Producto.php';
+require_once '../config.php';
 require_once 'HTML/Template/Sigma.php';
 session_start();
-$mensaje="";
+
 
 $tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/head.html");
-$tpl->show();
+$error = $tpl->loadTemplateFile("/templates/exito.html");
+$mensaje = $_SESSION["mensaje_exitoso"];
+$tpl->setVariable('mensaje_exito',$mensaje);
 
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/superior.html");
-$tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/barramenu.html");
-$tpl->show();
-
-//falta exito
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/footer.html");
+$tpl->parse('cuadro');
 $tpl->show();
 
 
 ?>
-
-?>
-
-	
-		
-		</div>
-		<div id="contenido">
-		<a href="panel.php">VOLVER AL MENU </a> 
-		</div> 
 		

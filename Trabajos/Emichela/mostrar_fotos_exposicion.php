@@ -3,17 +3,6 @@ require_once 'config.php';
 require_once 'DataObjects/exposicion.php';
 require_once 'HTML/Template/Sigma.php';
 
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/head.html");
-$tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/superior.html");
-$tpl->show();
-
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/barramenu.html");
-$tpl->show();
 
 $tpl = new HTML_Template_Sigma('.');
 $error = $tpl->loadTemplateFile("/templates/mostrar_fotos_exposicion.html");
@@ -43,21 +32,7 @@ while ($elemento=readdir($dir)){
 			
 		        }	
 }
-/*while ($expo->fetch()){
-	$id_exposicion=$expo->idexposicion;
-	$link_exposicion="productos.php?id=$id_exposicion";
-	$tpl->setVariable('link_exposicion',$link_exposicion);
-	$titulo=$expo->titulo;
-	$tpl->setVariable('titulo_exposicion',$titulo);
-	$foto_portada="imagenes/exposiciones/$id_exposicion/miniaturas/1.jpg";
-	$tpl->setVariable('foto_portada',$foto_portada);
-	$tpl->parse('fotos_exposicion');//el begin y end de template en mostrar_fotos_exposicion
-}*/
-$tpl->show();
 
-$tpl = new HTML_Template_Sigma('.');
-$error = $tpl->loadTemplateFile("/templates/footer.html");
 $tpl->show();
-
 
 ?>

@@ -116,7 +116,7 @@
 	display: inline;
 }
 #lista-productos li{
-	display: inline;
+	display: inline-block;
 
 }
 #lista-productos li img{
@@ -178,6 +178,9 @@ color: black;
 		border-bottom: 1px solid black;
 		
 }
+#administracion div{
+	width:200px;
+ }
 
 
 #header a{font-color #000000;}
