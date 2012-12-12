@@ -25,17 +25,26 @@ $selectDestino=$_GET["select"]; $opcionSeleccionada=$_GET["opcion"];
 if(validaSelect($selectDestino) && validaOpcion($opcionSeleccionada))
 {
 	$tabla=$listadoSelects[$selectDestino];
-	require_once("includes/clases.php");
-	$manager = new Mannagerdb;
-	$manager->conectarse();
-	$todas_las_subcategorias = $manager->todas_las_subcategorias($manager,$opcionSeleccionada);
-	$manager->liberar_resultados();
-	$manager->cerrar_conexion();?>
-	<h4>Subcategoria</h4>
-	<select class="select" name="<?php echo $selectDestino?>" id="<?php echo $selectDestino?>" <?php //onChange="cargaContenidoSubcategorias(this.id)>"?>>
-		<option value="" selected="selected">-</option>
-		<?php foreach ($todas_las_subcategorias as $it_subcategoria) {?>
-				<option value="<?php echo $it_subcategoria->get_id()?>"><?php echo $it_subcategoria->get_nombre()?></option>
-			<?php }?>
-	</select>		
-<?php } ?>
+	require_once 'config.php';
+	require_once 'DataObjects/Categoria.php';
+	
+	require_once 'includes/funciones.php';
+	
+	require_once 'HTML/Template/Sigma.php';
+
+	$subcategoria=new DO_Categoria();
+	$subcategoria->idpadre=$opcionSeleccionada;
+	$subcategoria->find();
+	
+	$tpl = new HTML_Template_Sigma('.');
+	$error=$tpl->loadTemplateFile("/templates/select_dependientes_subcategorias_proceso.html");
+	$tpl->setVariable('selectDestino', $selectDestino);
+	while($subcategoria->fetch()){
+		$tpl->setVariable('subcategoria_id', $subcategoria->idcategoria);
+		$tpl->setVariable('subcategoria_nombre', $subcategoria->nombre);
+		$tpl->parse('subcategorias');
+	}
+	$tpl->parse('dependientes_subcategoria');
+	$tpl->show();
+}
+?>

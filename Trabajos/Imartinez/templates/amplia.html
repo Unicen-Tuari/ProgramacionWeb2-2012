@@ -1,15 +1,27 @@
 	<div class="amplia-clasificado">
 		<!-- BEGIN clasificado -->
 		<h2>{titulo_clasificado}</h2>
-		<p>{detalle_clasificado}</p>
-		
-		<div>servicios</div>
-		<div>contactar al anunciante</div>
-		<div>
+		<p>{detalle_clasificado}</p>		
+		<div class="imagenes">
 		<h2>Imagenes</h2>
-		<!-- BEGIN clasificado_imagenes-->
-			<a href="{link_clasificado_img}"><img src="{link_clasificado_thumb}" class="thumbnail"/></a>
-		<!-- END clasificado_imagenes -->
+		<!-- BEGIN imagenes_clasificado -->
+			<a class="lightbox" href="{link_clasificado_img}"><img src="{link_clasificado_thumb}" class="thumbnail"/></a>
+		<!-- END imagenes_clasificado -->
+		</div>
+		<div>
+		<h2>Contactar al anunciante</h2>
+		<form action="" method="post">
+			<h4>Nombre</h4>
+			<input name="nombre" id="nombre"></input>
+			<h4>E-mail</h4>
+			<input name="email" id="email"></input>
+			<h4>Consulta</h4>
+			<div>
+				<textarea name="consulta" id="consulta"></textarea>
+			</div>
+			<input name="enviar" id="enviar" type="submit" value="Enviar consulta al anunciante"></input>
+
+		</form>		
 		</div>
 		<!-- END clasificado -->
 	</div>

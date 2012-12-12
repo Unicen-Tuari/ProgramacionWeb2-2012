@@ -40,17 +40,17 @@ if(isset($_SESSION['admin'])){
 		
 		$tpl->setVariable('titulo','Fotos eliminadas Correctamente');
 	} else {
-		$error=$tpl->loadTemplateFile("../../templates/error.html");
+		$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 		$tpl->setVariable('titulo','Error: Error, ID desconocido');
 		$tpl->setVariable('error','No se pudo eliminar ya que no se proporciono un ID.');
-		$tpl->setVariable('anterior','/admin/equipos/listar.php');
+		$tpl->setVariable('anterior','listar.php');
 		$tpl->parse('Error');
 	}
 } else {
-	$error=$tpl->loadTemplateFile("../../templates/error.html");
+	$error=$tpl->loadTemplateFile("../../templates/admin/error.html");
 	$tpl->setVariable('titulo','Error: Acceso Denegado');
 	$tpl->setVariable('error','Intento ingresar a una pagina invalida');
-	$tpl->setVariable('anterior','/index.php');
+	$tpl->setVariable('anterior','listar.php');
 	$tpl->parse('Error');
 }
 $tpl->parse('Cabecera');

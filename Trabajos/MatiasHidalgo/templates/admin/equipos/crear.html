@@ -4,6 +4,7 @@
 	<div class="contenido">
 		<!-- TABLA para creacion rapida de equipo -->
 		<form action="crear.php" method="POST" id="form" name="formulario" enctype="multipart/form-data">
+			<input id="new" name="new" type="hidden" value="1" />
 			<div class="campo">
 				<div class="header-campo">Tipo</div>
 				<div class="dato-campo"><input type="text" size="30" name="tipo"/></div>
@@ -35,17 +36,17 @@
 			
 			<div class="campo">
 				<div class="header-campo">Foto 1</div>
-				<div class="dato-campo"><input type="file" name="foto0" size="30" maxlength="100"/></div>
+				<div class="dato-campo"><input class="foto" type="file" name="foto0" size="30" maxlength="100"/></div>
 			</div>
 			
 			<div class="campo">
 				<div class="header-campo">Foto 2</div>
-				<div class="dato-campo"><input type="file" name="foto1" size="30" maxlength="100"/></div>
+				<div class="dato-campo"><input class="foto" type="file" name="foto1" size="30" maxlength="100"/></div>
 			</div>
 			
 			<div class="campo">
 				<div class="header-campo">Foto 3</div>
-				<div class="dato-campo"><input type="file" name="foto2" size="30" maxlength="100"/></div>
+				<div class="dato-campo"><input class="foto" type="file" name="foto2" size="30" maxlength="100"/></div>
 			</div>
 			
 			<div class="masImagenes" style="display:none">
@@ -54,7 +55,26 @@
 			
 			<button type="button" class="agregar-foto">Añadir más fotos</button>
 			
-			<input id="fotos" name="fotos" type="hidden" value="3" />
+			<input id="fotos" name="fotos" type="hidden" value="0" />
+			
+			<input id="equipo_so" name="equipo_so" type="hidden" value="0" />
+			
+			<div class="serviceOficial" style="display:none">
+				<div class="campo">
+					<div class="header-campo">
+						Service Oficial
+					</div>
+					<div class="dato-campo">
+						<select name="serviceO_name">
+							<!-- BEGIN serviceOficial -->
+							{serviceOficiales}
+							<!-- END serviceOficial -->
+						</select>
+					</div>
+				</div> <div class="campo"><div class="header-campo">Codigo de Identificacion del Service Oficial</div><div class="dato-campo"><input type="number" size="30" name="cod_id_so"/></div></div> <div class="campo"><div class="header-campo">Fecha de Pedido</div><div class="dato-campo"><input class="fecha-pedido" type="date" name="fecha_pedido"/></div></div><input name="fecha_respuesta" type="hidden" value="0000-00-00" /><div class="campo"><div class="header-campo">Estado</div><div class="dato-campo"><input type="text" size="30" name="estado"/></div></div>
+			</div>
+			
+			<button type="button" class="agregar-serviceo">Service Oficial</button>
 			
 			<div class="campo">
 				<div class="header-campo">Crear</div>
@@ -64,7 +84,9 @@
 		<!-- Fin de la tabla creacion rapida de equipos -->
 		<script type="text/javascript">
 			$('.fecha').datepicker({ dateFormat: "yy-mm-dd" });
+			$('.fecha-pedido').datepicker({ dateFormat: "yy-mm-dd" });
 			
+			// Para añadir mas Fotos
 			$('.agregar-foto').button();
 			
 			$('.agregar-foto').click(function(e){
@@ -74,12 +96,44 @@
 				
 				var campoImagen = '<div class="campo"><div class="header-campo">Foto '+ textoFotos +'</div><div class="dato-campo"><input type="file" name="foto'+ cantidadFotos +'" size="30" maxlength="100"/></div></div>';
 				
-				$('#fotos').val(textoFotos);
-				
-				if(cantidadFotos===3){
+				if(cantidadFotos==3){
 					$('.masImagenes').show('fast').html(campoImagen);
-				} else {
+					$('#fotos').val(textoFotos);
+				} if(cantidadFotos>3) {
 					$('.masImagenes').html($('.masImagenes').html() + campoImagen);
+					$('#fotos').val(textoFotos);
+				} else {
+					alert('Debe ingresar las 3 primeras fotos para que se le permita añadir mas')
+				}
+			});
+			
+			$('.foto').change(function(){
+				$('#fotos').val(parseInt($('#fotos').val())+1);
+			});
+			
+			// Para añadir registro de Service Oficial
+			$('.agregar-serviceo').button();
+			
+			$('.agregar-serviceo').click(function(e){
+				e.preventDefault;
+				var serviceOficial = parseInt($('#equipo_so').val());
+				
+				if(serviceOficial == 0){
+					serviceOficial = 1;
+					
+					$('#equipo_so').val(serviceOficial);
+					
+					$('.serviceOficial').show('fast');
+					
+					$('.agregar-serviceo').html('<span class="ui-button-text">Quitar Service Oficial</span>');
+				} else {
+					serviceOficial = 0;
+					
+					$('#equipo_so').val(serviceOficial);
+										
+					$('.serviceOficial').hide('slow');
+						
+					$('.agregar-serviceo').html('<span class="ui-button-text">Service Oficial</span>');
 				}
 			});
 		</script>
