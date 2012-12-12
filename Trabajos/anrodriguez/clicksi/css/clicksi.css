@@ -17,6 +17,8 @@ div.body {
 div.menu {
     width: 100%;
     height: 80px;
+    border-color: green;
+    border-width: 1px;
     border-bottom-style: solid;
     background-color: activeborder;
     font-style: italic;
@@ -113,6 +115,10 @@ div.pie{
     font-style: italic;
     font-size: small;
     color: green;  
+    border-color: green;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
 }
 
 div.pie li {
